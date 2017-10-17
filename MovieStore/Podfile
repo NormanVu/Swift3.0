@@ -7,7 +7,7 @@ target 'MovieStore' do
 
   # Pods for MovieStore
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git'
-  pod 'AlamofireImage', :git => 'https://github.com/Alamofire/AlamofireImage.git'
+  pod 'Kingfisher', :git => 'https://github.com/onevcat/Kingfisher.git'
 
   target 'MovieStoreTests' do
     inherit! :search_paths
