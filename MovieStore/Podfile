@@ -8,6 +8,8 @@ target 'MovieStore' do
   # Pods for MovieStore
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git'
   pod 'Kingfisher', :git => 'https://github.com/onevcat/Kingfisher.git'
+  pod 'ESPullToRefresh', :git => 'https://github.com/eggswift/pull-to-refresh.git'
+  pod 'FMDB', :git => 'https://github.com/ccgus/fmdb'
 
   target 'MovieStoreTests' do
     inherit! :search_paths
