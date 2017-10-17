@@ -6,6 +6,8 @@ target 'MovieStore' do
   use_frameworks!
 
   # Pods for MovieStore
+  pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git'
+  pod 'AlamofireImage', :git => 'https://github.com/Alamofire/AlamofireImage.git'
 
   target 'MovieStoreTests' do
     inherit! :search_paths
