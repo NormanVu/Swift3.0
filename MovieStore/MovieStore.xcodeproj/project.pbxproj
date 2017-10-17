@@ -15,6 +15,7 @@
 		BAE830FC1F95DDF800C4246F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAE830FA1F95DDF800C4246F /* LaunchScreen.storyboard */; };
 		BAE831071F95DDFC00C4246F /* MovieStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831061F95DDFC00C4246F /* MovieStoreTests.swift */; };
 		BAE831121F95DDFD00C4246F /* MovieStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831111F95DDFD00C4246F /* MovieStoreUITests.swift */; };
+		BAE8313E1F95FA3300C4246F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = BAE8313D1F95FA3300C4246F /* Podfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		BAE8310D1F95DDFC00C4246F /* MovieStoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieStoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAE831111F95DDFD00C4246F /* MovieStoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieStoreUITests.swift; sourceTree = "<group>"; };
 		BAE831131F95DDFD00C4246F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAE8313D1F95FA3300C4246F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		BAE830E21F95DDEE00C4246F = {
 			isa = PBXGroup;
 			children = (
+				BAE8313D1F95FA3300C4246F /* Podfile */,
 				BAE830ED1F95DDF000C4246F /* MovieStore */,
 				BAE831051F95DDFB00C4246F /* MovieStoreTests */,
 				BAE831101F95DDFD00C4246F /* MovieStoreUITests */,
@@ -240,6 +243,7 @@
 			files = (
 				BAE830FC1F95DDF800C4246F /* LaunchScreen.storyboard in Resources */,
 				BAE830F91F95DDF800C4246F /* Assets.xcassets in Resources */,
+				BAE8313E1F95FA3300C4246F /* Podfile in Resources */,
 				BAE830F41F95DDF300C4246F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
