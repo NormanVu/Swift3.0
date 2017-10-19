@@ -10,6 +10,7 @@ target 'MovieStore' do
   pod 'Kingfisher', :git => 'https://github.com/onevcat/Kingfisher.git'
   pod 'ESPullToRefresh', :git => 'https://github.com/eggswift/pull-to-refresh.git'
   pod 'FMDB'
+  pod 'SWRevealViewController'
 
   target 'MovieStoreTests' do
     inherit! :search_paths
