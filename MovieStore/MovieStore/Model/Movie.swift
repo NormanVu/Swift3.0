@@ -52,7 +52,7 @@ class Movie {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
 
-        self.movieId = rawData["movie_id"] as! Int
+        self.movieId = rawData["id"] as! Int
         self.title = rawData["title"] as! String
         self.overview = rawData["overview"] as! String
         self.posterPath = rawData["poster_path"] as! String
@@ -63,7 +63,7 @@ class Movie {
     }
 
     func toParameters() -> [String : Any] {
-        let parameters = ["movie_id" : movieId, "title" : title, "overview" : overview, "poster_path": posterPath, "backdrop_path": backdropPath as Any, "vote_average": voteAverage as Any, "vote_count": voteCount as Any, "release_date": releaseDate as Any] as [String : Any]
+        let parameters = ["id" : movieId, "title" : title, "overview" : overview, "poster_path": posterPath, "backdrop_path": backdropPath as Any, "vote_average": voteAverage as Any, "vote_count": voteCount as Any, "release_date": releaseDate as Any] as [String : Any]
         return parameters
     }
 

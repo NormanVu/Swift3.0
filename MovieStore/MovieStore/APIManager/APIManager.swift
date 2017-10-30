@@ -12,10 +12,6 @@ import SwiftyJSON
 
 class APIManager {
     var movies: [[String: Any?]] = []
-    let headers: HTTPHeaders = [
-        "X-Mashape-Key": APIKey,
-        "Accept": "application/json"
-    ]
     /*
     func aboutMovieStore() {
         let about = About()
@@ -29,18 +25,24 @@ class APIManager {
         }
     }*/
 
-    func getPopularMovies() {
+    func getPopularMovies(pageNumber: Int = 1) {
         let movieAPI = MovieAPI(popular: true)
-        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: nil).responseJSON{response in
+        movieAPI.parameters["page"] = pageNumber as AnyObject
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{response in
             switch response.result {
                 case let .success(response):
                     do {
                         let json = JSON(response)
                         json.forEach { (_, json) in
                             let movie: [String: Any?] = [
-                                "movieId": json["movie_id"].int,
+                                "movieId": json["id"].int,
                                 "title": json["title"].string,
-                                "overview": json["overview"].string
+                                "overview": json["overview"].string,
+                                "posterPath": json["poster_path"].string,
+                                "backdropPath": json["backdrop_path"].string,
+                                "voteAverage": json["vote_average"].float,
+                                "voteCount": json["vote_count"].int,
+                                "releaseDate": json["release_date"].string
                             ]
                             self.movies.append(movie)
                         }
