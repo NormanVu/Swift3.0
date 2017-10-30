@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import Alamofire
+
+class About {
+
+    fileprivate var requestURLString: String!
+
+    init() {//https://www.themoviedb.org/about/our-history
+        requestURLString = "\(APIURLPrefix)/about"
+    }
+}
