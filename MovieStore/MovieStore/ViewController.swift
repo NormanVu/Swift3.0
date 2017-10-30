@@ -11,6 +11,7 @@ import Kingfisher
 import Alamofire
 import ESPullToRefresh
 import FMDB
+import SwiftyJSON
 
 class ViewController: UIViewController {
 

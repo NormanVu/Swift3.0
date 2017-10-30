@@ -72,9 +72,9 @@ class MovieCollection {
         type = .credit
     }
 
-    init(search: String) {//https://api.themoviedb.org/3/search/movie
+    init(searchText: String) {//https://api.themoviedb.org/3/search/movie
         requestURLString = "\(APIURLPrefix)/search/movie"
-        parameters["query"] = search as AnyObject
+        parameters["query"] = searchText as AnyObject
         type = .search
     }
 }
