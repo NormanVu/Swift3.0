@@ -11,12 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 class APIManager: NSObject {
-    var movies: [[String: Any?]] = []
     var allMovies = [Movie]()
-
     static let sharedAPI = APIManager()
-    private var currentMovieIndex = 0
-    private var currentMovieData: [Movie]?
 
     override init() {
         super.init()

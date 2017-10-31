@@ -26,12 +26,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cyF-Rf-VCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-435" y="469"/>
+            <point key="canvasLocation" x="-435" y="531"/>
         </scene>
-        <!--Movies-->
+        <!--Movies Home-->
+        <scene sceneID="GER-by-jP8">
+            <objects>
+                <navigationController id="ryn-ac-Y5L" userLabel="Movies Home" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Movies" image="ic_home" id="6yx-Ha-TA9"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CST-ic-wLB">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Tf2-6q-PCb" kind="relationship" relationship="rootViewController" id="msv-S7-xtO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bis-NC-KYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-488" y="-243"/>
+        </scene>
+        <!--Movies Store-->
         <scene sceneID="aiy-o1-gVj">
             <objects>
-                <viewController title="Movies" id="Tf2-6q-PCb" customClass="ViewController" customModule="MovieStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Movies Store" id="Tf2-6q-PCb" customClass="ViewController" customModule="MovieStore" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hm6-l9-HqW"/>
                         <viewControllerLayoutGuide type="bottom" id="8dU-J7-O5K"/>
@@ -39,13 +56,90 @@
                     <view key="view" contentMode="scaleToFill" id="kVn-Sl-wHB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="Tmb-P6-wBE" userLabel="Popular Image View">
+                                <rect key="frame" x="8" y="64" width="148" height="128"/>
+                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="148" id="Aev-Cx-YMe"/>
+                                    <constraint firstAttribute="height" constant="128" id="XKJ-g3-ptc"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="zdG-1R-0Rs" appends="YES" id="cqE-Gy-Oks"/>
+                                </connections>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="oZf-jd-250" userLabel="Now playing Image View">
+                                <rect key="frame" x="8" y="200" width="148" height="128"/>
+                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="yb5-fn-QrW"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-du-6Hw" userLabel="Up coming Image View">
+                                <rect key="frame" x="164" y="200" width="148" height="128"/>
+                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="Xab-4y-CRW" userLabel="Credits Image View">
+                                <rect key="frame" x="8" y="339" width="304" height="172"/>
+                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="mpJ-sA-nHC" userLabel="Top Rated Image View">
+                                <rect key="frame" x="164" y="64" width="148" height="128"/>
+                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Xab-4y-CRW" firstAttribute="centerX" secondItem="kVn-Sl-wHB" secondAttribute="centerX" id="3OC-Oq-152"/>
+                            <constraint firstItem="iaS-du-6Hw" firstAttribute="trailing" secondItem="mpJ-sA-nHC" secondAttribute="trailing" id="46C-Y1-3eY"/>
+                            <constraint firstItem="oZf-jd-250" firstAttribute="trailing" secondItem="Tmb-P6-wBE" secondAttribute="trailing" id="CiH-LP-O9O"/>
+                            <constraint firstItem="Tmb-P6-wBE" firstAttribute="top" secondItem="hm6-l9-HqW" secondAttribute="bottom" id="GaB-tl-1Zw"/>
+                            <constraint firstItem="oZf-jd-250" firstAttribute="leading" secondItem="Tmb-P6-wBE" secondAttribute="leading" id="HAI-i0-yzj"/>
+                            <constraint firstItem="iaS-du-6Hw" firstAttribute="leading" secondItem="oZf-jd-250" secondAttribute="trailing" constant="8" symbolic="YES" id="NM6-JY-fu5"/>
+                            <constraint firstItem="oZf-jd-250" firstAttribute="bottom" secondItem="iaS-du-6Hw" secondAttribute="bottom" id="cC7-8g-oB5"/>
+                            <constraint firstItem="oZf-jd-250" firstAttribute="top" secondItem="Tmb-P6-wBE" secondAttribute="bottom" constant="8" id="h9J-uO-lLz"/>
+                            <constraint firstItem="mpJ-sA-nHC" firstAttribute="leading" secondItem="Tmb-P6-wBE" secondAttribute="trailing" constant="8" symbolic="YES" id="jLm-AM-pAh"/>
+                            <constraint firstItem="8dU-J7-O5K" firstAttribute="top" secondItem="Xab-4y-CRW" secondAttribute="bottom" constant="8" id="jeX-dO-gDq"/>
+                            <constraint firstAttribute="trailing" secondItem="mpJ-sA-nHC" secondAttribute="trailing" constant="8" id="l09-dF-cHP"/>
+                            <constraint firstItem="oZf-jd-250" firstAttribute="top" secondItem="Tmb-P6-wBE" secondAttribute="bottom" constant="8" symbolic="YES" id="nDU-Lp-Vlm"/>
+                            <constraint firstItem="oZf-jd-250" firstAttribute="leading" secondItem="Xab-4y-CRW" secondAttribute="leading" id="nYT-f3-ch6"/>
+                            <constraint firstItem="Xab-4y-CRW" firstAttribute="top" secondItem="oZf-jd-250" secondAttribute="bottom" constant="11" id="pjC-Wr-JiD"/>
+                            <constraint firstItem="Tmb-P6-wBE" firstAttribute="top" secondItem="mpJ-sA-nHC" secondAttribute="top" id="rE9-aK-39p"/>
+                            <constraint firstItem="oZf-jd-250" firstAttribute="top" secondItem="iaS-du-6Hw" secondAttribute="top" id="tVb-sJ-lMk"/>
+                            <constraint firstItem="Tmb-P6-wBE" firstAttribute="bottom" secondItem="mpJ-sA-nHC" secondAttribute="bottom" id="vAf-gW-igq"/>
+                            <constraint firstItem="iaS-du-6Hw" firstAttribute="trailing" secondItem="Xab-4y-CRW" secondAttribute="trailing" id="xTx-8X-oCG"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Movies" image="ic_home" id="Afb-Or-6IZ"/>
+                    <navigationItem key="navigationItem" title="Movies Store" id="nmY-R0-1qs"/>
+                    <connections>
+                        <outlet property="popular" destination="Tmb-P6-wBE" id="7Ge-Db-tn8"/>
+                        <outlet property="tapGestureImageView" destination="zdG-1R-0Rs" id="r2x-qf-m9s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qiE-6E-7Ar" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="zdG-1R-0Rs"/>
             </objects>
-            <point key="canvasLocation" x="-435" y="-274"/>
+            <point key="canvasLocation" x="315" y="-244"/>
+        </scene>
+        <!--Popular-->
+        <scene sceneID="CGY-ni-K3Z">
+            <objects>
+                <viewController storyboardIdentifier="PopularViewController" title="Popular" id="uPX-LD-GwY" customClass="PopularViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lps-Mo-RWQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="gOE-bn-ivP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yTJ-l8-5Mo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eeb-hB-3sc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1063.125" y="-241.90140845070422"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="sIN-ie-C8j">
@@ -57,10 +151,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Tf2-6q-PCb" kind="relationship" relationship="viewControllers" id="yRw-4d-WAi"/>
-                        <segue destination="Mph-bH-ej1" kind="relationship" relationship="viewControllers" id="I5e-nE-jDB"/>
-                        <segue destination="hVB-Yz-J0v" kind="relationship" relationship="viewControllers" id="dYY-4A-gTh"/>
-                        <segue destination="Sxd-QW-IRM" kind="relationship" relationship="viewControllers" id="ndj-fA-HPW"/>
+                        <segue destination="ryn-ac-Y5L" kind="relationship" relationship="viewControllers" id="Oj2-u8-kYq"/>
+                        <segue destination="Mph-bH-ej1" kind="relationship" relationship="viewControllers" id="Wl9-2b-b3f"/>
+                        <segue destination="hVB-Yz-J0v" kind="relationship" relationship="viewControllers" id="ENr-hB-TlD"/>
+                        <segue destination="Sxd-QW-IRM" kind="relationship" relationship="viewControllers" id="aFZ-mf-AvA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nq5-Ah-wxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -125,6 +219,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_default" width="1331" height="1508"/>
         <image name="ic_favorite" width="24" height="24"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_info" width="24" height="24"/>

@@ -10,6 +10,8 @@
 		1C4C6D7EC5763B739E45C302 /* Pods_MovieStoreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */; };
 		2F0E728C157FE38F6B863B7B /* Pods_MovieStoreUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36095066C71DFBED5D735DE2 /* Pods_MovieStoreUITests.framework */; };
 		5EF325F636B28F9A746C3BC8 /* Pods_MovieStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */; };
+		BA1C50AA1FA8981F00536427 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C50A91FA8981F00536427 /* PopularViewController.swift */; };
+		BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */; };
 		BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F7D41F988A0000BFA5DF /* Movie.swift */; };
 		BA75F7D71F988C0300BFA5DF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F7D61F988C0300BFA5DF /* Constants.swift */; };
 		BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA78FF141FA6C43300D44857 /* AboutViewController.swift */; };
@@ -51,6 +53,8 @@
 		36095066C71DFBED5D735DE2 /* Pods_MovieStoreUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStoreUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6279AD61952A21DEC90DBF7E /* Pods-MovieStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStore/Pods-MovieStore.debug.xcconfig"; sourceTree = "<group>"; };
 		B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA1C50A91FA8981F00536427 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
+		BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieViewCell.xib; sourceTree = "<group>"; };
 		BA75F7D41F988A0000BFA5DF /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		BA75F7D61F988C0300BFA5DF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BA78FF141FA6C43300D44857 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 		BA75F7D11F98880400BFA5DF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				BA78FF141FA6C43300D44857 /* AboutViewController.swift */,
+				BA1C50A91FA8981F00536427 /* PopularViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 				BAE830F91F95DDF800C4246F /* Assets.xcassets in Resources */,
 				BAE8313E1F95FA3300C4246F /* Podfile in Resources */,
 				BAE830F41F95DDF300C4246F /* Main.storyboard in Resources */,
+				BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +517,7 @@
 				BA75F7D71F988C0300BFA5DF /* Constants.swift in Sources */,
 				BAE830F11F95DDF200C4246F /* ViewController.swift in Sources */,
 				BA897ED91FA6DF6B007755F5 /* APIManager.swift in Sources */,
+				BA1C50AA1FA8981F00536427 /* PopularViewController.swift in Sources */,
 				BAE830EF1F95DDF100C4246F /* AppDelegate.swift in Sources */,
 				BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */,
 				BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */,

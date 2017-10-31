@@ -14,12 +14,13 @@ import FMDB
 import SwiftyJSON
 
 class ViewController: UIViewController {
-    var movies = [Movie]()
-    let api = APIManager()
+    @IBOutlet weak var popular: UIImageView!
+    @IBOutlet weak var tapGestureImageView: UITapGestureRecognizer!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        tapGestureImageView.addTarget(self, action: #selector(tapPopular))
+        self.view!.addGestureRecognizer(tapGestureImageView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,11 +30,15 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        movies = api.getPopularMovies(pageNumber: 1)
-        for movie in movies {
-            print(movie.toParameters())
-        }
     }
+
+    func tapPopular() {
+        guard let popularViewController = storyboard?.instantiateViewController(withIdentifier: "PopularViewController") else {
+            return
+        }
+        navigationController?.pushViewController(popularViewController, animated: true)
+    }
+
 
 }
 

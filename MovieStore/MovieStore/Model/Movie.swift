@@ -27,8 +27,6 @@ class Movie {
     var releaseDate: Date
 
 
-
-
     init(rawData: JSON) {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
