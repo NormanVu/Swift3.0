@@ -46,7 +46,7 @@ class APIManager: NSObject {
     }*/
 
 
-    func getPopularMovies(pageNumber: Int) {
+    func getPopularMovies(pageNumber: Int) -> [Movie] {
         let movieAPI = MovieAPI(popular: true)
         movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
@@ -56,7 +56,7 @@ class APIManager: NSObject {
                         let json = JSON(dataResponse)
                         for result in json["results"].arrayValue {
                             let movie = Movie(rawData: result)
-                            print(movie.toParameters())
+                            //print(movie.toParameters())
                             self.allMovies.append(movie)
                         }
                     }catch let error {
@@ -66,7 +66,7 @@ class APIManager: NSObject {
                     print(error)
             }
         }
-
+        return allMovies
     }
 
 
