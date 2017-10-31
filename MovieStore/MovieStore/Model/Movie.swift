@@ -22,31 +22,11 @@ class Movie {
     var overview: String
     var posterPath: String
     var backdropPath: String
-    var voteAverage: Float?
-    var voteCount: Int?
-    var releaseDate: Date?
+    var voteAverage: Float
+    var voteCount: Int
+    var releaseDate: Date
 
-    var releaseYear: Int {
-        get {
-            let calendar = Calendar.current
 
-            if let releaseDate = self.releaseDate {
-                let components = (calendar as NSCalendar).components(.year, from: releaseDate)
-                return components.year!
-            } else {
-                return 0
-            }
-        }
-    }
-
-    var releaseDateString: String {
-        get {
-            let dateTimeFormatter = DateFormatter()
-            dateTimeFormatter.dateFormat = "yyyy-MM-dd"
-
-            return dateTimeFormatter.string(from: self.releaseDate!)
-        }
-    }
 
 
     init(rawData: JSON) {
@@ -60,7 +40,7 @@ class Movie {
         self.backdropPath = rawData["backdrop_path"].string!
         self.voteAverage = rawData["vote_average"].float!
         self.voteCount = rawData["vote_count"].int!
-        self.releaseDate = dateFormater.date(from: rawData["release_date"].string!)
+        self.releaseDate = dateFormater.date(from: (rawData["release_date"].string)!)!
     }
 
     func toParameters() -> [String : Any] {
