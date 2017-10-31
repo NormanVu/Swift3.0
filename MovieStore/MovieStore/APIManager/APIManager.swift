@@ -55,18 +55,9 @@ class APIManager: NSObject {
                     do {
                         let json = JSON(dataResponse)
                         for result in json["results"].arrayValue {
-                            let movie: [String: Any?] = [
-                                "movieId": result["id"].int,
-                                "title": result["title"].string,
-                                "overview": result["overview"].string,
-                                "posterPath": result["poster_path"].string,
-                                "backdropPath": result["backdrop_path"].string,
-                                "voteAverage": result["vote_average"].float,
-                                "voteCount": result["vote_count"].int,
-                                "releaseDate": result["release_date"].string
-                            ]
-                            print(movie)
-                            self.movies.append(movie)
+                            let movie = Movie(rawData: result)
+                            print(movie.toParameters())
+                            self.allMovies.append(movie)
                         }
                     }catch let error {
                         print(error)

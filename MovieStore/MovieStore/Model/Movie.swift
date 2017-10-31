@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 class Movie {
     enum ImageSize: Int {
@@ -48,18 +49,18 @@ class Movie {
     }
 
 
-    init(rawData: NSDictionary) {
+    init(rawData: JSON) {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
 
-        self.movieId = rawData["id"] as! Int
-        self.title = rawData["title"] as! String
-        self.overview = rawData["overview"] as! String
-        self.posterPath = rawData["poster_path"] as! String
-        self.backdropPath = rawData["backdrop_path"] as! String
-        self.voteAverage = rawData["vote_average"] as? Float
-        self.voteCount = rawData["vote_count"] as? Int
-        self.releaseDate = dateFormater.date(from: rawData["release_date"] as! String)
+        self.movieId = rawData["id"].int!
+        self.title = rawData["title"].string!
+        self.overview = rawData["overview"].string!
+        self.posterPath = rawData["poster_path"].string!
+        self.backdropPath = rawData["backdrop_path"].string!
+        self.voteAverage = rawData["vote_average"].float!
+        self.voteCount = rawData["vote_count"].int!
+        self.releaseDate = dateFormater.date(from: rawData["release_date"].string!)
     }
 
     func toParameters() -> [String : Any] {
