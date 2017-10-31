@@ -41,8 +41,8 @@ class Movie {
     var releaseDateString: String {
         get {
             let dateTimeFormatter = DateFormatter()
-
             dateTimeFormatter.dateFormat = "yyyy-MM-dd"
+
             return dateTimeFormatter.string(from: self.releaseDate!)
         }
     }

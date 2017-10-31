@@ -31,7 +31,7 @@
         <!--Movies-->
         <scene sceneID="aiy-o1-gVj">
             <objects>
-                <viewController title="Movies" id="Tf2-6q-PCb" sceneMemberID="viewController">
+                <viewController title="Movies" id="Tf2-6q-PCb" customClass="ViewController" customModule="MovieStore" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hm6-l9-HqW"/>
                         <viewControllerLayoutGuide type="bottom" id="8dU-J7-O5K"/>

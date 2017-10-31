@@ -14,10 +14,13 @@ import FMDB
 import SwiftyJSON
 
 class ViewController: UIViewController {
-
+    var movies: [[String: Any?]] = []
+    let api = APIManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        api.getPopularMovies(pageNumber: 2)
+        print("Movies data for popular!!!!!")
     }
 
     override func didReceiveMemoryWarning() {

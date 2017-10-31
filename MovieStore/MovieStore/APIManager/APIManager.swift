@@ -10,48 +10,73 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class APIManager {
+class APIManager: NSObject {
     var movies: [[String: Any?]] = []
+    var allMovies = [Movie]()
+
+    static let sharedAPI = APIManager()
+    private var currentMovieIndex = 0
+    private var currentMovieData: [Movie]?
+
+    override init() {
+        super.init()
+    }
+
+    func get(_ index: Int) -> Movie? {
+        return index < allMovies.count ? self.allMovies[index] : nil
+    }
+
+    var count: Int {
+        get {
+            return self.allMovies.count
+        }
+    }
+
     /*
-    func aboutMovieStore() {
-        let about = About()
-        Alamofire.request(about.requestURLString, method: .get, parameters: nil).responseJSON(response in
+    func aboutMovieStore() -> URLRequest {
+        let movieAPI = MovieAPI()
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: nil).responseJSON{response in
             switch response.result {
                 case let .success(response):
-
+                    return
                 case let .failure(error):
                     print(error)
             }
         }
     }*/
 
-    func getPopularMovies(pageNumber: Int = 1) {
+
+    func getPopularMovies(pageNumber: Int) {
         let movieAPI = MovieAPI(popular: true)
         movieAPI.parameters["page"] = pageNumber as AnyObject
-        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{response in
-            switch response.result {
-                case let .success(response):
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            switch dataResponse.result {
+                case let .success(dataResponse):
                     do {
-                        let json = JSON(response)
-                        json.forEach { (_, json) in
+                        let json = JSON(dataResponse)
+                        for result in json["results"].arrayValue {
                             let movie: [String: Any?] = [
-                                "movieId": json["id"].int,
-                                "title": json["title"].string,
-                                "overview": json["overview"].string,
-                                "posterPath": json["poster_path"].string,
-                                "backdropPath": json["backdrop_path"].string,
-                                "voteAverage": json["vote_average"].float,
-                                "voteCount": json["vote_count"].int,
-                                "releaseDate": json["release_date"].string
+                                "movieId": result["id"].int,
+                                "title": result["title"].string,
+                                "overview": result["overview"].string,
+                                "posterPath": result["poster_path"].string,
+                                "backdropPath": result["backdrop_path"].string,
+                                "voteAverage": result["vote_average"].float,
+                                "voteCount": result["vote_count"].int,
+                                "releaseDate": result["release_date"].string
                             ]
+                            print(movie)
                             self.movies.append(movie)
                         }
-                    }catch let e{
-                        print(e)
+                    }catch let error {
+                        print(error)
                     }
                 case let .failure(error):
                     print(error)
             }
         }
+
     }
+
+
 }

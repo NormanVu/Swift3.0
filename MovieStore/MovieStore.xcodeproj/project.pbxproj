@@ -12,7 +12,6 @@
 		5EF325F636B28F9A746C3BC8 /* Pods_MovieStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */; };
 		BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F7D41F988A0000BFA5DF /* Movie.swift */; };
 		BA75F7D71F988C0300BFA5DF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F7D61F988C0300BFA5DF /* Constants.swift */; };
-		BA75F7DB1F98A1E900BFA5DF /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F7DA1F98A1E900BFA5DF /* About.swift */; };
 		BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA78FF141FA6C43300D44857 /* AboutViewController.swift */; };
 		BA897ED71FA6CDF9007755F5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA897ED61FA6CDF9007755F5 /* WebKit.framework */; };
 		BA897ED91FA6DF6B007755F5 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA897ED81FA6DF6B007755F5 /* APIManager.swift */; };
@@ -54,7 +53,6 @@
 		B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA75F7D41F988A0000BFA5DF /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		BA75F7D61F988C0300BFA5DF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		BA75F7DA1F98A1E900BFA5DF /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		BA78FF141FA6C43300D44857 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		BA897ED61FA6CDF9007755F5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BA897ED81FA6DF6B007755F5 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				BA75F7D41F988A0000BFA5DF /* Movie.swift */,
-				BA75F7DA1F98A1E900BFA5DF /* About.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -512,7 +509,6 @@
 			files = (
 				BA75F7D71F988C0300BFA5DF /* Constants.swift in Sources */,
 				BAE830F11F95DDF200C4246F /* ViewController.swift in Sources */,
-				BA75F7DB1F98A1E900BFA5DF /* About.swift in Sources */,
 				BA897ED91FA6DF6B007755F5 /* APIManager.swift in Sources */,
 				BAE830EF1F95DDF100C4246F /* AppDelegate.swift in Sources */,
 				BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */,

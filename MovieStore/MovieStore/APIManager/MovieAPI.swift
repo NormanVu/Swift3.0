@@ -18,25 +18,17 @@ class MovieAPI {
         case search = 6
     }
 
-    var movies = [Movie]()
     var type: TypeCollection = .popular
 
-    public var requestURLString: String!
+    var requestURLString: String
+
     var parameters: Dictionary<String, AnyObject> = [
         "api_key": APIKey as AnyObject
     ]
-    fileprivate var currentPage: Int = -1
 
-    var count: Int {
-        get {
-            return self.movies.count
-        }
+    init() {//https://www.themoviedb.org/about/our-history
+        requestURLString = "\(APIURLPrefix)/about"
     }
-
-    func get(_ index: Int) -> Movie? {
-        return index < movies.count ? self.movies[index] : nil
-    }
-
 
     init(popular: Bool) {//https://api.themoviedb.org/3/movie/popular
         requestURLString = "\(APIURLPrefix)/movie/popular"
