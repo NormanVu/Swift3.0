@@ -11,6 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 final class APIManager: NSObject {
+    var requestToken: String?
+
     var allMovies = [Movie]()
     static let sharedAPI = APIManager()
 
@@ -28,19 +30,25 @@ final class APIManager: NSObject {
         }
     }
 
-    /*
-    func aboutMovieStore() -> URLRequest {
-        let movieAPI = MovieAPI()
-        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: nil).responseJSON{response in
-            switch response.result {
-                case let .success(response):
-                    return
-                case let .failure(error):
+    func getRequestToken() -> Bool {
+        let movieAPI = MovieAPI(requestToken: true)
+        var result: Bool = false
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            switch dataResponse.result {
+            case let .success(dataResponse):
+                do {
+                    let json = JSON(dataResponse)
+                    self.requestToken = json["request_token"].stringValue
+                    result = true
+                }catch let error {
                     print(error)
+                }
+            case let .failure(error):
+                print(error)
             }
         }
-    }*/
-
+        return result
+    }
 
     func getPopularMovies(pageNumber: Int) {
         let movieAPI = MovieAPI(popular: true)

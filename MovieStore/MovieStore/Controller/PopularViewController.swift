@@ -31,10 +31,13 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
         
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
         collectionView.collectionViewLayout = gridLayout
-        self.layoutButton.image = #imageLiteral(resourceName: "ic_view_module")
+        self.layoutButton.image = #imageLiteral(resourceName: "ic_view_list")
         collectionView.reloadData()
-        
+
+        let result = api.getRequestToken()
+        print(result)
         api.getPopularMovies(pageNumber: 1)
+
         print(api.count)
     }
 
@@ -50,7 +53,7 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
     
     // MARK: collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -72,8 +75,6 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    // MARK: tableView methods
-    
     
     // MARK: Action methods
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
@@ -83,13 +84,13 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBAction func layoutButtonTapped(_ sender: UIBarButtonItem) {
         
         if (collectionView.collectionViewLayout == gridLayout) {
-            layoutButton.image = #imageLiteral(resourceName: "ic_view_list")
+            layoutButton.image = #imageLiteral(resourceName: "ic_view_module")
             UIView.animate(withDuration: 0.1, animations: {
                 self.collectionView.collectionViewLayout.invalidateLayout()
                 self.collectionView.setCollectionViewLayout(self.listLayout, animated: false)
             })
         } else {
-            layoutButton.image = #imageLiteral(resourceName: "ic_view_module")
+            layoutButton.image = #imageLiteral(resourceName: "ic_view_list")
             UIView.animate(withDuration: 0.1, animations: {
                 self.collectionView.collectionViewLayout.invalidateLayout()
                 self.collectionView.setCollectionViewLayout(self.gridLayout, animated: false)

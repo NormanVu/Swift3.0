@@ -69,4 +69,11 @@ class MovieAPI {
         parameters["query"] = searchText as AnyObject
         type = .search
     }
+
+    init(requestToken: Bool) {
+        requestURLString = "\(APIURLPrefix)/authentication/token/new"
+        if (requestToken) {
+            print("Request token")
+        }
+    }
 }

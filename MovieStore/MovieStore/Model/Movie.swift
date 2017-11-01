@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class Movie {
+class Movie: NSObject {
     enum ImageSize: Int {
         case small = 0
         case medium = 1
@@ -31,18 +31,19 @@ class Movie {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
 
-        self.movieId = rawData["id"].int!
-        self.title = rawData["title"].string!
-        self.overview = rawData["overview"].string!
-        self.posterPath = rawData["poster_path"].string!
-        self.backdropPath = rawData["backdrop_path"].string!
-        self.voteAverage = rawData["vote_average"].float!
-        self.voteCount = rawData["vote_count"].int!
-        self.releaseDate = dateFormater.date(from: (rawData["release_date"].string)!)!
+        self.movieId = rawData["id"].intValue
+        self.title = rawData["title"].stringValue
+        self.overview = rawData["overview"].stringValue
+        self.posterPath = rawData["poster_path"].stringValue
+        self.backdropPath = rawData["backdrop_path"].stringValue
+        self.voteAverage = rawData["vote_average"].floatValue
+        self.voteCount = rawData["vote_count"].intValue
+        self.releaseDate = dateFormater.date(from: rawData["release_date"].stringValue)!
+        super.init()
     }
 
     func toParameters() -> [String : Any] {
-        let parameters = ["id" : movieId, "title" : title, "overview" : overview, "poster_path": posterPath, "backdrop_path": backdropPath as Any, "vote_average": voteAverage as Any, "vote_count": voteCount as Any, "release_date": releaseDate as Any] as [String : Any]
+        let parameters = ["id" : movieId, "title" : title, "overview" : overview, "poster_path": posterPath, "backdrop_path": backdropPath, "vote_average": voteAverage, "vote_count": voteCount, "release_date": releaseDate] as [String : Any]
         return parameters
     }
 
@@ -50,8 +51,8 @@ class Movie {
         return URL(string: imageURLPrefix + "/w500" + self.backdropPath)
     }
 
-    public var iconURL: URL? {
-        return URL(string: imageURLPrefix + "/w75" + self.backdropPath)
+    public var posterURL: URL? {
+        return URL(string: imageURLPrefix + "/w500" + self.posterPath)
     }
 }
 

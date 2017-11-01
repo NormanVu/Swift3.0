@@ -25,7 +25,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         releaseDate.text = dateFormater.string(from: dateFormater.date(from: "2017-09-17")!)
-        topRating.text = "9.0/100"
+        topRating.text = "9.0/10"
         overview.text = "This is default movie"
         title.text = "Default movie"
     }
