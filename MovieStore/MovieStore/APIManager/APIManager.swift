@@ -13,6 +13,7 @@ import SwiftyJSON
 //TODO: After calling
 final class APIManager: NSObject {
 
+    var typeMovie: TypeCollection?
     public var requestToken: String?
     public var sessionID: String?
     public var userID: Int?
@@ -88,6 +89,7 @@ final class APIManager: NSObject {
 
     func getPopularMovies(pageNumber: Int) {
         let movieAPI = MovieAPI(popular: true)
+        typeMovie = .popular
         movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
@@ -98,6 +100,60 @@ final class APIManager: NSObject {
                 }
                 if (self.allMovies.count > 0) {
                     print("Get popular movies are successfully!!!")
+                }
+            }
+        }
+    }
+
+    func getTopRatingMovies(pageNumber: Int) {
+        let movieAPI = MovieAPI(topRated: true)
+        typeMovie = .topRated
+        movieAPI.parameters["page"] = pageNumber as AnyObject
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                for result in json["results"].arrayValue {
+                    let movie = Movie(rawData: result)
+                    self.allMovies.append(movie)
+                }
+                if (self.allMovies.count > 0) {
+                    print("Get top rating movies are successfully!!!")
+                }
+            }
+        }
+    }
+
+    func getNowPlayingMovies(pageNumber: Int) {
+        let movieAPI = MovieAPI(nowPlaying: true)
+        typeMovie = .nowPlaying
+        movieAPI.parameters["page"] = pageNumber as AnyObject
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                for result in json["results"].arrayValue {
+                    let movie = Movie(rawData: result)
+                    self.allMovies.append(movie)
+                }
+                if (self.allMovies.count > 0) {
+                    print("Get now playing movies are successfully!!!")
+                }
+            }
+        }
+    }
+
+    func getUpComingMovies(pageNumber: Int) {
+        let movieAPI = MovieAPI(upComing: true)
+        typeMovie = .upComing
+        movieAPI.parameters["page"] = pageNumber as AnyObject
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                for result in json["results"].arrayValue {
+                    let movie = Movie(rawData: result)
+                    self.allMovies.append(movie)
+                }
+                if (self.allMovies.count > 0) {
+                    print("Get up coming movies are successfully!!!")
                 }
             }
         }

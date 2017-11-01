@@ -9,14 +9,6 @@
 import Foundation
 
 class MovieAPI: NSObject {
-    enum TypeCollection: Int {
-        case popular = 1
-        case topRated = 2
-        case nowPlaying = 3
-        case upComing = 4
-        case credit = 5
-        case search = 6
-    }
 
     var type: TypeCollection = .popular
 

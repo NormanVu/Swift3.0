@@ -23,7 +23,9 @@ class ViewController: UIViewController {
         tapGestureImageView.addTarget(self, action: #selector(tapPopular))
         self.view!.addGestureRecognizer(tapGestureImageView)
         movieAPI.getPopularMovies(pageNumber: 1)
-
+        movieAPI.getTopRatingMovies(pageNumber: 1)
+        movieAPI.getNowPlayingMovies(pageNumber: 1)
+        movieAPI.getUpComingMovies(pageNumber: 1)
         //movieAPI.getFavoriteMovies()
 
     }
@@ -39,7 +41,18 @@ class ViewController: UIViewController {
 
     func tapPopular() {
         let popularViewController = storyboard?.instantiateViewController(withIdentifier: "popularViewController") as! PopularViewController
-        popularViewController.popularMovies = movieAPI.allMovies
+        switch (movieAPI.typeMovie) {
+        case .popular?:
+            popularViewController.popularMovies = movieAPI.allMovies
+        case .topRated?:
+            popularViewController.popularMovies = movieAPI.allMovies
+        case .nowPlaying?:
+            popularViewController.popularMovies = movieAPI.allMovies
+        case .upComing?:
+            popularViewController.popularMovies = movieAPI.allMovies
+        default:
+            print("Get movie default")
+        }
         navigationController?.pushViewController(popularViewController, animated: true)
     }
 }
