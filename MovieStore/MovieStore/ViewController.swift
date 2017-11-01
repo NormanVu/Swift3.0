@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         tapGestureImageView.addTarget(self, action: #selector(tapPopular))
         self.view!.addGestureRecognizer(tapGestureImageView)
         movieAPI.getPopularMovies(pageNumber: 1)
-        print(movieAPI.count)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,8 +36,8 @@ class ViewController: UIViewController {
     }
 
     func tapPopular() {
-
-        //Passing data from ViewController to PopularViewController
+        print(movieAPI.allMovies.count)
+        //Using KVO to pass data from ViewController to PopularViewController
         guard let popularViewController = storyboard?.instantiateViewController(withIdentifier: "popularViewController") else {
             return
         }

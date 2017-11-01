@@ -12,7 +12,7 @@
         <!--Favorites-->
         <scene sceneID="zhr-mD-4v6">
             <objects>
-                <viewController title="Favorites" id="Mph-bH-ej1" sceneMemberID="viewController">
+                <viewController title="Favorites" id="Mph-bH-ej1" customClass="FavoriteViewController" customModule="MovieStore" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sej-Fv-Sfy"/>
                         <viewControllerLayoutGuide type="bottom" id="vxa-Fg-leo"/>
@@ -20,13 +20,58 @@
                     <view key="view" contentMode="scaleToFill" id="w0K-39-Ph7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="fZH-jM-LIq">
+                                <rect key="frame" x="0.0" y="20" width="320" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="leZ-XH-IOC"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Iyc-N7-d6k">
+                                <rect key="frame" x="0.0" y="76" width="320" height="443"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ioK-MO-rlO">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" id="QqM-Q7-q68" customClass="MovieCollectionViewCell" customModule="MovieStore" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Mph-bH-ej1" id="Kw9-J3-nZg"/>
+                                    <outlet property="delegate" destination="Mph-bH-ej1" id="PyV-UV-uCm"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vxa-Fg-leo" firstAttribute="top" secondItem="Iyc-N7-d6k" secondAttribute="bottom" id="F46-ZP-YeN"/>
+                            <constraint firstItem="Iyc-N7-d6k" firstAttribute="leading" secondItem="w0K-39-Ph7" secondAttribute="leading" id="K4Q-9m-weV"/>
+                            <constraint firstItem="Iyc-N7-d6k" firstAttribute="top" secondItem="fZH-jM-LIq" secondAttribute="bottom" id="gtp-IJ-v21"/>
+                            <constraint firstAttribute="trailing" secondItem="Iyc-N7-d6k" secondAttribute="trailing" id="hYt-hB-wUO"/>
+                            <constraint firstItem="fZH-jM-LIq" firstAttribute="top" secondItem="sej-Fv-Sfy" secondAttribute="bottom" id="sKv-hd-2Qh"/>
+                            <constraint firstAttribute="trailing" secondItem="fZH-jM-LIq" secondAttribute="trailing" id="u7o-6Z-pA8"/>
+                            <constraint firstItem="fZH-jM-LIq" firstAttribute="leading" secondItem="w0K-39-Ph7" secondAttribute="leading" id="wu1-g7-KPd"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorites" image="ic_favorite" id="Pi2-Un-6GM"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Iyc-N7-d6k" id="EGB-i7-FXF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cyF-Rf-VCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-435" y="531"/>
+            <point key="canvasLocation" x="-435" y="530.28169014084506"/>
         </scene>
         <!--Movies Home-->
         <scene sceneID="GER-by-jP8">

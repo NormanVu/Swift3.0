@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+//TODO: After calling
 final class APIManager: NSObject {
     public var requestToken: String?
     public var sessionID: String?
@@ -102,6 +103,9 @@ final class APIManager: NSObject {
                     let movie = Movie(rawData: result)
                     self.allMovies.append(movie)
                 }
+                if (self.allMovies.count > 0) {
+                    print("Get popular movies are successfully!!!")
+                }
             }
         }
     }
@@ -115,6 +119,9 @@ final class APIManager: NSObject {
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
                     self.allMovies.append(movie)
+                }
+                if (self.allMovies.count > 0) {
+                    print("Get favorite movies are successfully!!!")
                 }
             }
         }
