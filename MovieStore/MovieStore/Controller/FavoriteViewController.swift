@@ -43,7 +43,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
     // MARK: collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 20
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,6 +64,4 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
     }
-
-
 }
