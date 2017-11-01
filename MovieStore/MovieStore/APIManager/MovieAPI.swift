@@ -91,4 +91,9 @@ class MovieAPI {
         requestURLString = "\(APIURLPrefix)/account"
         parameters["session_id"] = sessionId as AnyObject
     }
+
+    init(userId: Int, sessionId: String) {//https://www.themoviedb.org/account
+        requestURLString = "\(APIURLPrefix)/account/\(userId)/favorite/movies"
+        parameters["session_id"] = sessionId as AnyObject
+    }
 }

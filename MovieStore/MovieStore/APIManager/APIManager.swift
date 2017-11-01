@@ -11,9 +11,9 @@ import Alamofire
 import SwiftyJSON
 
 final class APIManager: NSObject {
-    var requestToken: String?
-    var sessionID: String?
-    var userID: Int?
+    public var requestToken: String?
+    public var sessionID: String?
+    public var userID: Int?
     public var allMovies = [Movie]()
     static let sharedAPI = APIManager()
 
@@ -31,6 +31,7 @@ final class APIManager: NSObject {
         }
     }
 
+    //Step 1: Create a new request token
     func getRequestToken() -> Bool {
         let movieAPI = MovieAPI(requestToken: true)
         var result: Bool = false
@@ -45,6 +46,7 @@ final class APIManager: NSObject {
         return result
     }
 
+    //Step 2: Ask the user for permission via the API
     func loginWithToken(requestToken: String) -> Bool {
         if (requestToken != self.requestToken) {
             self.requestToken = requestToken
@@ -61,6 +63,7 @@ final class APIManager: NSObject {
         return result
     }
 
+    //Step 3: Create a session ID
     func getSessionID(requestToken: String) {
         if (requestToken != self.requestToken) {
             self.requestToken = requestToken
@@ -76,6 +79,7 @@ final class APIManager: NSObject {
         }
     }
 
+    //Step 4: Get the user id
     func getUserID(sessionID: String) {
         let movieAPI = MovieAPI(sessionId: sessionID)
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
@@ -102,5 +106,17 @@ final class APIManager: NSObject {
         }
     }
 
-
+    //Step 5: Get favorite movies
+    func getFavoriteMovies(userId: Int, sessionId: String) {
+        let movieAPI = MovieAPI(userId: userId, sessionId: sessionId)
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                for result in json["results"].arrayValue {
+                    let movie = Movie(rawData: result)
+                    self.allMovies.append(movie)
+                }
+            }
+        }
+    }
 }

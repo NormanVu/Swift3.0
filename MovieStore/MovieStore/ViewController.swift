@@ -22,7 +22,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         tapGestureImageView.addTarget(self, action: #selector(tapPopular))
         self.view!.addGestureRecognizer(tapGestureImageView)
-
+        movieAPI.getPopularMovies(pageNumber: 1)
+        print(movieAPI.count)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,8 +36,7 @@ class ViewController: UIViewController {
     }
 
     func tapPopular() {
-        movieAPI.getPopularMovies(pageNumber: 1)
-        print(movieAPI.count)
+
         //Passing data from ViewController to PopularViewController
         guard let popularViewController = storyboard?.instantiateViewController(withIdentifier: "popularViewController") else {
             return
