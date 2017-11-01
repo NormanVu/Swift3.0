@@ -27,6 +27,9 @@
 		BAE831071F95DDFC00C4246F /* MovieStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831061F95DDFC00C4246F /* MovieStoreTests.swift */; };
 		BAE831121F95DDFD00C4246F /* MovieStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831111F95DDFD00C4246F /* MovieStoreUITests.swift */; };
 		BAE8313E1F95FA3300C4246F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = BAE8313D1F95FA3300C4246F /* Podfile */; };
+		FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DB1FA914A000581CDF /* GridLayout.swift */; };
+		FC4917DE1FA9151600581CDF /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DD1FA9151600581CDF /* MovieCollectionViewCell.swift */; };
+		FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917E01FA93F2900581CDF /* ListLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,9 @@
 		C730B3F58BC3F783F123829A /* Pods-MovieStoreUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStoreUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStoreUITests/Pods-MovieStoreUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E1CDDFD2AF8E7DB6A94D2A /* Pods-MovieStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStore/Pods-MovieStore.release.xcconfig"; sourceTree = "<group>"; };
+		FC4917DB1FA914A000581CDF /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		FC4917DD1FA9151600581CDF /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC4917E01FA93F2900581CDF /* ListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,9 @@
 			isa = PBXGroup;
 			children = (
 				BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */,
+				FC4917DB1FA914A000581CDF /* GridLayout.swift */,
+				FC4917DD1FA9151600581CDF /* MovieCollectionViewCell.swift */,
+				FC4917E01FA93F2900581CDF /* ListLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -414,7 +423,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		610B88CD0B1CF9A2171684F9 /* [CP] Copy Pods Resources */ = {
@@ -474,7 +483,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8C023DFDCA9D6B3319049F1A /* [CP] Copy Pods Resources */ = {
@@ -504,7 +513,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -521,6 +530,9 @@
 				BAE830EF1F95DDF100C4246F /* AppDelegate.swift in Sources */,
 				BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */,
 				BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */,
+				FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */,
+				FC4917DE1FA9151600581CDF /* MovieCollectionViewCell.swift in Sources */,
+				FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */,
 				BAE830F71F95DDF600C4246F /* MovieStore.xcdatamodeld in Sources */,
 				BA897EDB1FA6DF80007755F5 /* MovieAPI.swift in Sources */,
 			);

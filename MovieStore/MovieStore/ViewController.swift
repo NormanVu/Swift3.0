@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
 
     func tapPopular() {
-        guard let popularViewController = storyboard?.instantiateViewController(withIdentifier: "PopularViewController") else {
+        guard let popularViewController = storyboard?.instantiateViewController(withIdentifier: "popularViewController") else {
             return
         }
         navigationController?.pushViewController(popularViewController, animated: true)

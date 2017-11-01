@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VYv-Zl-rdS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VYv-Zl-rdS">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -57,9 +57,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="Tmb-P6-wBE" userLabel="Popular Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_popular" translatesAutoresizingMaskIntoConstraints="NO" id="Tmb-P6-wBE" userLabel="Popular Image View">
                                 <rect key="frame" x="8" y="64" width="148" height="128"/>
-                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="148" id="Aev-Cx-YMe"/>
@@ -69,24 +69,24 @@
                                     <outletCollection property="gestureRecognizers" destination="zdG-1R-0Rs" appends="YES" id="cqE-Gy-Oks"/>
                                 </connections>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="oZf-jd-250" userLabel="Now playing Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_now_laying" translatesAutoresizingMaskIntoConstraints="NO" id="oZf-jd-250" userLabel="Now playing Image View">
                                 <rect key="frame" x="8" y="200" width="148" height="128"/>
-                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="yb5-fn-QrW"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-du-6Hw" userLabel="Up coming Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_up_coming" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-du-6Hw" userLabel="Up coming Image View">
                                 <rect key="frame" x="164" y="200" width="148" height="128"/>
-                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="Xab-4y-CRW" userLabel="Credits Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_movie_credits" translatesAutoresizingMaskIntoConstraints="NO" id="Xab-4y-CRW" userLabel="Credits Image View">
                                 <rect key="frame" x="8" y="339" width="304" height="172"/>
-                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="mpJ-sA-nHC" userLabel="Top Rated Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_top_rating" translatesAutoresizingMaskIntoConstraints="NO" id="mpJ-sA-nHC" userLabel="Top Rated Image View">
                                 <rect key="frame" x="164" y="64" width="148" height="128"/>
-                                <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -126,7 +126,7 @@
         <!--Popular-->
         <scene sceneID="CGY-ni-K3Z">
             <objects>
-                <viewController storyboardIdentifier="PopularViewController" title="Popular" id="uPX-LD-GwY" customClass="PopularViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="popularViewController" title="Popular" id="uPX-LD-GwY" customClass="PopularViewController" customModule="MovieStore" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lps-Mo-RWQ"/>
                         <viewControllerLayoutGuide type="bottom" id="gOE-bn-ivP"/>
@@ -134,8 +134,57 @@
                     <view key="view" contentMode="scaleToFill" id="yTJ-l8-5Mo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mZT-wa-za9">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GaU-bf-Xyc">
+                                    <size key="itemSize" width="320" height="148"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieViewCell" id="CHS-Wa-dLM" customClass="MovieCollectionViewCell" customModule="MovieStore" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="uPX-LD-GwY" id="FAG-Tt-1kR"/>
+                                    <outlet property="delegate" destination="uPX-LD-GwY" id="IVF-tF-y8g"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mZT-wa-za9" firstAttribute="top" secondItem="Lps-Mo-RWQ" secondAttribute="bottom" id="Ij7-UM-4ld"/>
+                            <constraint firstItem="mZT-wa-za9" firstAttribute="leading" secondItem="yTJ-l8-5Mo" secondAttribute="leading" id="Sda-hR-LMV"/>
+                            <constraint firstItem="gOE-bn-ivP" firstAttribute="top" secondItem="mZT-wa-za9" secondAttribute="bottom" id="UZb-Ww-438"/>
+                            <constraint firstAttribute="trailing" secondItem="mZT-wa-za9" secondAttribute="trailing" id="lk5-XE-uvv"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Popular" id="4nf-au-RNc">
+                        <barButtonItem key="leftBarButtonItem" image="ic_navigate_before" id="guh-Qs-mdF">
+                            <connections>
+                                <action selector="backButtonTapped:" destination="uPX-LD-GwY" id="Djy-R6-DQs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="61l-qg-Rdq">
+                            <connections>
+                                <action selector="layoutButtonTapped:" destination="uPX-LD-GwY" id="BbL-1h-dJC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="guh-Qs-mdF" id="spn-Z4-Jnd"/>
+                        <outlet property="collectionView" destination="mZT-wa-za9" id="d5v-9u-oLF"/>
+                        <outlet property="layoutButton" destination="61l-qg-Rdq" id="97w-mH-A2g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeb-hB-3sc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -219,10 +268,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_default" width="1331" height="1508"/>
         <image name="ic_favorite" width="24" height="24"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_info" width="24" height="24"/>
+        <image name="ic_movie_credits" width="283" height="283"/>
+        <image name="ic_navigate_before" width="24" height="24"/>
+        <image name="ic_now_laying" width="283" height="283"/>
+        <image name="ic_popular" width="283" height="283"/>
         <image name="ic_settings" width="24" height="24"/>
+        <image name="ic_top_rating" width="283" height="283"/>
+        <image name="ic_up_coming" width="283" height="283"/>
     </resources>
 </document>

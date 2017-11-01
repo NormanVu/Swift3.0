@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class APIManager: NSObject {
+final class APIManager: NSObject {
     var allMovies = [Movie]()
     static let sharedAPI = APIManager()
 
@@ -42,7 +42,7 @@ class APIManager: NSObject {
     }*/
 
 
-    func getPopularMovies(pageNumber: Int) -> [Movie] {
+    func getPopularMovies(pageNumber: Int) {
         let movieAPI = MovieAPI(popular: true)
         movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
@@ -62,7 +62,6 @@ class APIManager: NSObject {
                     print(error)
             }
         }
-        return allMovies
     }
 
 

@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" restorationIdentifier="MovieViewCell" id="iN0-l3-epB" customClass="MovieCollectionViewCell" customModule="MovieStore" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xn4-Uv-EVU">
-                    <rect key="frame" x="8" y="0.0" width="32" height="28"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xn4-Uv-EVU" userLabel="Title">
+                    <rect key="frame" x="8" y="0.0" width="148" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="148" id="9Kq-c2-ORC"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cKH-KS-fQc">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="cKH-KS-fQc" userLabel="Poster Image View">
                     <rect key="frame" x="8" y="32" width="108" height="108"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="108" id="jFq-Gk-17c"/>
@@ -77,7 +80,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eea-ll-Ynu">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star" translatesAutoresizingMaskIntoConstraints="NO" id="eea-ll-Ynu" userLabel="Favorite Image View">
                     <rect key="frame" x="291" y="7" width="21" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="21" id="CvQ-Ub-suy"/>
@@ -114,7 +117,19 @@
                 <constraint firstAttribute="trailing" secondItem="eea-ll-Ynu" secondAttribute="trailing" constant="8" id="wlC-RY-2A7"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="favoriteImageView" destination="eea-ll-Ynu" id="0WD-bd-FCu"/>
+                <outlet property="overview" destination="jCg-72-LzR" id="wPd-dg-HfH"/>
+                <outlet property="posterImage" destination="cKH-KS-fQc" id="fnx-tc-twY"/>
+                <outlet property="releaseDate" destination="hnH-uS-EDv" id="CWG-OV-zfz"/>
+                <outlet property="title" destination="xn4-Uv-EVU" id="7NE-72-zhA"/>
+                <outlet property="topRating" destination="FQW-8x-ss5" id="mq5-Pr-eoX"/>
+            </connections>
             <point key="canvasLocation" x="-22" y="88"/>
         </view>
     </objects>
+    <resources>
+        <image name="ic_default" width="1331" height="1508"/>
+        <image name="ic_star" width="24" height="24"/>
+    </resources>
 </document>
