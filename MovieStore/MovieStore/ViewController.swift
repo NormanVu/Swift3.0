@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         self.view!.addGestureRecognizer(tapGestureImageView)
         movieAPI.getPopularMovies(pageNumber: 1)
 
+        //movieAPI.getFavoriteMovies()
+
     }
 
     override func didReceiveMemoryWarning() {

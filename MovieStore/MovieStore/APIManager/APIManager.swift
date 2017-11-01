@@ -12,6 +12,7 @@ import SwiftyJSON
 
 //TODO: After calling
 final class APIManager: NSObject {
+
     public var requestToken: String?
     public var sessionID: String?
     public var userID: Int?
@@ -33,48 +34,39 @@ final class APIManager: NSObject {
     }
 
     //Step 1: Create a new request token
-    func getRequestToken() -> Bool {
+    func getRequestToken(){
         let movieAPI = MovieAPI(requestToken: true)
-        var result: Bool = false
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
                 self.requestToken = json["request_token"].stringValue
-                result = true
-                print(json)
+                print("Step 1: Create a new request token is successfully!!!")
+                print("request_token: " + self.requestToken!)
             }
         }
-        return result
     }
 
     //Step 2: Ask the user for permission via the API
-    func loginWithToken(requestToken: String) -> Bool {
-        if (requestToken != self.requestToken) {
-            self.requestToken = requestToken
-        }
-        var result: Bool = false
+    func loginWithToken() {
         let movieAPI = MovieAPI(validateRequestToken: self.requestToken!)
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
-                result = json["success"].boolValue
-                print(result)
+                print("Step 2: Ask the user for permission via the API is successfully!!!")
+                print(json["success"].boolValue)
             }
         }
-        return result
     }
 
     //Step 3: Create a session ID
     func getSessionID(requestToken: String) {
-        if (requestToken != self.requestToken) {
-            self.requestToken = requestToken
-        }
-        let movieAPI = MovieAPI(requestToken: self.requestToken!)
+        let movieAPI = MovieAPI(requestNewToken: self.requestToken!)
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
                 let sessionID = json["session_id"].stringValue
                 self.sessionID = sessionID
+                print("Step 3: Create a session ID is successfully!!!")
                 print(sessionID)
             }
         }
@@ -88,7 +80,8 @@ final class APIManager: NSObject {
                 let json = JSON(dataResponse.result.value!)
                 let userID = json["id"].intValue
                 self.userID = userID
-                print(sessionID)
+                print("Step 4: Get the user ID is successfully!!!")
+                print(userID)
             }
         }
     }
@@ -111,8 +104,8 @@ final class APIManager: NSObject {
     }
 
     //Step 5: Get favorite movies
-    func getFavoriteMovies(userId: Int, sessionId: String) {
-        let movieAPI = MovieAPI(userId: userId, sessionId: sessionId)
+    func getFavoriteMovies() {
+        let movieAPI = MovieAPI(userId: self.userID!, sessionId: self.sessionID!)
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MovieAPI {
+class MovieAPI: NSObject {
     enum TypeCollection: Int {
         case popular = 1
         case topRated = 2
@@ -26,8 +26,9 @@ class MovieAPI {
         "api_key": APIKey as AnyObject
     ]
 
-    init() {//https://www.themoviedb.org/about
+    override init() {//https://www.themoviedb.org/about
         requestURLString = "\(APIURLPrefix)/about"
+        super.init()
     }
 
     init(popular: Bool) {//https://api.themoviedb.org/3/movie/popular
@@ -82,9 +83,9 @@ class MovieAPI {
         parameters["request_token"] = validateRequestToken as AnyObject
     }
 
-    init(requestToken: String) {
+    init(requestNewToken: String) {
         requestURLString = "\(APIURLPrefix)/authentication/session/new"
-        parameters["request_token"] = requestToken as AnyObject
+        parameters["request_token"] = requestNewToken as AnyObject
     }
 
     init(sessionId: String) {//https://www.themoviedb.org/account
@@ -92,7 +93,7 @@ class MovieAPI {
         parameters["session_id"] = sessionId as AnyObject
     }
 
-    init(userId: Int, sessionId: String) {//https://www.themoviedb.org/account
+    init(userId: Int, sessionId: String) {//https://www.themoviedb.org/account/{user_id}/favorite/movies
         requestURLString = "\(APIURLPrefix)/account/\(userId)/favorite/movies"
         parameters["session_id"] = sessionId as AnyObject
     }
