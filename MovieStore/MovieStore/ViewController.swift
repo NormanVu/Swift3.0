@@ -38,15 +38,9 @@ class ViewController: UIViewController {
     }
 
     func tapPopular() {
-        print(movieAPI.allMovies.count)
-        //Using KVO to pass data from ViewController to PopularViewController
-        guard let popularViewController = storyboard?.instantiateViewController(withIdentifier: "popularViewController") else {
-            return
-        }
+        let popularViewController = storyboard?.instantiateViewController(withIdentifier: "popularViewController") as! PopularViewController
+        popularViewController.popularMovies = movieAPI.allMovies
         navigationController?.pushViewController(popularViewController, animated: true)
-
     }
-
-
 }
 

@@ -18,7 +18,7 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
     
     var gridLayout: GridLayout!
     var listLayout: ListLayout!
-    
+    var popularMovies = [Movie]()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -49,7 +49,7 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
     
     // MARK: collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return popularMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,11 +57,11 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         
-        //cell.title.text = movieAPI.get(indexPath.item)?.title
-        //cell.posterImage.kf.setImage(with: ImageResource(downloadURL: (movieAPI.get(indexPath.item)?.backdropURL!)!))
-        //cell.releaseDate.text = dateFormater.string(from: (movieAPI.get(indexPath.item)?.releaseDate)!)
-        //cell.topRating.text = "\(movieAPI.get(indexPath.item)?.voteAverage ?? 5)/10"
-        //cell.overview.text = movieAPI.get(indexPath.item)?.overview
+        cell.title.text = popularMovies[indexPath.item].title
+        cell.posterImage.kf.setImage(with: ImageResource(downloadURL: popularMovies[indexPath.item].backdropURL!))
+        cell.releaseDate.text = dateFormater.string(from: popularMovies[indexPath.item].releaseDate)
+        cell.topRating.text = "\(popularMovies[indexPath.item].voteAverage)/10"
+        cell.overview.text = popularMovies[indexPath.item].overview
         
         return cell
     }
