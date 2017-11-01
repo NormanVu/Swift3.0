@@ -12,7 +12,8 @@ import SwiftyJSON
 
 final class APIManager: NSObject {
     var requestToken: String?
-
+    var sessionID: String?
+    var userID: Int?
     public var allMovies = [Movie]()
     static let sharedAPI = APIManager()
 
@@ -42,6 +43,49 @@ final class APIManager: NSObject {
             }
         }
         return result
+    }
+
+    func loginWithToken(requestToken: String) -> Bool {
+        if (requestToken != self.requestToken) {
+            self.requestToken = requestToken
+        }
+        var result: Bool = false
+        let movieAPI = MovieAPI(validateRequestToken: self.requestToken!)
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                result = json["success"].boolValue
+                print(result)
+            }
+        }
+        return result
+    }
+
+    func getSessionID(requestToken: String) {
+        if (requestToken != self.requestToken) {
+            self.requestToken = requestToken
+        }
+        let movieAPI = MovieAPI(requestToken: self.requestToken!)
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                let sessionID = json["session_id"].stringValue
+                self.sessionID = sessionID
+                print(sessionID)
+            }
+        }
+    }
+
+    func getUserID(sessionID: String) {
+        let movieAPI = MovieAPI(sessionId: sessionID)
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                let userID = json["id"].intValue
+                self.userID = userID
+                print(sessionID)
+            }
+        }
     }
 
     func getPopularMovies(pageNumber: Int) {

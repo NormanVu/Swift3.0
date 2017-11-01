@@ -26,7 +26,7 @@ class MovieAPI {
         "api_key": APIKey as AnyObject
     ]
 
-    init() {//https://www.themoviedb.org/about/our-history
+    init() {//https://www.themoviedb.org/about
         requestURLString = "\(APIURLPrefix)/about"
     }
 
@@ -75,5 +75,20 @@ class MovieAPI {
         if (requestToken) {
             print("Request token")
         }
+    }
+
+    init(validateRequestToken: String) {
+        requestURLString = "\(APIURLPrefix)/authentication/token/validate_with_login"
+        parameters["request_token"] = validateRequestToken as AnyObject
+    }
+
+    init(requestToken: String) {
+        requestURLString = "\(APIURLPrefix)/authentication/session/new"
+        parameters["request_token"] = requestToken as AnyObject
+    }
+
+    init(sessionId: String) {//https://www.themoviedb.org/account
+        requestURLString = "\(APIURLPrefix)/account"
+        parameters["session_id"] = sessionId as AnyObject
     }
 }
