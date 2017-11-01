@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 import Kingfisher
+import ESPullToRefresh
 
 class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
     var listLayout: ListLayout!
+    var refresh = UIRefreshControl()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,8 +29,12 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
         collectionView.collectionViewLayout = listLayout
-        self.collectionView.reloadData()
         self.collectionView.delegate = self
+
+        self.collectionView.es.addPullToRefresh {[weak self] in
+            self?.collectionView.reloadData()
+        }
+        self.collectionView.es.startPullToRefresh()
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,9 +42,13 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.collectionView.es.stopPullToRefresh()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.reloadData()
+        self.collectionView.es.startPullToRefresh()
     }
 
     // MARK: collectionView methods

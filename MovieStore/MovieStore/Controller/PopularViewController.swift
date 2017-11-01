@@ -78,7 +78,6 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @IBAction func layoutButtonTapped(_ sender: UIBarButtonItem) {
-        
         if (collectionView.collectionViewLayout == gridLayout) {
             layoutButton.image = #imageLiteral(resourceName: "ic_view_module")
             UIView.animate(withDuration: 0.1, animations: {
