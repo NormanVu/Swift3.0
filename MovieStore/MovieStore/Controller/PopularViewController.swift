@@ -11,7 +11,7 @@ import UIKit
 import Kingfisher
 
 class PopularViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    let api = APIManager()
+    let movieAPI: APIManager = APIManager()
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
@@ -26,19 +26,16 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        movieAPI.getPopularMovies(pageNumber: 1)
+
         gridLayout = GridLayout(numberOfColumns: 2)
         listLayout = ListLayout()
         
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
         collectionView.collectionViewLayout = gridLayout
         self.layoutButton.image = #imageLiteral(resourceName: "ic_view_list")
-        collectionView.reloadData()
-
-        let result = api.getRequestToken()
-        print(result)
-        api.getPopularMovies(pageNumber: 1)
-
-        print(api.count)
+        self.collectionView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,12 +45,12 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        self.collectionView.reloadData()
     }
     
     // MARK: collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return movieAPI.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,11 +58,11 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         
-        //cell.title.text = api.get(indexPath.item)?.title
-        //cell.posterImage.kf.setImage(with: ImageResource(downloadURL: (api.get(indexPath.item)?.backdropURL!)!))
-        //cell.releaseDate.text = dateFormater.string(from: (api.get(indexPath.item)?.releaseDate)!)
-        //cell.topRating.text = "\(String(describing: api.get(indexPath.item)?.voteAverage))" + "/" + "\(String(describing: api.get(indexPath.item)?.voteCount))"
-        //cell.overview.text = api.get(indexPath.item)?.overview
+        cell.title.text = movieAPI.get(indexPath.item)?.title
+        cell.posterImage.kf.setImage(with: ImageResource(downloadURL: (movieAPI.get(indexPath.item)?.backdropURL!)!))
+        cell.releaseDate.text = dateFormater.string(from: (movieAPI.get(indexPath.item)?.releaseDate)!)
+        cell.topRating.text = "\(movieAPI.get(indexPath.item)?.voteAverage ?? 5) / \(movieAPI.get(indexPath.item)?.voteCount ?? 10)"
+        cell.overview.text = movieAPI.get(indexPath.item)?.overview
         
         return cell
     }

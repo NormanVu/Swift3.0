@@ -13,7 +13,7 @@ import SwiftyJSON
 final class APIManager: NSObject {
     var requestToken: String?
 
-    var allMovies = [Movie]()
+    public var allMovies = [Movie]()
     static let sharedAPI = APIManager()
 
     override init() {
@@ -34,17 +34,11 @@ final class APIManager: NSObject {
         let movieAPI = MovieAPI(requestToken: true)
         var result: Bool = false
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
-            switch dataResponse.result {
-            case let .success(dataResponse):
-                do {
-                    let json = JSON(dataResponse)
-                    self.requestToken = json["request_token"].stringValue
-                    result = true
-                }catch let error {
-                    print(error)
-                }
-            case let .failure(error):
-                print(error)
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                self.requestToken = json["request_token"].stringValue
+                result = true
+                print(json)
             }
         }
         return result
@@ -54,20 +48,12 @@ final class APIManager: NSObject {
         let movieAPI = MovieAPI(popular: true)
         movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
-            switch dataResponse.result {
-                case let .success(dataResponse):
-                    do {
-                        let json = JSON(dataResponse)
-                        for result in json["results"].arrayValue {
-                            let movie = Movie(rawData: result)
-                            //print(movie.toParameters())
-                            self.allMovies.append(movie)
-                        }
-                    }catch let error {
-                        print(error)
-                    }
-                case let .failure(error):
-                    print(error)
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                for result in json["results"].arrayValue {
+                    let movie = Movie(rawData: result)
+                    self.allMovies.append(movie)
+                }
             }
         }
     }
