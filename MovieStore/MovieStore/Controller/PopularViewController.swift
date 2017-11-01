@@ -61,7 +61,7 @@ class PopularViewController: UIViewController, UICollectionViewDataSource, UICol
         cell.title.text = movieAPI.get(indexPath.item)?.title
         cell.posterImage.kf.setImage(with: ImageResource(downloadURL: (movieAPI.get(indexPath.item)?.backdropURL!)!))
         cell.releaseDate.text = dateFormater.string(from: (movieAPI.get(indexPath.item)?.releaseDate)!)
-        cell.topRating.text = "\(movieAPI.get(indexPath.item)?.voteAverage ?? 5) / \(movieAPI.get(indexPath.item)?.voteCount ?? 10)"
+        cell.topRating.text = "\(movieAPI.get(indexPath.item)?.voteAverage ?? 5)/10"
         cell.overview.text = movieAPI.get(indexPath.item)?.overview
         
         return cell
