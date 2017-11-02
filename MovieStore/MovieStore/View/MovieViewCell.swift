@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieCollectionViewCell: UICollectionViewCell {
+class MovieViewCell: UICollectionViewCell {
     
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var releaseDate: UILabel!

@@ -21,3 +21,6 @@ enum TypeCollection: Int {
     case credit = 5
     case search = 6
 }
+
+var userDefault = UserDefaults.standard
+

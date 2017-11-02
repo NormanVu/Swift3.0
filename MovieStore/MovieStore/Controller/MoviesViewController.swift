@@ -32,6 +32,20 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        userDefault.value(forKeyPath: "movieSettings")
+        print("value 0: \(userDefault.array(forKey: "movieSettings")?.count)")
+        //print("value 1: \(userDefault.arrayValue(forKeyPath: "movieSettings").object(at: 1))")
+        /*
+ self.popularMovies = Bool?((rawData.object(forKey: "popularMovies") as! Bool))!
+ self.topRatedMovies = Bool?((rawData.object(forKey: "topRatedMovies") as! Bool))!
+ self.upComingMovies = Bool?((rawData.object(forKey: "upComingMovies") as! Bool))!
+ self.nowPlayingMovies = Bool?((rawData.object(forKey: "nowPlayingMovies") as! Bool))!
+ self.movieWithRate = Float?((rawData.object(forKey: "movieWithRate") as! Float))!
+ self.movieReleaseFromYear = Int?((rawData.object(forKey: "movieReleaseFromYear") as! Int))!
+ self.releaseDate = Bool?((rawData.object(forKey: "releaseDate") as! Bool))!
+ self.rating = Bool?((rawData.object(forKey: "rating") as! Bool))!
+ */
+
         movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
             self.allMovies = self.movieAPI.allMovies
             self.collectionView.reloadData()
@@ -63,14 +77,12 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieViewCell", for: indexPath) as! MovieCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieViewCell", for: indexPath) as! MovieViewCell
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
 
-
-
         cell.title.text = self.allMovies[indexPath.item].title
-        cell.posterImage.kf.setImage(with: ImageResource(downloadURL: self.allMovies[indexPath.item].backdropURL!))
+        cell.posterImage.kf.setImage(with: ImageResource(downloadURL: self.allMovies[indexPath.item].posterURL!))
         cell.releaseDate.text = dateFormater.string(from: self.allMovies[indexPath.item].releaseDate)
         cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
         cell.overview.text = self.allMovies[indexPath.item].overview
@@ -98,5 +110,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.collectionView.setCollectionViewLayout(self.gridLayout, animated: false)
             })
         }
+    }
+
+    @IBAction func menuButtonTapped(_ sender: UIBarButtonItem) {
+
     }
 }
