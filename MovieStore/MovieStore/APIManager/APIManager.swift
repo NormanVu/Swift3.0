@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-//TODO: After calling
 final class APIManager: NSObject {
 
     var typeMovie: TypeCollection?
