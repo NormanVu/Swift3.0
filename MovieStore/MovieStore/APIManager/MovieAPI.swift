@@ -73,6 +73,8 @@ class MovieAPI: NSObject {
     init(validateRequestToken: String) {
         requestURLString = "\(APIURLPrefix)/authentication/token/validate_with_login"
         parameters["request_token"] = validateRequestToken as AnyObject
+        parameters["username"] = "NormanVu" as AnyObject
+        parameters["password"] = "1234567890" as AnyObject
     }
 
     init(requestNewToken: String) {

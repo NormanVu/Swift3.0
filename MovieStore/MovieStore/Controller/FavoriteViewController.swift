@@ -14,7 +14,13 @@ import ESPullToRefresh
 class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var noneDataView: UIView!
 
+    let movieAPI = APIManager()
+    var allMovies = [Movie]()
+    var requestToken: String?
+    var sessionID: String?
+    var userID: Int?
     var listLayout: ListLayout!
     var refresh = UIRefreshControl()
 
@@ -25,6 +31,17 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadData()
+        
+        if (self.allMovies.count == 0) {
+            self.collectionView.isHidden = true
+            self.noneDataView.isHidden = false
+        } else {
+            self.collectionView.isHidden = false
+            self.noneDataView.isHidden = true
+        }
+        
         listLayout = ListLayout()
 
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
@@ -35,6 +52,29 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
             self?.collectionView.reloadData()
         }
         self.collectionView.es.startPullToRefresh()
+    }
+    
+    func loadData() {
+        //Step 1: Create a new request token
+        self.movieAPI.getRequestToken(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            self.requestToken = self.movieAPI.requestToken
+            //Step 2: Ask the user for permission via the API
+            self.movieAPI.loginWithToken(validateRequestToken: self.requestToken!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                //Step 3: Create a session ID
+                self.movieAPI.getSessionID(requestToken: self.requestToken!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                    self.sessionID = self.movieAPI.sessionID
+                    //Step 4: Get the user id
+                    self.movieAPI.getUserID(sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                        self.userID = self.movieAPI.userID
+                        //Step 5: Get favorite movies
+                        self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                            self.allMovies = self.movieAPI.allMovies
+                            self.collectionView.reloadData()
+                        })
+                    })
+                })
+            })
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +93,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
     // MARK: collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return self.allMovies.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,11 +101,11 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
 
-        //cell.title.text = movieAPI.get(indexPath.item)?.title
-        //cell.posterImage.kf.setImage(with: ImageResource(downloadURL: (movieAPI.get(indexPath.item)?.backdropURL!)!))
-        //cell.releaseDate.text = dateFormater.string(from: (movieAPI.get(indexPath.item)?.releaseDate)!)
-        //cell.topRating.text = "\(movieAPI.get(indexPath.item)?.voteAverage ?? 5)/10"
-        //cell.overview.text = movieAPI.get(indexPath.item)?.overview
+        cell.title.text = self.allMovies[indexPath.item].title
+        cell.posterImage.kf.setImage(with: ImageResource(downloadURL: self.allMovies[indexPath.item].backdropURL!))
+        cell.releaseDate.text = dateFormater.string(from: self.allMovies[indexPath.item].releaseDate)
+        cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
+        cell.overview.text = self.allMovies[indexPath.item].overview
 
         return cell
     }
