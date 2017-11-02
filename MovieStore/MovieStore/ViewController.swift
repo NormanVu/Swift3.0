@@ -22,10 +22,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         tapGestureImageView.addTarget(self, action: #selector(tapPopular))
         self.view!.addGestureRecognizer(tapGestureImageView)
-        movieAPI.getPopularMovies(pageNumber: 1)
-        movieAPI.getTopRatingMovies(pageNumber: 1)
-        movieAPI.getNowPlayingMovies(pageNumber: 1)
-        movieAPI.getUpComingMovies(pageNumber: 1)
+
         //movieAPI.getFavoriteMovies()
 
     }

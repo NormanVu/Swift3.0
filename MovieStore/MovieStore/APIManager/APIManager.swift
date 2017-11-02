@@ -87,10 +87,9 @@ final class APIManager: NSObject {
         }
     }
 
-    func getPopularMovies(pageNumber: Int) {
+    func getPopularMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(popular: true)
         typeMovie = .popular
-        movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -100,6 +99,7 @@ final class APIManager: NSObject {
                 }
                 if (self.allMovies.count > 0) {
                     print("Get popular movies are successfully!!!")
+                    completionHandler(UIBackgroundFetchResult.newData)
                 }
             }
         }
