@@ -99,15 +99,19 @@ final class APIManager: NSObject {
                 let json = JSON(dataResponse.result.value!)
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
+                    //print(movie.toParameters())
                     self.allMovies.append(movie)
                 }
-                if (self.allMovies.count >= 0) {
+                if (self.allMovies.count > 0) {
                     print("Get favorite movies are successfully!!!")
                     completionHandler(UIBackgroundFetchResult.newData)
+                } else {
+                    print("None favorite movies!!!")
                 }
             }
         }
     }
+
     func getPopularMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(popular: true)
         typeMovie = .popular
@@ -116,6 +120,7 @@ final class APIManager: NSObject {
                 let json = JSON(dataResponse.result.value!)
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
+
                     self.allMovies.append(movie)
                 }
                 if (self.allMovies.count > 0) {
@@ -180,5 +185,16 @@ final class APIManager: NSObject {
         }
     }
 
+    func setFavoriteMovies(mediaID: Int, userID: Int, sessionID: String, favorite: Bool, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
+        let movieAPI = MovieAPI(mediaId: mediaID, userId: userID, sessionId: sessionID, favorite: favorite)
+        let headers = ["content-type": "application/json;charset=utf-8"]
+        Alamofire.request(movieAPI.requestURLString, method: .post, parameters: movieAPI.parameters, headers: headers).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                print(json)
+                completionHandler(UIBackgroundFetchResult.newData)
+            }
+        }
+    }
     
 }

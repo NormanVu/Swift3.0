@@ -8,6 +8,11 @@
 
 import UIKit
 
+/*
+protocol FavoriteMovieViewCellDelegate: class {
+    func favoriteMovieButtonTapped(_ movieViewCell: MovieViewCell)
+}*/
+
 class MovieViewCell: UICollectionViewCell {
     
     @IBOutlet weak var posterImage: UIImageView!
@@ -15,10 +20,32 @@ class MovieViewCell: UICollectionViewCell {
     @IBOutlet weak var topRating: UILabel!
     @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var favoriteImageView: UIImageView!
-    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var title: UILabel!
-    
-    
+    var movieId: Int?
+    var favorite: Bool?
+    var favoriteMovieButton: UIButton?
+
+    override init(frame: CGRect){
+        super.init(frame: frame)
+        setupViews()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupViews()
+    }
+
+    //@TODO: Update UI for favorite movie button
+    func setupViews() {
+        self.favoriteMovieButton = UIButton(frame: CGRect(x: 291, y: 3, width: 21, height: 21))
+        //self.favoriteMovieButton?.backgroundColor = .red
+        //Update constraint layout for favoriteMovieButton
+        addSubview(self.favoriteMovieButton!)
+
+        //Update layout
+        self.layoutIfNeeded()
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         posterImage.image = #imageLiteral(resourceName: "ic_default")
@@ -29,6 +56,11 @@ class MovieViewCell: UICollectionViewCell {
         topRating.text = "9.0/10"
         overview.text = "This is default movie"
         title.text = "Default movie"
+        movieId = 1
+        favorite = false
     }
-    
 }
+
+
+
+

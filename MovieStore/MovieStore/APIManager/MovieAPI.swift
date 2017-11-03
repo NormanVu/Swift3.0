@@ -91,4 +91,13 @@ class MovieAPI: NSObject {
         requestURLString = "\(APIURLPrefix)/account/\(userId)/favorite/movies"
         parameters["session_id"] = sessionId as AnyObject
     }
+
+    init(mediaId: Int, userId: Int, sessionId: String, favorite: Bool) {
+        //POST: https://www.themoviedb.org/account/{account_id}/favorite
+        requestURLString = "\(APIURLPrefix)/account/\(userId)/favorite"
+        parameters["session_id"] = sessionId as AnyObject
+        parameters["media_type"] = "movie" as AnyObject
+        parameters["media_id"] = mediaId as AnyObject
+        parameters["favorite"] = favorite as AnyObject
+    }
 }

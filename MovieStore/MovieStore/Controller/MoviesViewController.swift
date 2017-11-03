@@ -14,16 +14,22 @@ import FMDB
 import SwiftyJSON
 import SWRevealViewController
 
-class MoviesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class MoviesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
+    
+
     let movieAPI = APIManager()
     var gridLayout: GridLayout!
     var listLayout: ListLayout!
     var allMovies = [Movie]()
+    var requestToken: String?
+    var sessionID: String?
+    var userID: Int?
+    var currentMovieId: Int?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,8 +38,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         if (revealViewController() != nil) {
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -59,6 +64,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             self.collectionView.reloadData()
         })
 
+        self.autoLogin()
+
         gridLayout = GridLayout(numberOfColumns: 2)
         listLayout = ListLayout()
 
@@ -76,7 +83,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        self.collectionView.reloadData()
     }
 
     // MARK: collectionView methods
@@ -94,8 +101,15 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.releaseDate.text = dateFormater.string(from: self.allMovies[indexPath.item].releaseDate)
         cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
         cell.overview.text = self.allMovies[indexPath.item].overview
+        cell.movieId = self.allMovies[indexPath.item].movieId
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let favoriteViewCell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
+        self.currentMovieId = favoriteViewCell?.movieId
+        favoriteViewCell?.favoriteMovieButton?.addTarget(self, action: #selector(favoriteMovieButtonTapped(_:)), for: .touchUpInside)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -123,4 +137,34 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBAction func menuButtonTapped(_ sender: UIBarButtonItem) {
         
     }
+
+    func autoLogin() {
+        //Step 1: Create a new request token
+        self.movieAPI.getRequestToken(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            self.requestToken = self.movieAPI.requestToken
+            //Step 2: Ask the user for permission via the API
+            self.movieAPI.loginWithToken(validateRequestToken: self.requestToken!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                //Step 3: Create a session ID
+                self.movieAPI.getSessionID(requestToken: self.requestToken!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                    self.sessionID = self.movieAPI.sessionID
+                    //Step 4: Get the user id
+                    self.movieAPI.getUserID(sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                        self.userID = self.movieAPI.userID
+                    })
+                })
+            })
+        })
+    }
+
+    //@TODO: Implement to update image favorite/unfavorite
+    func favoriteMovieButtonTapped(_ movieViewCell: MovieViewCell) {
+        print("Favorite current movie id: \(self.currentMovieId!)")
+        movieAPI.setFavoriteMovies(mediaID: self.currentMovieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: true, completionHandler: {(UIBackgroundFetchResult) -> Void in
+            print("favorite or unfavorite movie")
+        })
+    }
 }
+
+
+
+

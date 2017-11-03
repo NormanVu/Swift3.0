@@ -90,15 +90,10 @@
                     <rect key="frame" x="0.0" y="146" width="320" height="2"/>
                     <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCu-7H-msb" userLabel="Favorite Button">
-                    <rect key="frame" x="291" y="3" width="21" height="21"/>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="eea-ll-Ynu" firstAttribute="trailing" secondItem="hnH-uS-EDv" secondAttribute="trailing" id="0yo-o1-G6h"/>
-                <constraint firstItem="eCu-7H-msb" firstAttribute="top" secondItem="eea-ll-Ynu" secondAttribute="top" id="2AS-nw-3CY"/>
-                <constraint firstItem="eCu-7H-msb" firstAttribute="centerY" secondItem="xn4-Uv-EVU" secondAttribute="centerY" id="3zh-T0-2O8"/>
                 <constraint firstItem="hnH-uS-EDv" firstAttribute="leading" secondItem="Lgl-fl-e3o" secondAttribute="trailing" id="4yk-61-aeV"/>
                 <constraint firstAttribute="trailing" secondItem="k4L-mi-CE0" secondAttribute="trailing" id="7Bu-1e-POT"/>
                 <constraint firstItem="jCg-72-LzR" firstAttribute="top" secondItem="rvf-7X-65L" secondAttribute="bottom" constant="18" id="88K-Do-zSM"/>
@@ -107,8 +102,6 @@
                 <constraint firstAttribute="bottom" secondItem="cKH-KS-fQc" secondAttribute="bottom" constant="8" id="AdX-TA-Lra"/>
                 <constraint firstItem="Lgl-fl-e3o" firstAttribute="baseline" secondItem="hnH-uS-EDv" secondAttribute="baseline" id="Adk-CU-i4a"/>
                 <constraint firstItem="k4L-mi-CE0" firstAttribute="top" secondItem="cKH-KS-fQc" secondAttribute="bottom" constant="6" id="Djl-ky-yfi"/>
-                <constraint firstItem="eCu-7H-msb" firstAttribute="centerX" secondItem="eea-ll-Ynu" secondAttribute="centerX" id="IN6-WB-40q"/>
-                <constraint firstItem="eCu-7H-msb" firstAttribute="trailing" secondItem="eea-ll-Ynu" secondAttribute="trailing" id="LSX-Rs-ye3"/>
                 <constraint firstItem="FQW-8x-ss5" firstAttribute="leading" secondItem="rvf-7X-65L" secondAttribute="trailing" constant="19" id="N74-ja-CEt"/>
                 <constraint firstItem="cKH-KS-fQc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="O3i-1u-jl0"/>
                 <constraint firstItem="FQW-8x-ss5" firstAttribute="top" secondItem="rvf-7X-65L" secondAttribute="top" id="OJs-hb-CTy"/>
@@ -133,7 +126,6 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="favoriteButton" destination="eCu-7H-msb" id="uWL-3h-FVP"/>
                 <outlet property="favoriteImageView" destination="eea-ll-Ynu" id="0WD-bd-FCu"/>
                 <outlet property="overview" destination="jCg-72-LzR" id="wPd-dg-HfH"/>
                 <outlet property="posterImage" destination="cKH-KS-fQc" id="fnx-tc-twY"/>

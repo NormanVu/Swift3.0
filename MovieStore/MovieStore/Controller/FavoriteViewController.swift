@@ -22,7 +22,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     var sessionID: String?
     var userID: Int?
     var listLayout: ListLayout!
-    var refresh = UIRefreshControl()
+    var refresher: UIRefreshControl!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,24 +34,22 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         
         loadData()
         
-        if (self.allMovies.count == 0) {
-            self.collectionView.isHidden = true
-            self.noneDataView.isHidden = false
-        } else {
-            self.collectionView.isHidden = false
-            self.noneDataView.isHidden = true
-        }
-        
         listLayout = ListLayout()
 
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
         collectionView.collectionViewLayout = listLayout
         self.collectionView.delegate = self
 
-        self.collectionView.es.addPullToRefresh {[weak self] in
-            self?.collectionView.reloadData()
+        //Refresh collection view
+        refresher = UIRefreshControl()
+        refresher.attributedTitle = NSAttributedString(string: "Release to refresh")
+        refresher.addTarget(self, action: #selector(FavoriteViewController.needRefresh(_ :)), for : .valueChanged)
+        if #available(iOS 10.0, *) {
+            self.collectionView.refreshControl = refresher
+        } else {
+            // Fallback on earlier versions
+            self.collectionView.addSubview(refresher)
         }
-        self.collectionView.es.startPullToRefresh()
     }
     
     func loadData() {
@@ -69,6 +67,13 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
                         //Step 5: Get favorite movies
                         self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
                             self.allMovies = self.movieAPI.allMovies
+                            if (self.allMovies.count == 0) {
+                                self.collectionView.isHidden = true
+                                self.noneDataView.isHidden = false
+                            } else {
+                                self.collectionView.isHidden = false
+                                self.noneDataView.isHidden = true
+                            }
                             self.collectionView.reloadData()
                         })
                     })
@@ -84,11 +89,9 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.collectionView.es.stopPullToRefresh()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.es.startPullToRefresh()
     }
 
     // MARK: collectionView methods
@@ -108,5 +111,14 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.overview.text = self.allMovies[indexPath.item].overview
 
         return cell
+    }
+
+    // MARK: - Release to refresh
+    func needRefresh(_ sender : UIRefreshControl) {
+        perform(#selector(FavoriteViewController.finishRefresh), with : nil, afterDelay : 3)
+    }
+
+    func finishRefresh() {
+        refresher?.endRefreshing()
     }
 }
