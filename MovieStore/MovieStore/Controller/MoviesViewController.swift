@@ -44,20 +44,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        
-        userDefault.value(forKeyPath: "movieSettings")
-        print("value 0: \(userDefault.array(forKey: "movieSettings")?.count)")
-        //print("value 1: \(userDefault.arrayValue(forKeyPath: "movieSettings").object(at: 1))")
-        /*
- self.popularMovies = Bool?((rawData.object(forKey: "popularMovies") as! Bool))!
- self.topRatedMovies = Bool?((rawData.object(forKey: "topRatedMovies") as! Bool))!
- self.upComingMovies = Bool?((rawData.object(forKey: "upComingMovies") as! Bool))!
- self.nowPlayingMovies = Bool?((rawData.object(forKey: "nowPlayingMovies") as! Bool))!
- self.movieWithRate = Float?((rawData.object(forKey: "movieWithRate") as! Float))!
- self.movieReleaseFromYear = Int?((rawData.object(forKey: "movieReleaseFromYear") as! Int))!
- self.releaseDate = Bool?((rawData.object(forKey: "releaseDate") as! Bool))!
- self.rating = Bool?((rawData.object(forKey: "rating") as! Bool))!
- */
 
         movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
             self.allMovies = self.movieAPI.allMovies
@@ -110,11 +96,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let favoriteViewCell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
         self.currentMovieId = favoriteViewCell?.movieId
         favoriteViewCell?.favoriteMovieButton?.addTarget(self, action: #selector(favoriteMovieButtonTapped(_:)), for: .touchUpInside)
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        collectionView.collectionViewLayout.invalidateLayout()
     }
 
 
