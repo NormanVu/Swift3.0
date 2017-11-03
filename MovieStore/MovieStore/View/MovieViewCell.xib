@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -81,7 +81,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star" translatesAutoresizingMaskIntoConstraints="NO" id="eea-ll-Ynu" userLabel="Favorite Image View">
-                    <rect key="frame" x="291" y="7" width="21" height="21"/>
+                    <rect key="frame" x="291" y="3" width="21" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="21" id="CvQ-Ub-suy"/>
                     </constraints>
@@ -90,14 +90,15 @@
                     <rect key="frame" x="0.0" y="146" width="320" height="2"/>
                     <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCu-7H-msb" userLabel="Favorite Button">
-                    <rect key="frame" x="291" y="7" width="21" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCu-7H-msb" userLabel="Favorite Button">
+                    <rect key="frame" x="291" y="3" width="21" height="21"/>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="eea-ll-Ynu" firstAttribute="trailing" secondItem="hnH-uS-EDv" secondAttribute="trailing" id="0yo-o1-G6h"/>
+                <constraint firstItem="eCu-7H-msb" firstAttribute="top" secondItem="eea-ll-Ynu" secondAttribute="top" id="2AS-nw-3CY"/>
+                <constraint firstItem="eCu-7H-msb" firstAttribute="centerY" secondItem="xn4-Uv-EVU" secondAttribute="centerY" id="3zh-T0-2O8"/>
                 <constraint firstItem="hnH-uS-EDv" firstAttribute="leading" secondItem="Lgl-fl-e3o" secondAttribute="trailing" id="4yk-61-aeV"/>
                 <constraint firstAttribute="trailing" secondItem="k4L-mi-CE0" secondAttribute="trailing" id="7Bu-1e-POT"/>
                 <constraint firstItem="jCg-72-LzR" firstAttribute="top" secondItem="rvf-7X-65L" secondAttribute="bottom" constant="18" id="88K-Do-zSM"/>
@@ -106,24 +107,26 @@
                 <constraint firstAttribute="bottom" secondItem="cKH-KS-fQc" secondAttribute="bottom" constant="8" id="AdX-TA-Lra"/>
                 <constraint firstItem="Lgl-fl-e3o" firstAttribute="baseline" secondItem="hnH-uS-EDv" secondAttribute="baseline" id="Adk-CU-i4a"/>
                 <constraint firstItem="k4L-mi-CE0" firstAttribute="top" secondItem="cKH-KS-fQc" secondAttribute="bottom" constant="6" id="Djl-ky-yfi"/>
+                <constraint firstItem="eCu-7H-msb" firstAttribute="centerX" secondItem="eea-ll-Ynu" secondAttribute="centerX" id="IN6-WB-40q"/>
+                <constraint firstItem="eCu-7H-msb" firstAttribute="trailing" secondItem="eea-ll-Ynu" secondAttribute="trailing" id="LSX-Rs-ye3"/>
                 <constraint firstItem="FQW-8x-ss5" firstAttribute="leading" secondItem="rvf-7X-65L" secondAttribute="trailing" constant="19" id="N74-ja-CEt"/>
                 <constraint firstItem="cKH-KS-fQc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="O3i-1u-jl0"/>
                 <constraint firstItem="FQW-8x-ss5" firstAttribute="top" secondItem="rvf-7X-65L" secondAttribute="top" id="OJs-hb-CTy"/>
                 <constraint firstAttribute="bottom" secondItem="jCg-72-LzR" secondAttribute="bottom" constant="11" id="QE0-SY-mFd"/>
                 <constraint firstItem="FQW-8x-ss5" firstAttribute="baseline" secondItem="rvf-7X-65L" secondAttribute="baseline" id="RcT-M7-7DF"/>
-                <constraint firstItem="hnH-uS-EDv" firstAttribute="top" secondItem="eea-ll-Ynu" secondAttribute="bottom" id="T5Y-mI-AwE"/>
+                <constraint firstItem="hnH-uS-EDv" firstAttribute="top" secondItem="eea-ll-Ynu" secondAttribute="bottom" constant="4" id="T5Y-mI-AwE"/>
                 <constraint firstItem="cKH-KS-fQc" firstAttribute="leading" secondItem="xn4-Uv-EVU" secondAttribute="leading" id="WS6-iZ-eM0"/>
                 <constraint firstItem="718-Cg-4fX" firstAttribute="top" secondItem="rvf-7X-65L" secondAttribute="bottom" constant="1" id="YGO-rL-mMB"/>
                 <constraint firstItem="rvf-7X-65L" firstAttribute="top" secondItem="Lgl-fl-e3o" secondAttribute="bottom" id="YK7-Dz-8up"/>
                 <constraint firstItem="eea-ll-Ynu" firstAttribute="trailing" secondItem="jCg-72-LzR" secondAttribute="trailing" id="an6-qD-ZcA"/>
                 <constraint firstItem="jCg-72-LzR" firstAttribute="leading" secondItem="rvf-7X-65L" secondAttribute="leading" id="gva-kf-0E7"/>
-                <constraint firstItem="eea-ll-Ynu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7" id="izC-BN-ZvM"/>
+                <constraint firstItem="eea-ll-Ynu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="izC-BN-ZvM"/>
                 <constraint firstItem="Lgl-fl-e3o" firstAttribute="top" secondItem="hnH-uS-EDv" secondAttribute="top" id="ko7-8j-nmD"/>
-                <constraint firstItem="eea-ll-Ynu" firstAttribute="bottom" secondItem="xn4-Uv-EVU" secondAttribute="bottom" id="nkH-4A-Nfk"/>
+                <constraint firstItem="eea-ll-Ynu" firstAttribute="bottom" secondItem="xn4-Uv-EVU" secondAttribute="bottom" constant="-4" id="nkH-4A-Nfk"/>
                 <constraint firstAttribute="bottom" secondItem="k4L-mi-CE0" secondAttribute="bottom" id="oG1-VR-2WJ"/>
                 <constraint firstItem="jCg-72-LzR" firstAttribute="leading" secondItem="Lgl-fl-e3o" secondAttribute="leading" id="p0V-js-qYc"/>
                 <constraint firstItem="jCg-72-LzR" firstAttribute="leading" secondItem="718-Cg-4fX" secondAttribute="leading" id="rKu-xJ-JO3"/>
-                <constraint firstItem="eea-ll-Ynu" firstAttribute="top" secondItem="xn4-Uv-EVU" secondAttribute="top" constant="7" id="sCw-rW-q7n"/>
+                <constraint firstItem="eea-ll-Ynu" firstAttribute="top" secondItem="xn4-Uv-EVU" secondAttribute="top" constant="3" id="sCw-rW-q7n"/>
                 <constraint firstAttribute="bottom" secondItem="718-Cg-4fX" secondAttribute="bottom" constant="57" id="sJw-mA-JLY"/>
                 <constraint firstItem="k4L-mi-CE0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wZO-9z-Ery"/>
                 <constraint firstAttribute="trailing" secondItem="eea-ll-Ynu" secondAttribute="trailing" constant="8" id="wlC-RY-2A7"/>
