@@ -63,21 +63,21 @@ class MovieAPI: NSObject {
         type = .search
     }
 
-    init(requestToken: Bool) {
+    init(requestToken: Bool) {//https://api.themoviedb.org/3/authentication/token/new
         requestURLString = "\(APIURLPrefix)/authentication/token/new"
         if (requestToken) {
             print("Request token")
         }
     }
 
-    init(validateRequestToken: String) {
+    init(validateRequestToken: String) {//https://api.themoviedb.org/3/authentication/token/validate_with_login
         requestURLString = "\(APIURLPrefix)/authentication/token/validate_with_login"
         parameters["request_token"] = validateRequestToken as AnyObject
         parameters["username"] = "NormanVu" as AnyObject
         parameters["password"] = "1234567890" as AnyObject
     }
 
-    init(requestNewToken: String) {
+    init(requestNewToken: String) {//https://api.themoviedb.org/3/authentication/session/new
         requestURLString = "\(APIURLPrefix)/authentication/session/new"
         parameters["request_token"] = requestNewToken as AnyObject
     }
