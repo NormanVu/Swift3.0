@@ -12,12 +12,13 @@ import Alamofire
 import ESPullToRefresh
 import FMDB
 import SwiftyJSON
+import SWRevealViewController
 
 class MoviesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
-    @IBOutlet weak var filterButton: UIBarButtonItem!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
 
     let movieAPI = APIManager()
     var gridLayout: GridLayout!
@@ -31,7 +32,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        if (revealViewController() != nil) {
+            menuButton.target = revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
         userDefault.value(forKeyPath: "movieSettings")
         print("value 0: \(userDefault.array(forKey: "movieSettings")?.count)")
         //print("value 1: \(userDefault.arrayValue(forKeyPath: "movieSettings").object(at: 1))")
@@ -113,6 +121,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     @IBAction func menuButtonTapped(_ sender: UIBarButtonItem) {
-
+        
     }
 }

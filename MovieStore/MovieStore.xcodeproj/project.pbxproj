@@ -35,6 +35,7 @@
 		FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DB1FA914A000581CDF /* GridLayout.swift */; };
 		FC4917DE1FA9151600581CDF /* MovieViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DD1FA9151600581CDF /* MovieViewCell.swift */; };
 		FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917E01FA93F2900581CDF /* ListLayout.swift */; };
+		FCC874941FABE827001519D4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC874931FABE827001519D4 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		FC4917DB1FA914A000581CDF /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		FC4917DD1FA9151600581CDF /* MovieViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewCell.swift; sourceTree = "<group>"; };
 		FC4917E01FA93F2900581CDF /* ListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLayout.swift; sourceTree = "<group>"; };
+		FCC874931FABE827001519D4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				BA85DA541FA9B4E800D947C2 /* FavoriteViewController.swift */,
 				BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */,
 				BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */,
+				FCC874931FABE827001519D4 /* ProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -329,7 +332,7 @@
 				TargetAttributes = {
 					BAE830EA1F95DDF000C4246F = {
 						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = 6SG85WN8G5;
+						DevelopmentTeam = N9BX3NW7YT;
 						ProvisioningStyle = Automatic;
 					};
 					BAE831011F95DDFA00C4246F = {
@@ -546,6 +549,7 @@
 				BA65558A1FAAB6E0004CAB82 /* MoviesViewController.swift in Sources */,
 				BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */,
 				BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */,
+				FCC874941FABE827001519D4 /* ProfileViewController.swift in Sources */,
 				BA65558E1FAAD6DC004CAB82 /* SettingsViewController.swift in Sources */,
 				FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */,
 				FC4917DE1FA9151600581CDF /* MovieViewCell.swift in Sources */,
@@ -724,7 +728,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6SG85WN8G5;
+				DEVELOPMENT_TEAM = N9BX3NW7YT;
 				INFOPLIST_FILE = MovieStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enclave.MovieStore;
@@ -740,7 +744,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6SG85WN8G5;
+				DEVELOPMENT_TEAM = N9BX3NW7YT;
 				INFOPLIST_FILE = MovieStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enclave.MovieStore;

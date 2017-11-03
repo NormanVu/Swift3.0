@@ -21,6 +21,6 @@ class FilterMovieRatingViewCell: UITableViewCell {
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         let currentValue = Int(sender.value)
         print("Slider changing to \(currentValue)")
-        rating.text = "\(currentValue)"
+        rating.text = "\(currentValue).0"
     }
 }
