@@ -29,7 +29,14 @@ class UserDefaultManager {
     }
 
     func getMovieSettings() -> MovieSettings {
-        let movieSettings = MovieSettings(popularMovie: userDefault.bool(forKey: "popularMovies"), topRatedMovie: userDefault.bool(forKey: "topRatedMovies"), upComingMovie: userDefault.bool(forKey: "upComingMovies"), nowPlayingMovie: userDefault.bool(forKey: "nowPlayingMovies"), movieWithRate: userDefault.float(forKey: "movieWithRate"), movieReleaseYear: userDefault.integer(forKey: "movieReleaseFromYear"), releaseDate: userDefault.bool(forKey: "releaseDate"), rating: userDefault.bool(forKey: "rating"))
+        let movieSettings = MovieSettings(   popularMovie: userDefault.bool(forKey: "popularMovies"),
+                                            topRatedMovie: userDefault.bool(forKey: "topRatedMovies"),
+                                            upComingMovie: userDefault.bool(forKey: "upComingMovies"),
+                                          nowPlayingMovie: userDefault.bool(forKey: "nowPlayingMovies"),
+                                            movieWithRate: userDefault.float(forKey: "movieWithRate"),
+                                         movieReleaseYear: userDefault.integer(forKey: "movieReleaseFromYear"),
+                                              releaseDate: userDefault.bool(forKey: "releaseDate"),
+                                                   rating: userDefault.bool(forKey: "rating"))
         return movieSettings
     }
 
