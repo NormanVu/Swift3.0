@@ -22,8 +22,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     let indexPathReleaseYearMovie: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
     var indexPathOldSection0: IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
     var indexPathOldSection1: IndexPath = NSIndexPath(row: 0, section: 1) as IndexPath
-    var movieSettings: [Dictionary<String, AnyObject>] = []
-
+    let userDefaultManager = UserDefaultManager()
+    
     @IBOutlet weak var settingsMovies: UITableView!
 
     override func viewDidLoad() {
@@ -35,10 +35,10 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         settingsMovies.register(UINib(nibName: "FilterMovieRatingViewCell", bundle: nil), forCellReuseIdentifier: "FilterMovieRatingViewCell")
         self.settingsMovies.delegate = self
         self.settingsMovies.dataSource = self
-        let userDefaultManager = UserDefaultManager()
+    
+        // Register user default to store settings
         userDefaultManager.registerSettingsBundle()
 
-        print("movieSetting object is \(userDefaultManager.getMovieSettings())")
     }
 
     override func didReceiveMemoryWarning() {

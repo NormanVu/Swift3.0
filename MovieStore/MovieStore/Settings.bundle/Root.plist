@@ -13,28 +13,25 @@
 			<string>Movie Settings</string>
 			<key>Key</key>
 			<string>movieSettings</string>
-			<key>Titles</key>
-			<array>
-				<string>Popular Movies</string>
-				<string>Top Rated Movies</string>
-				<string>Upcoming Movies</string>
-				<string>NowPlaying Movies</string>
-				<string>Movie with rate from:</string>
-				<string>From Release Year:</string>
-				<string>Release Date</string>
-				<string>Rating</string>
-			</array>
 			<key>movieSettings</key>
-			<array>
+			<dict>
+				<key>popularMovies</key>
 				<false/>
+				<key>topRatedMovies</key>
 				<false/>
+				<key>upComingMovies</key>
 				<false/>
+				<key>nowPlayingMovies</key>
 				<false/>
+				<key>movieWithRate</key>
 				<integer>0</integer>
+				<key>movieReleaseFromYear</key>
 				<integer>1970</integer>
+				<key>releaseDate</key>
 				<false/>
+				<key>rating</key>
 				<false/>
-			</array>
+			</dict>
 		</dict>
 	</array>
 </dict>

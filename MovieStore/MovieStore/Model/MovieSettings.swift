@@ -31,14 +31,14 @@ class MovieSettings: NSObject {
     }
 
     init(dictionary dict: [String : Any]) {
-        self.popularMovies = false
-        self.topRatedMovies = false
-        self.upComingMovies = false
-        self.nowPlayingMovies = false
-        self.movieWithRate = 0
-        self.movieReleaseFromYear = 1970
-        self.releaseDate = false
-        self.rating = false
+        self.popularMovies = (dict["popularMovies"] as? Bool)!
+        self.topRatedMovies = (dict["topRatedMovies"] as? Bool)!
+        self.upComingMovies = (dict["upComingMovies"] as? Bool)!
+        self.nowPlayingMovies = (dict["nowPlayingMovies"] as? Bool)!
+        self.movieWithRate = (dict["movieWithRate"] as? Float)!
+        self.movieReleaseFromYear = (dict["movieReleaseFromYear"] as? Int)!
+        self.releaseDate = (dict["releaseDate"] as? Bool)!
+        self.rating = (dict["rating"] as? Bool)!
         super.init()
         self.setValuesForKeys(dict)
     }

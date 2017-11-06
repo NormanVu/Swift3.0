@@ -18,17 +18,19 @@ class UserDefaultManager {
 
         var defaultsToRegister = Dictionary<String, Any>()
         for preference in preferences {
-            if ((preference[UserDefaultManager.movieSettingsKey]) != nil) {
-                defaultsToRegister = preference as! [String : Any]
-                break
+            guard let key = preference["Key"] as? String else {
+                NSLog("Key not fount")
+                continue
             }
+            defaultsToRegister[key] = preference["movieSettings"]
         }
         userDefault.register(defaults: defaultsToRegister)
         userDefault.synchronize()
     }
 
-    func getMovieSettings() -> [MovieSettings] {
-        return userDefault.array(forKey: UserDefaultManager.movieSettingsKey) as! [MovieSettings]
+    func getMovieSettings() -> MovieSettings {
+        let movieSettings = MovieSettings(popularMovie: userDefault.bool(forKey: "popularMovies"), topRatedMovie: userDefault.bool(forKey: "topRatedMovies"), upComingMovie: userDefault.bool(forKey: "upComingMovies"), nowPlayingMovie: userDefault.bool(forKey: "nowPlayingMovies"), movieWithRate: userDefault.float(forKey: "movieWithRate"), movieReleaseYear: userDefault.integer(forKey: "movieReleaseFromYear"), releaseDate: userDefault.bool(forKey: "releaseDate"), rating: userDefault.bool(forKey: "rating"))
+        return movieSettings
     }
 
     func updateMovieSettings(popularMovie: Bool, topRatedMovie: Bool, upComingMovie: Bool, nowPlayingMovie: Bool, movieWithRate: Float, movieReleaseYear: Int, releaseDate: Bool, rating: Bool) -> Bool {
