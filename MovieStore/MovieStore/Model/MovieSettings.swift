@@ -9,7 +9,6 @@
 import Foundation
 
 class MovieSettings: NSObject {
-
     var popularMovies: Bool
     var topRatedMovies: Bool
     var upComingMovies: Bool
@@ -19,16 +18,28 @@ class MovieSettings: NSObject {
     var releaseDate: Bool
     var rating: Bool
 
-
-    init(rawData: NSDictionary) {
-        self.popularMovies = Bool?((rawData.object(forKey: "popularMovies") as! Bool))!
-        self.topRatedMovies = Bool?((rawData.object(forKey: "topRatedMovies") as! Bool))!
-        self.upComingMovies = Bool?((rawData.object(forKey: "upComingMovies") as! Bool))!
-        self.nowPlayingMovies = Bool?((rawData.object(forKey: "nowPlayingMovies") as! Bool))!
-        self.movieWithRate = Float?((rawData.object(forKey: "movieWithRate") as! Float))!
-        self.movieReleaseFromYear = Int?((rawData.object(forKey: "movieReleaseFromYear") as! Int))!
-        self.releaseDate = Bool?((rawData.object(forKey: "releaseDate") as! Bool))!
-        self.rating = Bool?((rawData.object(forKey: "rating") as! Bool))!
+    init(popularMovie: Bool, topRatedMovie: Bool, upComingMovie: Bool, nowPlayingMovie: Bool, movieWithRate: Float, movieReleaseYear: Int, releaseDate: Bool, rating: Bool) {
+        self.popularMovies = popularMovie
+        self.topRatedMovies = topRatedMovie
+        self.upComingMovies = upComingMovie
+        self.nowPlayingMovies = nowPlayingMovie
+        self.movieWithRate = movieWithRate
+        self.movieReleaseFromYear = movieReleaseYear
+        self.releaseDate = releaseDate
+        self.rating = rating
         super.init()
+    }
+
+    init(dictionary dict: [String : Any]) {
+        self.popularMovies = false
+        self.topRatedMovies = false
+        self.upComingMovies = false
+        self.nowPlayingMovies = false
+        self.movieWithRate = 0
+        self.movieReleaseFromYear = 1970
+        self.releaseDate = false
+        self.rating = false
+        super.init()
+        self.setValuesForKeys(dict)
     }
 }

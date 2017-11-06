@@ -10,11 +10,9 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>Settings</string>
+			<string>Movie Settings</string>
 			<key>Key</key>
 			<string>movieSettings</string>
-			<key>DefaultValue</key>
-			<true/>
 			<key>Titles</key>
 			<array>
 				<string>Popular Movies</string>
@@ -22,16 +20,20 @@
 				<string>Upcoming Movies</string>
 				<string>NowPlaying Movies</string>
 				<string>Movie with rate from:</string>
-				<real>0</real>
+				<string>From Release Year:</string>
+				<string>Release Date</string>
+				<string>Rating</string>
 			</array>
-			<key>Values</key>
+			<key>movieSettings</key>
 			<array>
-				<true/>
 				<false/>
 				<false/>
 				<false/>
-				<integer>5</integer>
+				<false/>
+				<integer>0</integer>
 				<integer>1970</integer>
+				<false/>
+				<false/>
 			</array>
 		</dict>
 	</array>

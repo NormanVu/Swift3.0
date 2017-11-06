@@ -35,6 +35,10 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         settingsMovies.register(UINib(nibName: "FilterMovieRatingViewCell", bundle: nil), forCellReuseIdentifier: "FilterMovieRatingViewCell")
         self.settingsMovies.delegate = self
         self.settingsMovies.dataSource = self
+        let userDefaultManager = UserDefaultManager()
+        userDefaultManager.registerSettingsBundle()
+
+        print("movieSetting object is \(userDefaultManager.getMovieSettings())")
     }
 
     override func didReceiveMemoryWarning() {
@@ -167,7 +171,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let alert = UIAlertController(title: "", message: "Please choose a release year", preferredStyle: UIAlertControllerStyle.actionSheet)
         alert.isModalInPopover = true
-        
+        let releaseYearPicker = UIDatePicker()
+        releaseYearPicker.datePickerMode = UIDatePickerMode.dateAndTime
+        var formatter = DateFormatter()
+        formatter.dateFormat = "YYYY"
+        alert.view.addSubview(releaseYearPicker)
+
         //Add UIDatePiker into UIAlertController
         alert.addAction(UIAlertAction(title: "Select", style: UIAlertActionStyle.default, handler: nil))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
