@@ -13,10 +13,11 @@ import ESPullToRefresh
 import FMDB
 import SwiftyJSON
 
-class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate {
     let titleSections: [String] = ["Filter", "Sort by"]
     let titleFilterMovies: [String] = ["Popular Movies", "Top Rated Movies", "Upcoming Movies", "NowPlaying Movies", "From Release Year"]
     let titleSortType: [String] = ["Release Date", "Rating"]
+    let yearLabel = UILabel(frame: CGRect(x: 254, y: 8, width: 50, height: 20))
     let indexPathRatingMovie: IndexPath = NSIndexPath(row: 4, section: 0) as IndexPath
     let indexPathReleaseYearMovie: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
     var indexPathOldSection0: IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
@@ -59,8 +60,10 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         print("Selected at section:\(indexPath.section) - row: \(indexPath.row)")
+        if (indexPath == indexPathReleaseYearMovie) {
+            self.chooseReleaseYear()
+        }
     }
 
 
@@ -87,6 +90,21 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     cellNormal.textLabel?.text = self.titleFilterMovies[3]
                 case 5:
                     cellNormal.textLabel?.text = self.titleFilterMovies[4]
+                    
+                    yearLabel.text = "1970"
+                    yearLabel.textAlignment = NSTextAlignment.right
+                    
+                    yearLabel.translatesAutoresizingMaskIntoConstraints = false
+                    cellNormal.contentView.addSubview(yearLabel)
+
+                    let trailingConstraint = NSLayoutConstraint(item: cellNormal.contentView, attribute: .trailing, relatedBy: .equal, toItem: yearLabel, attribute: .trailing, multiplier: 1.0, constant: 16.0)
+                    let topConstraint = NSLayoutConstraint(item: cellNormal.contentView, attribute: .top, relatedBy: .equal, toItem: yearLabel, attribute: .top, multiplier: 1.0, constant: 0)
+                    let bottomConstraint = NSLayoutConstraint(item: cellNormal.contentView, attribute: .bottom, relatedBy: .equal, toItem: yearLabel, attribute: .bottom, multiplier: 1.0, constant: 0)
+                    
+                    cellNormal.contentView.addConstraint(trailingConstraint)
+                    cellNormal.contentView.addConstraint(topConstraint)
+                    cellNormal.contentView.addConstraint(bottomConstraint)
+                    cellNormal.layoutIfNeeded()
                 default:
                     print("Row")
                 }
@@ -143,6 +161,17 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //userDefault.set(self.movieSettings, forKey: "movieSettings")
         return indexPath
+    }
+    
+    func chooseReleaseYear() {
+        
+        let alert = UIAlertController(title: "", message: "Please choose a release year", preferredStyle: UIAlertControllerStyle.actionSheet)
+        alert.isModalInPopover = true
+        
+        //Add UIDatePiker into UIAlertController
+        alert.addAction(UIAlertAction(title: "Select", style: UIAlertActionStyle.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
 }
