@@ -162,24 +162,32 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
         //Store settings
-        
-        //userDefault.set(self.movieSettings, forKey: "movieSettings")
+        let isUpdateOK = userDefaultManager.updateMovieSettings(   popularMovie: true,
+                                                 topRatedMovie: false,
+                                                 upComingMovie: false,
+                                               nowPlayingMovie: false,
+                                                 movieWithRate: 0,
+                                              movieReleaseYear: 1970,
+                                                   releaseDate: true,
+                                                   rating: false)
+        if (isUpdateOK) {
+            print("Update settings are OK")
+        }
         return indexPath
     }
     
     func chooseReleaseYear() {
         
-        let alert = UIAlertController(title: "", message: "Please choose a release year", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alert = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         alert.isModalInPopover = true
-        let releaseYearPicker = UIDatePicker()
-        releaseYearPicker.datePickerMode = UIDatePickerMode.dateAndTime
-        var formatter = DateFormatter()
+        let releaseYearPicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: alert.view.frame.width - 20, height: 150))
+        let formatter = DateFormatter()
         formatter.dateFormat = "YYYY"
-        alert.view.addSubview(releaseYearPicker)
-
-        //Add UIDatePiker into UIAlertController
+        formatter.date(from: "YYYY")
+        
         alert.addAction(UIAlertAction(title: "Select", style: UIAlertActionStyle.default, handler: nil))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.view.addSubview(releaseYearPicker)
         self.present(alert, animated: true, completion: nil)
     }
 

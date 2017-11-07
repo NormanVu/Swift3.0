@@ -22,7 +22,7 @@ class UserDefaultManager {
                 NSLog("Key not fount")
                 continue
             }
-            defaultsToRegister[key] = preference["movieSettings"]
+            defaultsToRegister[key] = preference[UserDefaultManager.movieSettingsKey]
         }
         userDefault.register(defaults: defaultsToRegister)
         userDefault.synchronize()
@@ -41,16 +41,16 @@ class UserDefaultManager {
     }
 
     func updateMovieSettings(popularMovie: Bool, topRatedMovie: Bool, upComingMovie: Bool, nowPlayingMovie: Bool, movieWithRate: Float, movieReleaseYear: Int, releaseDate: Bool, rating: Bool) -> Bool {
-        let movieSetting = MovieSettings.init(   popularMovie: popularMovie,
-                                                topRatedMovie: topRatedMovie,
-                                                upComingMovie: upComingMovie,
-                                              nowPlayingMovie: nowPlayingMovie,
-                                                movieWithRate: movieWithRate,
-                                             movieReleaseYear: movieReleaseYear,
-                                                  releaseDate: releaseDate,
-                                                       rating: rating)
-
-        userDefault.set(movieSetting, forKey: UserDefaultManager.movieSettingsKey)
+        var dict = Dictionary<String, Any>()
+        dict["popularMovies"] = popularMovie
+        dict["topRatedMovies"] = topRatedMovie
+        dict["upComingMovies"] = upComingMovie
+        dict["nowPlayingMovies"] = nowPlayingMovie
+        dict["movieWithRate"] = movieWithRate
+        dict["movieReleaseFromYear"] = movieReleaseYear
+        dict["releaseDate"] = releaseDate
+        dict["rating"] = rating
+        userDefault.set(dict, forKey: UserDefaultManager.movieSettingsKey)
         return userDefault.synchronize()
     }
 }
