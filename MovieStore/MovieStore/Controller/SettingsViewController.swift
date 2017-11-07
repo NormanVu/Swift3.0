@@ -119,6 +119,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         default:
             print("Section default")
         }
+        //Send(Post) Notification
+        let thisNotification = NSNotification(name: NSNotification.Name(rawValue: "createdNotification"), object: nil) as Notification
+        NotificationCenter.default.post(thisNotification)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

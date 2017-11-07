@@ -20,8 +20,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
-    
-
     let movieAPI = APIManager()
     var gridLayout: GridLayout!
     var listLayout: ListLayout!
@@ -30,6 +28,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var sessionID: String?
     var userID: Int?
     var currentMovieId: Int?
+    var currentMovieSetting: MovieSettings?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,8 +59,22 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.layoutButton.image = #imageLiteral(resourceName: "ic_view_list")
 
         self.collectionView.delegate = self
+        
+        //Receive(Get) Notification:
+        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdNotification"), object: self.currentMovieSetting)
     }
 
+    //Method handler for received Notification
+    func onCreatedNotification(notification: NSNotification) {
+        print("Notification received")
+        print("Receive info: \(self.currentMovieSetting?.popularMovies)")
+    }
+    
+    //Remove Notification
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "createdNotification"), object: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
