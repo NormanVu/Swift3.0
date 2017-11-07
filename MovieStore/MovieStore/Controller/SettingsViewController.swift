@@ -181,9 +181,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let alert = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         alert.isModalInPopover = true
         let releaseYearPicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: alert.view.frame.width - 20, height: 150))
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY"
-        formatter.date(from: "YYYY")
+        releaseYearPicker.datePickerMode = UIDatePickerMode.date
         
         alert.addAction(UIAlertAction(title: "Select", style: UIAlertActionStyle.default, handler: nil))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
