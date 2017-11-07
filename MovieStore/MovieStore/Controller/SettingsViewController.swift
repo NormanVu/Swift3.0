@@ -20,8 +20,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     let yearLabel = UILabel(frame: CGRect(x: 254, y: 8, width: 50, height: 20))
     let indexPathRatingMovie: IndexPath = NSIndexPath(row: 4, section: 0) as IndexPath
     let indexPathReleaseYearMovie: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
-    var indexPathOldSection0: IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
-    var indexPathOldSection1: IndexPath = NSIndexPath(row: 0, section: 1) as IndexPath
     var currentMovieSetting = MovieSettings()
 
     @IBOutlet weak var settingsMovies: UITableView!
@@ -66,7 +64,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected at section:\(indexPath.section) - row: \(indexPath.row)")
-
+        
         if (indexPath == indexPathReleaseYearMovie) {
             self.chooseReleaseYear()
         }
@@ -151,13 +149,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let oldIndex = tableView.indexPathForSelectedRow
         if (indexPath.section == 0) {
-            if (oldIndex?.section == self.indexPathOldSection0.section) {
-                self.indexPathOldSection0 = oldIndex!
-            }
-            if (indexPath.section == self.indexPathOldSection0.section) {
-                tableView.cellForRow(at: self.indexPathOldSection0)?.accessoryType = .none
+            //Reset all check mark
+            for i in 0...3 {
+                let currentIndex: IndexPath = NSIndexPath(row: i, section: 0) as IndexPath
+                tableView.cellForRow(at: currentIndex)?.accessoryType = .none
             }
             if (indexPath != indexPathRatingMovie && indexPath != indexPathReleaseYearMovie) {
                 tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
@@ -166,15 +162,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 tableView.cellForRow(at: indexPathReleaseYearMovie)?.accessoryType = .none
             }
         } else {
-            if (oldIndex?.section == self.indexPathOldSection1.section) {
-                self.indexPathOldSection1 = oldIndex!
-            }
-            if (indexPath.section == self.indexPathOldSection1.section) {
-                tableView.cellForRow(at: self.indexPathOldSection1)?.accessoryType = .none
+            //Reset all check mark
+            for i in 0...1 {
+                let currentIndex: IndexPath = NSIndexPath(row: i, section: 1) as IndexPath
+                tableView.cellForRow(at: currentIndex)?.accessoryType = .none
             }
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
-
         return indexPath
     }
     
