@@ -8,30 +8,97 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Filters</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Popular movies</string>
+			<key>Key</key>
+			<string>POPULAR_MOVIES_KEY</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Top rated movies</string>
+			<key>Key</key>
+			<string>TOP_RATED_MOVIES_KEY</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Up coming moives</string>
+			<key>Key</key>
+			<string>UP_COMING_MOVIES_KEY</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Now playing Movies</string>
+			<key>Key</key>
+			<string>NOW_PLAYING_MOVIES_KEY</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSSliderSpecifier</string>
+			<key>Key</key>
+			<string>MOVIE_WITH_RATE_KEY</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>MinimumValue</key>
+			<integer>0</integer>
+			<key>MaximumValue</key>
+			<integer>10</integer>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>Movie Settings</string>
+			<string>From release year</string>
 			<key>Key</key>
-			<string>movieSettings</string>
-			<key>movieSettings</key>
-			<dict>
-				<key>popularMovies</key>
-				<false/>
-				<key>topRatedMovies</key>
-				<false/>
-				<key>upComingMovies</key>
-				<false/>
-				<key>nowPlayingMovies</key>
-				<false/>
-				<key>movieWithRate</key>
-				<integer>0</integer>
-				<key>movieReleaseFromYear</key>
-				<integer>1970</integer>
-				<key>releaseDate</key>
-				<false/>
-				<key>rating</key>
-				<false/>
-			</dict>
+			<string>FROM_RELEASE_YEAR_KEY</string>
+			<key>DefaultValue</key>
+			<integer>2017</integer>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Sort by</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Release year</string>
+			<key>Key</key>
+			<string>RELEASE_YEAR_KEY</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Rating</string>
+			<key>Key</key>
+			<string>RATING_KEY</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 	</array>
 </dict>

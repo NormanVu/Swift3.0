@@ -9,48 +9,41 @@
 import Foundation
 
 class UserDefaultManager {
-    private static let movieSettingsKey = "movieSettings"
-
-    func registerSettingsBundle() {
-        let settingsUrl = Bundle.main.url(forResource: "Settings", withExtension: "bundle")!.appendingPathComponent("Root.plist")
-        let settingsPlist = NSDictionary(contentsOf:settingsUrl)!
-        let preferences = settingsPlist["PreferenceSpecifiers"] as! [NSDictionary]
-
-        var defaultsToRegister = Dictionary<String, Any>()
-        for preference in preferences {
-            guard let key = preference["Key"] as? String else {
-                NSLog("Key not fount")
-                continue
-            }
-            defaultsToRegister[key] = preference[UserDefaultManager.movieSettingsKey]
-        }
-        userDefault.register(defaults: defaultsToRegister)
-        userDefault.synchronize()
+    struct BundleSettingsKey {
+        static let popularMovies = "POPULAR_MOVIES_KEY"
+        static let topRatedMovies = "TOP_RATED_MOVIES_KEY"
+        static let upComingMovies = "UP_COMING_MOVIES_KEY"
+        static let nowPlayingMovies = "NOW_PLAYING_MOVIES_KEY"
+        static let movieWithRate = "MOVIE_WITH_RATE_KEY"
+        static let fromReleaseYear = "FROM_RELEASE_YEAR_KEY"
+        static let releaseYear = "RELEASE_YEAR_KEY"
+        static let rating = "RATING_KEY"
     }
 
-    func getMovieSettings() -> MovieSettings {
-        let movieSettings = MovieSettings(   popularMovie: userDefault.bool(forKey: "popularMovies"),
-                                            topRatedMovie: userDefault.bool(forKey: "topRatedMovies"),
-                                            upComingMovie: userDefault.bool(forKey: "upComingMovies"),
-                                          nowPlayingMovie: userDefault.bool(forKey: "nowPlayingMovies"),
-                                            movieWithRate: userDefault.float(forKey: "movieWithRate"),
-                                         movieReleaseYear: userDefault.integer(forKey: "movieReleaseFromYear"),
-                                              releaseDate: userDefault.bool(forKey: "releaseDate"),
-                                                   rating: userDefault.bool(forKey: "rating"))
+    class func registerSettingsBundle() {
+        let appDefaults = [String:AnyObject]()
+        userDefault.register(defaults: appDefaults)
+    }
+
+    class func resetSettings() {
+        let appDomain: String? = Bundle.main.bundleIdentifier
+        userDefault.removePersistentDomain(forName: appDomain!)
+    }
+
+    class func updateSettings() {
+        //If user would like to reset default
+        //let appDomain: String? = Bundle.main.bundleIdentifier
+        //userDefault.removePersistentDomain(forName: appDomain!)
+
+        //let popularMovie: Bool = Bundle.main.object(forInfoDictionaryKey: "CFBundlePopularMovieBool") as! Bool
+        //userDefault.set(false, forKey: BundleSettingsKey.popularMovies)
+    }
+
+
+
+    class func getMovieSettings() -> MovieSettings {
+        let movieSettings = MovieSettings()
+        movieSettings.popularMovies = userDefault.bool(forKey: BundleSettingsKey.popularMovies)
         return movieSettings
-    }
-
-    func updateMovieSettings(popularMovie: Bool, topRatedMovie: Bool, upComingMovie: Bool, nowPlayingMovie: Bool, movieWithRate: Float, movieReleaseYear: Int, releaseDate: Bool, rating: Bool) -> Bool {
-        var dict = Dictionary<String, Any>()
-        dict["popularMovies"] = popularMovie
-        dict["topRatedMovies"] = topRatedMovie
-        dict["upComingMovies"] = upComingMovie
-        dict["nowPlayingMovies"] = nowPlayingMovie
-        dict["movieWithRate"] = movieWithRate
-        dict["movieReleaseFromYear"] = movieReleaseYear
-        dict["releaseDate"] = releaseDate
-        dict["rating"] = rating
-        userDefault.set(dict, forKey: UserDefaultManager.movieSettingsKey)
-        return userDefault.synchronize()
     }
 }

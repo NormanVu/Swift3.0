@@ -22,5 +22,5 @@ enum TypeCollection: Int {
     case search = 6
 }
 
-var userDefault = UserDefaults.standard
+let userDefault = UserDefaults.standard
 

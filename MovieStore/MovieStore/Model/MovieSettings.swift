@@ -18,6 +18,18 @@ class MovieSettings: NSObject {
     var releaseDate: Bool
     var rating: Bool
 
+    override init() {
+        self.popularMovies = false
+        self.topRatedMovies = false
+        self.upComingMovies = false
+        self.nowPlayingMovies = false
+        self.movieWithRate = 0
+        self.movieReleaseFromYear = 1970
+        self.releaseDate = false
+        self.rating = false
+        super.init()
+    }
+
     init(popularMovie: Bool, topRatedMovie: Bool, upComingMovie: Bool, nowPlayingMovie: Bool, movieWithRate: Float, movieReleaseYear: Int, releaseDate: Bool, rating: Bool) {
         self.popularMovies = popularMovie
         self.topRatedMovies = topRatedMovie
@@ -27,19 +39,17 @@ class MovieSettings: NSObject {
         self.movieReleaseFromYear = movieReleaseYear
         self.releaseDate = releaseDate
         self.rating = rating
-        super.init()
     }
 
     init(dictionary dict: [String : Any]) {
-        self.popularMovies = (dict["popularMovies"] as? Bool)!
-        self.topRatedMovies = (dict["topRatedMovies"] as? Bool)!
-        self.upComingMovies = (dict["upComingMovies"] as? Bool)!
-        self.nowPlayingMovies = (dict["nowPlayingMovies"] as? Bool)!
-        self.movieWithRate = (dict["movieWithRate"] as? Float)!
-        self.movieReleaseFromYear = (dict["movieReleaseFromYear"] as? Int)!
-        self.releaseDate = (dict["releaseDate"] as? Bool)!
-        self.rating = (dict["rating"] as? Bool)!
-        super.init()
-        self.setValuesForKeys(dict)
+        print("Init at getMovieSettings: \(dict)")
+        self.popularMovies = false//dict["popularMovies"] == YES ? true: false
+        self.topRatedMovies = true//dict["topRatedMovies"] = 1 ? true: false
+        self.upComingMovies = false //dict["upComingMovies"] as! Bool
+        self.nowPlayingMovies = false //dict["nowPlayingMovies"] as! Bool
+        self.movieWithRate = dict["movieWithRate"] as? Float ?? 0
+        self.movieReleaseFromYear = 2017 //dict["movieReleaseFromYear"] as! Int
+        self.releaseDate = false //dict["releaseDate"] as! Bool
+        self.rating = false //dict["rating"] as! Bool
     }
 }

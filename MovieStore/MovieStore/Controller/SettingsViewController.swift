@@ -22,23 +22,31 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     let indexPathReleaseYearMovie: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
     var indexPathOldSection0: IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
     var indexPathOldSection1: IndexPath = NSIndexPath(row: 0, section: 1) as IndexPath
-    let userDefaultManager = UserDefaultManager()
-    
+    //let userDefaultManager = UserDefaultManager()
+    var currentMovieSetting = MovieSettings()
+
     @IBOutlet weak var settingsMovies: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Load userDafault
+
+        //Register user default to store settings
+        UserDefaultManager.registerSettingsBundle()
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
+        self.defaultsChanged()
+
+        self.currentMovieSetting = UserDefaultManager.getMovieSettings()
+        print("Top rated = \(self.currentMovieSetting.popularMovies)")
 
         // Do any additional setup after loading the view, typically from a nib.
         settingsMovies.register(UITableViewCell.self, forCellReuseIdentifier: "normalViewCell")
         settingsMovies.register(UINib(nibName: "FilterMovieRatingViewCell", bundle: nil), forCellReuseIdentifier: "FilterMovieRatingViewCell")
         self.settingsMovies.delegate = self
         self.settingsMovies.dataSource = self
-    
-        // Register user default to store settings
-        userDefaultManager.registerSettingsBundle()
+    }
 
+    deinit { //Not needed for iOS9 and above. ARC deals with the observer in higher versions.
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,20 +73,18 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected at section:\(indexPath.section) - row: \(indexPath.row)")
+
         if (indexPath == indexPathReleaseYearMovie) {
             self.chooseReleaseYear()
         }
     }
 
+    func defaultsChanged() {
+        UserDefaultManager.updateSettings()
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath == indexPathRatingMovie || indexPath == indexPathReleaseYearMovie) {
-            tableView.cellForRow(at: indexPathRatingMovie)?.setSelected(false, animated: true)
-            tableView.cellForRow(at: indexPathRatingMovie)?.setHighlighted(false, animated: true)
-            tableView.cellForRow(at: indexPathReleaseYearMovie)?.setSelected(false, animated: true)
-            tableView.cellForRow(at: indexPathReleaseYearMovie)?.setHighlighted(false, animated: true)
-        }
-
+        //print("Current index = [\(indexPath.section),\(indexPath.row)]" + "in \(self.currentMovieSetting)")
         if (indexPath != indexPathRatingMovie) {
             let cellNormal = self.settingsMovies.dequeueReusableCell(withIdentifier: "normalViewCell", for: indexPath)
             switch (indexPath.section) {
@@ -86,16 +92,31 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 switch (indexPath.row) {
                 case 0:
                     cellNormal.textLabel?.text = self.titleFilterMovies[0]
+                    if (self.currentMovieSetting.popularMovies) {
+                        print("Value: \(self.currentMovieSetting.popularMovies)")
+                        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    }
                 case 1:
                     cellNormal.textLabel?.text = self.titleFilterMovies[1]
+                    if (self.currentMovieSetting.topRatedMovies) {
+                        print("Value: \(self.currentMovieSetting.topRatedMovies)")
+                        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    }
                 case 2:
                     cellNormal.textLabel?.text = self.titleFilterMovies[2]
+                    if (self.currentMovieSetting.upComingMovies) {
+                        print("Value: \(self.currentMovieSetting.upComingMovies)")
+                        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    }
                 case 3:
                     cellNormal.textLabel?.text = self.titleFilterMovies[3]
+                    if (self.currentMovieSetting.nowPlayingMovies) {
+                        print("Value: \(self.currentMovieSetting.nowPlayingMovies)")
+                        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    }
                 case 5:
                     cellNormal.textLabel?.text = self.titleFilterMovies[4]
-                    
-                    yearLabel.text = "1970"
+                    yearLabel.text = String(self.currentMovieSetting.movieReleaseFromYear)
                     yearLabel.textAlignment = NSTextAlignment.right
                     
                     yearLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -116,16 +137,23 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             case 1:
                 if (indexPath.row == 0) {
                     cellNormal.textLabel?.text = self.titleSortType[0]
+                    if (self.currentMovieSetting.releaseDate) {
+                        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    }
                 } else {
                     cellNormal.textLabel?.text = self.titleSortType[1]
+                    if (self.currentMovieSetting.rating) {
+                        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                    }
                 }
             default:
                 print("Section")
             }
             return cellNormal
         } else {
-            let cell = self.settingsMovies.dequeueReusableCell(withIdentifier: "FilterMovieRatingViewCell", for: indexPathRatingMovie)
+            let cell = self.settingsMovies.dequeueReusableCell(withIdentifier: "FilterMovieRatingViewCell", for: indexPathRatingMovie) as! FilterMovieRatingViewCell
             cell.sizeThatFits(CGSize(width: self.settingsMovies.bounds.width, height: 60))
+            cell.moiveWithRate = self.currentMovieSetting.movieWithRate
             return cell
         }
     }
@@ -161,18 +189,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
-        //Store settings
-        let isUpdateOK = userDefaultManager.updateMovieSettings(   popularMovie: true,
-                                                 topRatedMovie: false,
-                                                 upComingMovie: false,
-                                               nowPlayingMovie: false,
-                                                 movieWithRate: 0,
-                                              movieReleaseYear: 1970,
-                                                   releaseDate: true,
-                                                   rating: false)
-        if (isUpdateOK) {
-            print("Update settings are OK")
-        }
+
         return indexPath
     }
     
