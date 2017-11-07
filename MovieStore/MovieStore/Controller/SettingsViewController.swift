@@ -177,16 +177,20 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func chooseReleaseYear() {
-        
         let alert = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         alert.isModalInPopover = true
         let releaseYearPicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: alert.view.frame.width - 20, height: 150))
         releaseYearPicker.datePickerMode = UIDatePickerMode.date
-        
-        alert.addAction(UIAlertAction(title: "Select", style: UIAlertActionStyle.default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+
+        alert.addAction(UIAlertAction(title: "Select", style: UIAlertActionStyle.default, handler: {(action:UIAlertAction!) in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "YYYY"
+            self.yearLabel.text = formatter.string(from: releaseYearPicker.date)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(action:UIAlertAction!) in
+            print("Cancel")
+        }))
         alert.view.addSubview(releaseYearPicker)
         self.present(alert, animated: true, completion: nil)
     }
-
 }
