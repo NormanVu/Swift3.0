@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     let indexPathRatingMovie: IndexPath = NSIndexPath(row: 4, section: 0) as IndexPath
     let indexPathReleaseYearMovie: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
     var currentMovieSetting = MovieSettings()
+    var movieRatingViewCell: FilterMovieRatingViewCell?
 
     @IBOutlet weak var settingsMovies: UITableView!
 
@@ -37,8 +38,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.settingsMovies.delegate = self
         self.settingsMovies.dataSource = self
     }
-
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,10 +62,62 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected at section:\(indexPath.section) - row: \(indexPath.row)")
-        
         if (indexPath == indexPathReleaseYearMovie) {
             self.chooseReleaseYear()
+        }
+        switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+            case 0:
+                let currentIndex: IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.popularMovies = true
+                }
+            case 1:
+                let currentIndex: IndexPath = NSIndexPath(row: 1, section: 0) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.topRatedMovies = true
+                }
+            case 2:
+                let currentIndex: IndexPath = NSIndexPath(row: 2, section: 0) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.upComingMovies = true
+                }
+            case 3:
+                let currentIndex: IndexPath = NSIndexPath(row: 3, section: 0) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.nowPlayingMovies = true
+                }
+            case 4:
+                let currentIndex: IndexPath = NSIndexPath(row: 4, section: 0) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.movieWithRate = (movieRatingViewCell?.movieWithRate)!
+                }
+            case 5:
+                let currentIndex: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.fromReleaseYear = Int(yearLabel.text!)!
+                }
+            default:
+                print("Row default")
+            }
+        case 1:
+            switch (indexPath.row) {
+            case 0:
+                let currentIndex: IndexPath = NSIndexPath(row: 0, section: 1) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.releaseDate = true
+                }
+            case 1:
+                let currentIndex: IndexPath = NSIndexPath(row: 1, section: 1) as IndexPath
+                if (indexPath == currentIndex) {
+                    currentMovieSetting.rating = true
+                }
+            default:
+                print("Row default")
+            }
+        default:
+            print("Section default")
         }
     }
 
@@ -133,11 +184,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             return cellNormal
         } else {
-            let cell = self.settingsMovies.dequeueReusableCell(withIdentifier: "FilterMovieRatingViewCell", for: indexPathRatingMovie) as! FilterMovieRatingViewCell
-            cell.sizeThatFits(CGSize(width: self.settingsMovies.bounds.width, height: 60))
-            cell.movieWithRate = self.currentMovieSetting.movieWithRate
-            cell.movieRating = "\(self.currentMovieSetting.movieWithRate)"
-            return cell
+            movieRatingViewCell = self.settingsMovies.dequeueReusableCell(withIdentifier: "FilterMovieRatingViewCell", for: indexPathRatingMovie) as? FilterMovieRatingViewCell
+            movieRatingViewCell?.sizeThatFits(CGSize(width: self.settingsMovies.bounds.width, height: 60))
+            movieRatingViewCell?.movieWithRate = self.currentMovieSetting.movieWithRate
+            movieRatingViewCell?.movieRating = "\(self.currentMovieSetting.movieWithRate)"
+            return movieRatingViewCell!
         }
     }
 

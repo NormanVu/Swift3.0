@@ -29,7 +29,7 @@ class FilterMovieRatingViewCell: UITableViewCell {
         }
         set(newValue) {
             self._movieRating = newValue
-            rating.text = self._movieRating
+            rating.text = self._movieRating!
         }
     }
 
