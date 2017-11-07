@@ -12,7 +12,6 @@
 		5EF325F636B28F9A746C3BC8 /* Pods_MovieStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */; };
 		BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */; };
 		BA65558A1FAAB6E0004CAB82 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */; };
-		BA65558C1FAAD3E8004CAB82 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BA65558B1FAAD3E8004CAB82 /* Settings.bundle */; };
 		BA65558E1FAAD6DC004CAB82 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */; };
 		BA6555941FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6555931FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib */; };
 		BA6555961FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6555951FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift */; };
@@ -65,7 +64,6 @@
 		B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieViewCell.xib; sourceTree = "<group>"; };
 		BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
-		BA65558B1FAAD3E8004CAB82 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA6555931FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterMovieRatingViewCell.xib; sourceTree = "<group>"; };
 		BA6555951FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterMovieRatingViewCell.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 				BAE830FD1F95DDF900C4246F /* Info.plist */,
 				BAE830F51F95DDF500C4246F /* MovieStore.xcdatamodeld */,
 				BA75F7D61F988C0300BFA5DF /* Constants.swift */,
-				BA65558B1FAAD3E8004CAB82 /* Settings.bundle */,
 			);
 			path = MovieStore;
 			sourceTree = "<group>";
@@ -390,7 +387,6 @@
 				BAE8313E1F95FA3300C4246F /* Podfile in Resources */,
 				BAE830F41F95DDF300C4246F /* Main.storyboard in Resources */,
 				BA6555941FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib in Resources */,
-				BA65558C1FAAD3E8004CAB82 /* Settings.bundle in Resources */,
 				BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
