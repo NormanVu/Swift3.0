@@ -19,19 +19,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var reminderLabel: UILabel!
     @IBOutlet weak var reminderList: UITableView!
-
-
-    var maleRadioButton: RadioButton!
-    var femaleRadioButton: RadioButton!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var maleButton: UIButton!
+    @IBOutlet weak var femaleButton: UIButton!
+    @IBOutlet weak var femaleLabel: UILabel!
+    @IBOutlet weak var avatar: UIImageView!
+    
     var userProfileManagedObject: NSManagedObject? = nil
     var userProfile = Profile()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.view.layoutIfNeeded()
-        //maleRadioButton.isSelected = true
-        //femaleRadioButton.isSelected = false
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,14 +35,14 @@ class ProfileViewController: UIViewController {
 
         //self.loadProfileFromCoreData()
 
-        //
-        //maleRadioButton?.alternateButton = [maleRadioButton!]
-        //femaleRadioButton?.alternateButton = [femaleRadioButton!]
     }
 
     func updateUI() {
         cancelButton.isHidden = true
         doneButton.isHidden = true
+        maleButton.isHidden = true
+        femaleLabel.isHidden = true
+        femaleButton.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -115,6 +110,9 @@ class ProfileViewController: UIViewController {
     func updateLayout(isChanged: Bool) {
         cancelButton.isHidden = !isChanged
         doneButton.isHidden = !isChanged
+        femaleLabel.isHidden = !isChanged
+        maleButton.isHidden = !isChanged
+        femaleButton.isHidden = !isChanged
         showAllButton.isHidden = isChanged
         reminderLabel.isHidden = isChanged
         reminderList.isHidden = isChanged
