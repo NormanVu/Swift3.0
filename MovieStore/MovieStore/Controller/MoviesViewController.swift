@@ -61,13 +61,16 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.collectionView.delegate = self
         
         //Receive(Get) Notification:
-        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdNotification"), object: self.currentMovieSetting)
+        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdNotification"), object: nil)
     }
 
     //Method handler for received Notification
     func onCreatedNotification(notification: NSNotification) {
-        print("Notification received")
-        print("Receive info: \(self.currentMovieSetting?.popularMovies)")
+        //Receive settings did change
+        self.currentMovieSetting = UserDefaultManager.getMovieSettings()
+        
+        //Reload data to change following current settings from user
+        
     }
     
     //Remove Notification
