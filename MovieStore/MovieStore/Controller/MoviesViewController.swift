@@ -43,6 +43,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+
         }
 
         movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
