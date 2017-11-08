@@ -21,6 +21,8 @@ class UserDefaultManager {
     }
 
     class func updateSettings(movieSettings: MovieSettings) {
+        
+
         //Popular Movies
         userDefault.set(movieSettings.popularMovies, forKey: MovieSettingsKey.popularMovies)
         

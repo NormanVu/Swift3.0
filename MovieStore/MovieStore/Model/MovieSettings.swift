@@ -29,15 +29,4 @@ class MovieSettings: NSObject {
         self.rating = false
         super.init()
     }
-
-    init(popularMovie: Bool, topRatedMovie: Bool, upComingMovie: Bool, nowPlayingMovie: Bool, movieWithRate: Float, fromReleaseYear: Int, releaseDate: Bool, rating: Bool) {
-        self.popularMovies = popularMovie
-        self.topRatedMovies = topRatedMovie
-        self.upComingMovies = upComingMovie
-        self.nowPlayingMovies = nowPlayingMovie
-        self.movieWithRate = movieWithRate
-        self.fromReleaseYear = fromReleaseYear
-        self.releaseDate = releaseDate
-        self.rating = rating
-    }
 }

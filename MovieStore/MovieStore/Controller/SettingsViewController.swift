@@ -12,6 +12,7 @@ import Alamofire
 import ESPullToRefresh
 import FMDB
 import SwiftyJSON
+import CoreData
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate {
     let titleSections: [String] = ["Filter", "Sort by"]
@@ -22,14 +23,18 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     let indexPathReleaseYearMovie: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
     var currentMovieSetting = MovieSettings()
     var movieRatingViewCell: FilterMovieRatingViewCell?
+    var movieSetting: NSManagedObject? = nil
 
     @IBOutlet weak var settingsMovies: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //Load update user defauls
-        UserDefaultManager.updateSettings(movieSettings: currentMovieSetting)
+        //Load settings from core data
+        self.loadMovieSettingsFromCoreData()
+
+        //Load update user default
+        //UserDefaultManager.updateSettings(movieSettings: currentMovieSetting)
         
 
         // Do any additional setup after loading the view, typically from a nib.
@@ -39,6 +44,18 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.settingsMovies.dataSource = self
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("Current settings will be saved to coredata when view disappear")
+        self.saveMovieSettingsToCoreData()
+    }
+
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -46,6 +63,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
     }
 
     //MARK: Table view delegate and data source
@@ -71,32 +89,74 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             case 0:
                 let currentIndex: IndexPath = NSIndexPath(row: 0, section: 0) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.popularMovies = true
+                    self.changeMovieSetting(true,
+                                            false,
+                                            false,
+                                            false,
+                                            currentMovieSetting.movieWithRate,
+                                            currentMovieSetting.fromReleaseYear,
+                                            false,
+                                            false)
                 }
             case 1:
                 let currentIndex: IndexPath = NSIndexPath(row: 1, section: 0) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.topRatedMovies = true
+                    self.changeMovieSetting(false,
+                                            true,
+                                            false,
+                                            false,
+                                            currentMovieSetting.movieWithRate,
+                                            currentMovieSetting.fromReleaseYear,
+                                            false,
+                                            false)
                 }
             case 2:
                 let currentIndex: IndexPath = NSIndexPath(row: 2, section: 0) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.upComingMovies = true
+                    self.changeMovieSetting(false,
+                                            false,
+                                            true,
+                                            false,
+                                            currentMovieSetting.movieWithRate,
+                                            currentMovieSetting.fromReleaseYear,
+                                            false,
+                                            false)
                 }
             case 3:
                 let currentIndex: IndexPath = NSIndexPath(row: 3, section: 0) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.nowPlayingMovies = true
+                    self.changeMovieSetting(false,
+                                            false,
+                                            false,
+                                            true,
+                                            currentMovieSetting.movieWithRate,
+                                            currentMovieSetting.fromReleaseYear,
+                                            false,
+                                            false)
                 }
             case 4:
                 let currentIndex: IndexPath = NSIndexPath(row: 4, section: 0) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.movieWithRate = (movieRatingViewCell?.movieWithRate)!
+                    self.changeMovieSetting(false,
+                                            false,
+                                            false,
+                                            false,
+                                            (movieRatingViewCell?.movieWithRate)!,
+                                            currentMovieSetting.fromReleaseYear,
+                                            false,
+                                            false)
                 }
             case 5:
                 let currentIndex: IndexPath = NSIndexPath(row: 5, section: 0) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.fromReleaseYear = Int(yearLabel.text!)!
+                    self.changeMovieSetting(false,
+                                            false,
+                                            false,
+                                            false,
+                                            currentMovieSetting.movieWithRate,
+                                            Int(yearLabel.text!)!,
+                                            false,
+                                            false)
                 }
             default:
                 print("Row default")
@@ -106,12 +166,26 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             case 0:
                 let currentIndex: IndexPath = NSIndexPath(row: 0, section: 1) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.releaseDate = true
+                    self.changeMovieSetting(false,
+                                            false,
+                                            false,
+                                            false,
+                                            currentMovieSetting.movieWithRate,
+                                            currentMovieSetting.fromReleaseYear,
+                                            true,
+                                            false)
                 }
             case 1:
                 let currentIndex: IndexPath = NSIndexPath(row: 1, section: 1) as IndexPath
                 if (indexPath == currentIndex) {
-                    currentMovieSetting.rating = true
+                    self.changeMovieSetting(false,
+                                            false,
+                                            false,
+                                            false,
+                                            currentMovieSetting.movieWithRate,
+                                            currentMovieSetting.fromReleaseYear,
+                                            false,
+                                            true)
                 }
             default:
                 print("Row default")
@@ -242,5 +316,72 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         }))
         alert.view.addSubview(releaseYearPicker)
         self.present(alert, animated: true, completion: nil)
+    }
+
+    func changeMovieSetting(_ popularMovies: Bool,
+                            _ topRatedMovies: Bool,
+                            _ upComingMovies: Bool,
+                            _ nowPlayingMovies: Bool,
+                            _ movieWithRate: Float,
+                            _ fromReleaseYear: Int,
+                            _ releaseDate: Bool,
+                            _ rating: Bool) {
+        currentMovieSetting.popularMovies = popularMovies
+        currentMovieSetting.topRatedMovies = topRatedMovies
+        currentMovieSetting.upComingMovies = upComingMovies
+        currentMovieSetting.nowPlayingMovies = nowPlayingMovies
+        currentMovieSetting.movieWithRate = movieWithRate
+        currentMovieSetting.fromReleaseYear = fromReleaseYear
+        currentMovieSetting.releaseDate = releaseDate
+        currentMovieSetting.rating = rating
+    }
+
+    func loadMovieSettingsFromCoreData() {
+        //
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        if #available(iOS 10.0, *) {
+            // managed context
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            // movieSetting entity
+            let movieSettingEntity =
+                NSEntityDescription.entity(forEntityName: "MovieSetting", in: managedContext)!
+            movieSetting = NSManagedObject(entity: movieSettingEntity, insertInto: managedContext)
+
+            // Get values
+            let popularMovie = movieSetting?.value(forKeyPath: "popularMovies") as? Bool
+            currentMovieSetting.popularMovies = popularMovie!
+            let topRatedMovie = movieSetting?.value(forKeyPath: "topRatedMovies") as? Bool
+            currentMovieSetting.topRatedMovies = topRatedMovie!
+            let upComingMovie = movieSetting?.value(forKeyPath: "upComingMovies") as? Bool
+            currentMovieSetting.upComingMovies = upComingMovie!
+            let nowPlayingMovie = movieSetting?.value(forKeyPath: "nowPlayingMovies") as? Bool
+            currentMovieSetting.nowPlayingMovies = nowPlayingMovie!
+            currentMovieSetting.movieWithRate = movieSetting?.value(forKeyPath: "movieWithRate") as! Float
+            currentMovieSetting.fromReleaseYear = movieSetting?.value(forKeyPath: "fromReleaseYear") as! Int
+            let releaseDate = movieSetting?.value(forKeyPath: "releaseDate") as? Bool
+            currentMovieSetting.releaseDate = releaseDate!
+            let rating = movieSetting?.value(forKeyPath: "rating") as? Bool
+            currentMovieSetting.rating = rating!
+            print("popularMovies: \(currentMovieSetting.popularMovies), topRatedMovies: \(currentMovieSetting.topRatedMovies), upComingMovies: \(currentMovieSetting.upComingMovies), nowPlayingMovies: \(currentMovieSetting.nowPlayingMovies), movieWithRate: \(currentMovieSetting.movieWithRate), fromReleaseYear: \(currentMovieSetting.fromReleaseYear), releaseDate: \(currentMovieSetting.releaseDate), rating: \(currentMovieSetting.rating)")
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+
+    func saveMovieSettingsToCoreData() {
+        print("popularMovies: \(currentMovieSetting.popularMovies), topRatedMovies: \(currentMovieSetting.topRatedMovies), upComingMovies: \(currentMovieSetting.upComingMovies), nowPlayingMovies: \(currentMovieSetting.nowPlayingMovies), movieWithRate: \(currentMovieSetting.movieWithRate), fromReleaseYear: \(currentMovieSetting.fromReleaseYear), releaseDate: \(currentMovieSetting.releaseDate), rating: \(currentMovieSetting.rating)")
+
+        movieSetting?.setValue(currentMovieSetting.popularMovies, forKeyPath: "popularMovies")
+        movieSetting?.setValue(currentMovieSetting.topRatedMovies, forKeyPath: "topRatedMovies")
+        movieSetting?.setValue(currentMovieSetting.upComingMovies, forKeyPath: "upComingMovies")
+        movieSetting?.setValue(currentMovieSetting.nowPlayingMovies, forKeyPath: "nowPlayingMovies")
+        movieSetting?.setValue(currentMovieSetting.movieWithRate, forKeyPath: "movieWithRate")
+        movieSetting?.setValue(currentMovieSetting.fromReleaseYear, forKeyPath: "fromReleaseYear")
+        movieSetting?.setValue(currentMovieSetting.releaseDate, forKeyPath: "releaseDate")
+        movieSetting?.setValue(currentMovieSetting.rating, forKeyPath: "rating")
+
     }
 }

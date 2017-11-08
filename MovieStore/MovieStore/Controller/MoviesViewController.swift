@@ -38,6 +38,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Side menu using SWRevealViewController framework
         if (revealViewController() != nil) {
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -59,6 +60,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.layoutButton.image = #imageLiteral(resourceName: "ic_view_list")
 
         self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         
         //Receive(Get) Notification:
         NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdNotification"), object: nil)
