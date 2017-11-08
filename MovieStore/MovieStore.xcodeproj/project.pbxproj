@@ -18,6 +18,7 @@
 		BA6555981FAB216D004CAB82 /* MovieSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6555971FAB216D004CAB82 /* MovieSettings.swift */; };
 		BA679E1C1FB2EF5500C25EA0 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA679E1B1FB2EF5400C25EA0 /* Profile.swift */; };
 		BA679E1E1FB2F11300C25EA0 /* MovieReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA679E1D1FB2F11300C25EA0 /* MovieReminders.swift */; };
+		BA679E201FB3110100C25EA0 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA679E1F1FB3110100C25EA0 /* RadioButton.swift */; };
 		BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F7D41F988A0000BFA5DF /* Movie.swift */; };
 		BA75F7D71F988C0300BFA5DF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75F7D61F988C0300BFA5DF /* Constants.swift */; };
 		BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA78FF141FA6C43300D44857 /* AboutViewController.swift */; };
@@ -72,6 +73,7 @@
 		BA6555971FAB216D004CAB82 /* MovieSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSettings.swift; sourceTree = "<group>"; };
 		BA679E1B1FB2EF5400C25EA0 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BA679E1D1FB2F11300C25EA0 /* MovieReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReminders.swift; sourceTree = "<group>"; };
+		BA679E1F1FB3110100C25EA0 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		BA75F7D41F988A0000BFA5DF /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		BA75F7D61F988C0300BFA5DF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BA78FF141FA6C43300D44857 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				FC4917DD1FA9151600581CDF /* MovieViewCell.swift */,
 				BA6555931FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib */,
 				BA6555951FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift */,
+				BA679E1F1FB3110100C25EA0 /* RadioButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				BA65558A1FAAB6E0004CAB82 /* MoviesViewController.swift in Sources */,
 				BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */,
 				BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */,
+				BA679E201FB3110100C25EA0 /* RadioButton.swift in Sources */,
 				FCC874941FABE827001519D4 /* ProfileViewController.swift in Sources */,
 				BA65558E1FAAD6DC004CAB82 /* SettingsViewController.swift in Sources */,
 				BA679E1C1FB2EF5500C25EA0 /* Profile.swift in Sources */,

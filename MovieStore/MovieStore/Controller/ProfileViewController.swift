@@ -12,12 +12,42 @@ import CoreData
 import SWRevealViewController
 
 class ProfileViewController: UIViewController {
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var showAllButton: UIButton!
+    @IBOutlet weak var genderLabel: UILabel!
+    @IBOutlet weak var reminderLabel: UILabel!
+    @IBOutlet weak var reminderList: UITableView!
+
+
+    var maleRadioButton: RadioButton!
+    var femaleRadioButton: RadioButton!
     var userProfileManagedObject: NSManagedObject? = nil
     var userProfile = Profile()
-    
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.view.layoutIfNeeded()
+        //maleRadioButton.isSelected = true
+        //femaleRadioButton.isSelected = false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        updateUI()
+
         //self.loadProfileFromCoreData()
+
+        //
+        //maleRadioButton?.alternateButton = [maleRadioButton!]
+        //femaleRadioButton?.alternateButton = [femaleRadioButton!]
+    }
+
+    func updateUI() {
+        cancelButton.isHidden = true
+        doneButton.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,5 +110,27 @@ class ProfileViewController: UIViewController {
         userProfileManagedObject?.setValue(userProfile.birthday, forKeyPath: "birthday")
         //@TODO: Reminder list
 
+    }
+
+    func updateLayout(isChanged: Bool) {
+        cancelButton.isHidden = !isChanged
+        doneButton.isHidden = !isChanged
+        showAllButton.isHidden = isChanged
+        reminderLabel.isHidden = isChanged
+        reminderList.isHidden = isChanged
+        editButton.isHidden = isChanged
+    }
+
+    @IBAction func editButtonTapped(_ sender: UIButton) {
+        updateLayout(isChanged: true)
+
+    }
+
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        updateLayout(isChanged: false)
+    }
+
+    @IBAction func doneButtonTapped(_ sender: UIButton) {
+        updateLayout(isChanged: false)
     }
 }
