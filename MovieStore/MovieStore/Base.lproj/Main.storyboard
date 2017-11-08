@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VYv-Zl-rdS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KQ9-t7-w1i">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -158,7 +158,7 @@
         <!--Reveal View Controller-->
         <scene sceneID="Gq6-et-V2U">
             <objects>
-                <viewController id="KQ9-t7-w1i" customClass="SWRevealViewController" customModule="MovieStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KQ9-t7-w1i" customClass="SWRevealViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4iV-2V-sXi"/>
                         <viewControllerLayoutGuide type="bottom" id="hui-I4-mb5"/>
@@ -170,13 +170,14 @@
                     </view>
                     <connections>
                         <segue destination="GCV-i5-Y4z" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="fDH-Ab-VPA"/>
-                        <segue destination="i1o-c0-NQ3" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="rk8-b2-CT7"/>
-                        <segue destination="kYV-ey-Mml" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="DX4-5C-v68"/>
+                        <segue destination="VYv-Zl-rdS" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="aGv-Pp-SOG"/>
+                        <segue destination="i1o-c0-NQ3" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="pvM-c9-ikH"/>
+                        <segue destination="kYV-ey-Mml" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="Onh-9M-QlQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zGF-td-DBX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1532" y="-1899"/>
+            <point key="canvasLocation" x="-3114" y="-2136"/>
         </scene>
         <!--Movies-->
         <scene sceneID="Otq-Cv-vGT">
@@ -191,7 +192,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IOH-7m-BE1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="617"/>
+                                <rect key="frame" x="0.0" y="-44" width="320" height="661"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JJ8-qB-8rc">
                                     <size key="itemSize" width="50" height="50"/>
@@ -244,7 +245,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKg-4m-fr3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-444" y="-1073"/>
+            <point key="canvasLocation" x="-486" y="-1103"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="wq1-FY-nt8">
@@ -263,7 +264,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efL-TU-sOW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-443" y="-1827"/>
+            <point key="canvasLocation" x="-484" y="-2137"/>
         </scene>
         <!--Settings Navigation-->
         <scene sceneID="cHe-ml-0gS">
@@ -357,7 +358,7 @@
         <image name="ic_view_module" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="H95-93-WLR"/>
-        <segue reference="rk8-b2-CT7"/>
+        <segue reference="Onh-9M-QlQ"/>
+        <segue reference="pvM-c9-ikH"/>
     </inferredMetricsTieBreakers>
 </document>
