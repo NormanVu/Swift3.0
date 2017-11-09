@@ -13,6 +13,7 @@ import ESPullToRefresh
 import FMDB
 import SwiftyJSON
 import CoreData
+import SWRevealViewController
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate {
     let titleSections: [String] = ["Filter", "Sort by"]
@@ -25,7 +26,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     var movieRatingViewCell: FilterMovieRatingViewCell?
     var movieSetting: NSManagedObject? = nil
 
+
     @IBOutlet weak var settingsMovies: UITableView!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()

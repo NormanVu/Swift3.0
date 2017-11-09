@@ -2,7 +2,7 @@
 //  ProfileViewController.swift
 //  MovieStore
 //
-//  Created by Hiền Hoà Co.,LTD on 11/3/17.
+//  Created by Nhat (Norman) H.M. VU on 11/2/17.
 //  Copyright © 2017 enclaveit. All rights reserved.
 //
 
@@ -11,7 +11,7 @@ import SWRevealViewController
 import CoreData
 import SWRevealViewController
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
@@ -24,11 +24,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var femaleLabel: UILabel!
     @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var avatarButton: UIButton!
     @IBOutlet weak var birthday: UILabel!
     @IBOutlet weak var email: UILabel!
     
     var userProfileManagedObject: NSManagedObject? = nil
     var userProfile = Profile()
+    var gender: Bool?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,7 @@ class ProfileViewController: UIViewController {
         maleButton.isHidden = true
         femaleLabel.isHidden = true
         femaleButton.isHidden = true
+        avatarButton.isHidden = true
 
         //Update user information
         self.genderLabel.text = (self.userProfile.gender == true ? "Male" : "Female")
@@ -55,6 +58,10 @@ class ProfileViewController: UIViewController {
         formatter.dateFormat = "YYYY-MM-dd"
         self.birthday.text = formatter.string(from: self.userProfile.birthday!)
         self.email.text = self.userProfile.email
+        editButton.layer.cornerRadius = 3.0
+        doneButton.layer.cornerRadius = 3.0
+        cancelButton.layer.cornerRadius = 3.0
+        showAllButton.layer.cornerRadius = 3.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -123,10 +130,19 @@ class ProfileViewController: UIViewController {
         femaleLabel.isHidden = !isChanged
         maleButton.isHidden = !isChanged
         femaleButton.isHidden = !isChanged
+        avatarButton.isHidden = !isChanged
         showAllButton.isHidden = isChanged
         reminderLabel.isHidden = isChanged
         reminderList.isHidden = isChanged
         editButton.isHidden = isChanged
+        genderLabel.text = "Male"
+        if (self.userProfile.gender == true) {
+            maleButton.setImage(#imageLiteral(resourceName: "ic_checked_box"), for: UIControlState.normal)
+            femaleButton.setImage(#imageLiteral(resourceName: "ic_check_box"), for: UIControlState.normal)
+        } else {
+            maleButton.setImage(#imageLiteral(resourceName: "ic_check_box"), for: UIControlState.normal)
+            femaleButton.setImage(#imageLiteral(resourceName: "ic_checked_box"), for: UIControlState.normal)
+        }
     }
 
     @IBAction func editButtonTapped(_ sender: UIButton) {
@@ -143,6 +159,9 @@ class ProfileViewController: UIViewController {
             //Right front view controller is previously
             revealViewController().frontViewPosition = FrontViewPosition.right
         }
+
+        //Reset gender label
+        self.genderLabel.text = (self.userProfile.gender == true ? "Male" : "Female")
     }
 
     @IBAction func doneButtonTapped(_ sender: UIButton) {
@@ -151,5 +170,39 @@ class ProfileViewController: UIViewController {
             //Right front view controller is previously
             revealViewController().frontViewPosition = FrontViewPosition.right
         }
+
+        //Reset gender label
+        self.genderLabel.text = (gender == true ? "Male" : "Female")
+        self.userProfile.gender = gender
+    }
+
+    @IBAction func maleButtonTapped(_ sender: UIButton) {
+        maleButton.setImage(#imageLiteral(resourceName: "ic_checked_box"), for: UIControlState.normal)
+        femaleButton.setImage(#imageLiteral(resourceName: "ic_check_box"), for: UIControlState.normal)
+        gender = true
+    }
+
+    @IBAction func femaleButtonTapped(_ sender: UIButton) {
+        maleButton.setImage(#imageLiteral(resourceName: "ic_check_box"), for: UIControlState.normal)
+        femaleButton.setImage(#imageLiteral(resourceName: "ic_checked_box"), for: UIControlState.normal)
+        gender = false
+    }
+
+    @IBAction func avatarImageButtonTapped() {
+        let imagePickerVC = UIImagePickerController()
+        //UIImagePickerControllerSourceType.savedPhotosAlbum
+        imagePickerVC.sourceType  = .photoLibrary
+        // Whether to enable editing of selected media
+        imagePickerVC.allowsEditing = true
+
+        // selectable media limitation. The default is photo only.
+        imagePickerVC.mediaTypes = UIImagePickerController.availableMediaTypes(for: imagePickerVC.sourceType)!
+        imagePickerVC.delegate = self
+        present(imagePickerVC, animated: true, completion: nil)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        dismiss(animated: true, completion: nil)
+        self.avatar.image = info[UIImagePickerControllerOriginalImage] as? UIImage
     }
 }

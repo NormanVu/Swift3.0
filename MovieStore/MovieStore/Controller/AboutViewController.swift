@@ -8,9 +8,12 @@
 
 import UIKit
 import WebKit
+import SWRevealViewController
 
 class AboutViewController: UIViewController {
 
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     var webView: WKWebView!
 
     override func viewDidLoad() {

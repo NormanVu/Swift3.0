@@ -193,7 +193,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IOH-7m-BE1">
-                                <rect key="frame" x="0.0" y="-44" width="375" height="760"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="716"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JJ8-qB-8rc">
                                     <size key="itemSize" width="50" height="50"/>
@@ -347,6 +347,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLg-2J-R3S" userLabel="Male Button">
                                 <rect key="frame" x="124" y="300" width="24" height="24"/>
                                 <state key="normal" backgroundImage="ic_check_box"/>
+                                <connections>
+                                    <action selector="maleButtonTapped:" destination="GCV-i5-Y4z" eventType="touchUpInside" id="PXU-Xk-xcE"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSc-o4-n2q">
                                 <rect key="frame" x="245" y="302" width="55.5" height="21"/>
@@ -357,6 +360,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wQ-Qp-EXg" userLabel="Female Button">
                                 <rect key="frame" x="315" y="300" width="24" height="24"/>
                                 <state key="normal" backgroundImage="ic_check_box"/>
+                                <connections>
+                                    <action selector="femaleButtonTapped:" destination="GCV-i5-Y4z" eventType="touchUpInside" id="3uL-hH-JLf"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rU-Ac-92r">
                                 <rect key="frame" x="152" y="331" width="70" height="30"/>
@@ -393,17 +399,29 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipG-Fq-QAR">
+                                <rect key="frame" x="87" y="50" width="201" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="i0C-ZY-V40"/>
+                                    <constraint firstAttribute="width" constant="201" id="rHz-Zm-odv"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="avatarImageButtonTapped" destination="GCV-i5-Y4z" eventType="touchUpInside" id="uZm-b4-WlE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cSS-11-i1E" firstAttribute="leading" secondItem="j6Z-Ny-DlR" secondAttribute="leading" constant="16" id="0D5-9Z-oEr"/>
                             <constraint firstItem="UKl-xq-szQ" firstAttribute="top" secondItem="wlM-YQ-0JZ" secondAttribute="bottom" id="0iT-le-8Ej"/>
                             <constraint firstItem="6PU-Dv-Cho" firstAttribute="top" secondItem="QQi-3K-vm3" secondAttribute="bottom" constant="18.5" id="10X-O5-jX9"/>
+                            <constraint firstItem="ipG-Fq-QAR" firstAttribute="top" secondItem="wlM-YQ-0JZ" secondAttribute="bottom" constant="30" id="14J-Vf-Hg6"/>
                             <constraint firstItem="9rU-Ac-92r" firstAttribute="centerX" secondItem="j6Z-Ny-DlR" secondAttribute="centerX" id="1vw-hv-bEp"/>
                             <constraint firstItem="WBX-cO-dTX" firstAttribute="leading" secondItem="nnU-zV-ecF" secondAttribute="trailing" constant="17" id="1wb-Vo-0j2"/>
                             <constraint firstItem="YWH-Aw-F78" firstAttribute="top" secondItem="U8m-ke-kJv" secondAttribute="bottom" constant="8" id="357-Px-u2H"/>
                             <constraint firstItem="nnU-zV-ecF" firstAttribute="leading" secondItem="j6Z-Ny-DlR" secondAttribute="leading" constant="16" id="5ML-ec-zDq"/>
                             <constraint firstItem="YVR-iQ-pfr" firstAttribute="top" secondItem="9rU-Ac-92r" secondAttribute="bottom" constant="27" id="6a4-bd-8WT"/>
+                            <constraint firstItem="ipG-Fq-QAR" firstAttribute="centerX" secondItem="j6Z-Ny-DlR" secondAttribute="centerX" id="6fE-F9-h2h"/>
                             <constraint firstItem="Mhd-ed-azg" firstAttribute="top" secondItem="nnU-zV-ecF" secondAttribute="bottom" constant="8" id="86o-4u-1ZM"/>
                             <constraint firstItem="9rU-Ac-92r" firstAttribute="top" secondItem="kLg-2J-R3S" secondAttribute="bottom" constant="7" id="A5J-4G-9Tf"/>
                             <constraint firstItem="loS-La-VQd" firstAttribute="top" secondItem="YVR-iQ-pfr" secondAttribute="bottom" constant="2" id="Akg-hD-MCk"/>
@@ -428,6 +446,7 @@
                             <constraint firstAttribute="trailing" secondItem="5wQ-Qp-EXg" secondAttribute="trailing" constant="36" id="ZiL-zU-3Z9"/>
                             <constraint firstItem="loS-La-VQd" firstAttribute="leading" secondItem="9rU-Ac-92r" secondAttribute="leading" id="aBk-hY-ldN"/>
                             <constraint firstAttribute="trailing" secondItem="fSc-o4-n2q" secondAttribute="trailing" constant="74.5" id="azt-6i-r0x"/>
+                            <constraint firstItem="YWH-Aw-F78" firstAttribute="top" secondItem="ipG-Fq-QAR" secondAttribute="bottom" constant="8" id="bwr-Su-W9M"/>
                             <constraint firstItem="fSc-o4-n2q" firstAttribute="top" secondItem="QQi-3K-vm3" secondAttribute="bottom" constant="19" id="c9i-hH-iXo"/>
                             <constraint firstItem="QQi-3K-vm3" firstAttribute="leading" secondItem="Mhd-ed-azg" secondAttribute="trailing" constant="17" id="cfa-N1-4in"/>
                             <constraint firstAttribute="trailing" secondItem="EKq-4n-zGO" secondAttribute="trailing" constant="16" id="ePb-pm-umb"/>
@@ -449,6 +468,7 @@
                     <navigationItem key="navigationItem" id="qaq-pJ-CA4"/>
                     <connections>
                         <outlet property="avatar" destination="U8m-ke-kJv" id="kD3-Za-tKH"/>
+                        <outlet property="avatarButton" destination="ipG-Fq-QAR" id="BWf-0c-WeQ"/>
                         <outlet property="birthday" destination="WBX-cO-dTX" id="p4t-8y-LWu"/>
                         <outlet property="cancelButton" destination="UKl-xq-szQ" id="pYj-JE-bNr"/>
                         <outlet property="doneButton" destination="EKq-4n-zGO" id="7Jc-4g-cQ5"/>
@@ -520,6 +540,7 @@
                         <barButtonItem key="leftBarButtonItem" image="ic_menu" id="i3p-wL-1nO"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="menuButton" destination="i3p-wL-1nO" id="t9F-iX-LFi"/>
                         <outlet property="settingsMovies" destination="Wmo-Cf-70N" id="wtj-WR-evg"/>
                     </connections>
                 </viewController>
@@ -544,6 +565,9 @@
                     <navigationItem key="navigationItem" id="hAh-jW-5T2">
                         <barButtonItem key="leftBarButtonItem" image="ic_menu" id="KGV-0z-wf9"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="KGV-0z-wf9" id="iza-pl-j08"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZw-nz-gbl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -565,7 +589,7 @@
         <image name="ic_view_module" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Onh-9M-QlQ"/>
+        <segue reference="H95-93-WLR"/>
         <segue reference="pvM-c9-ikH"/>
     </inferredMetricsTieBreakers>
 </document>
