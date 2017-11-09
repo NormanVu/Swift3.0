@@ -194,7 +194,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             print("Section default")
         }
         //Send(Post) Notification
-        let thisNotification = NSNotification(name: NSNotification.Name(rawValue: "createdNotification"), object: nil) as Notification
+        let thisNotification = NSNotification(name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil) as Notification
         NotificationCenter.default.post(thisNotification)
     }
 

@@ -29,6 +29,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var userID: Int?
     var currentMovieId: Int?
     var currentMovieSetting: MovieSettings?
+    var profile = Profile()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,9 +66,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+
+
         
         //Receive(Get) Notification:
-        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
     }
 
     //Method handler for received Notification
@@ -92,6 +95,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.collectionView.reloadData()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
     }
 
     // MARK: collectionView methods
@@ -138,7 +146,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     @IBAction func menuButtonTapped(_ sender: UIBarButtonItem) {
-        
+
     }
 
     func autoLogin() {
@@ -153,11 +161,23 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                     //Step 4: Get the user id
                     self.movieAPI.getUserID(sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
                         self.userID = self.movieAPI.userID
+                        self.profile.userId = self.userID
+                        self.profile.sessionId = self.sessionID
+                        //Force login by user authentication via email and password are same as calling API
+                        self.profile.email = "norman@enclave.vn"
+                        self.profile.userName = "NormanVu"
+                        self.profile.gender = true
+                        self.profile.avatar = #imageLiteral(resourceName: "ic_placeholder")
+                        self.profile.birthday = Date()
+
+                        //Store session id and user information into user default manager
+                        //UserDefaultManager.updateProfile(userProfile: self.profile)
                     })
                 })
             })
         })
     }
+
 
     //@TODO: Implement to update image favorite/unfavorite
     func favoriteMovieButtonTapped(_ movieViewCell: MovieViewCell) {

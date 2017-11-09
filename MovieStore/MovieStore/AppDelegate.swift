@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         */
         let container = NSPersistentContainer(name: "MovieStore")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -73,10 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     // MARK: - Core Data Saving support
-
-    func saveContext () {
-
-
+    func saveContext() {
         if #available(iOS 10.0, *) {
             let context = persistentContainer.viewContext
             if context.hasChanges {
@@ -110,13 +108,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // 1
-        let modelURL = Bundle.main.url(forResource: "DataModel", withExtension: "momd")!
+        let modelURL = Bundle.main.url(forResource: "MovieStore", withExtension: "xcdatamodeld")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.appendingPathComponent("DataModel.sqlite")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("MovieStore")
         do {
             // If your looking for any kind of migration then here is the time to pass it to the options
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
@@ -132,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //    application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to
         //    fail.
         let coordinator = self.persistentStoreCoordinator
-        var context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        var context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
         return context
     }()

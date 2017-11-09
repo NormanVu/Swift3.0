@@ -33,6 +33,10 @@ class ProfileViewController: UIViewController {
 
         updateUI()
 
+        //Get user information from user default manager
+        self.userProfile = UserDefaultManager.getUserProfile()
+       
+        print("Session id = \(userProfile.sessionId)")
         //self.loadProfileFromCoreData()
 
     }
@@ -77,11 +81,11 @@ class ProfileViewController: UIViewController {
             // Get values
             let userId = userProfileManagedObject?.value(forKeyPath: "userId") as? Int
             userProfile.userId = userId!
-            let avatar = userProfileManagedObject?.value(forKeyPath: "avatar") as? String
+            let avatar = userProfileManagedObject?.value(forKeyPath: "avatar") as? UIImage
             userProfile.avatar = avatar!
             let email = userProfileManagedObject?.value(forKeyPath: "email") as? String
             userProfile.email = email!
-            let gender = userProfileManagedObject?.value(forKeyPath: "gender") as? String
+            let gender = userProfileManagedObject?.value(forKeyPath: "gender") as? Bool
             userProfile.gender = gender!
             let userName = userProfileManagedObject?.value(forKeyPath: "userName") as? String
             userProfile.userName = userName!
@@ -95,16 +99,14 @@ class ProfileViewController: UIViewController {
     }
 
     func saveProfileToCoreData() {
-        print("userId: \(userProfile.userId), avatar: \(userProfile.avatar), email: \(userProfile.email), gender: \(userProfile.gender), userName: \(userProfile.userName), birthday: \(userProfile.birthday)")
-
         userProfileManagedObject?.setValue(userProfile.userId, forKeyPath: "userId")
-        userProfileManagedObject?.setValue(userProfile.avatar, forKeyPath: "avatar")
+        let avatarImageData = UIImagePNGRepresentation(userProfile.avatar!) as NSData?
+        userProfileManagedObject?.setValue(avatarImageData, forKeyPath: "avatar")
         userProfileManagedObject?.setValue(userProfile.email, forKeyPath: "email")
         userProfileManagedObject?.setValue(userProfile.gender, forKeyPath: "gender")
         userProfileManagedObject?.setValue(userProfile.userName, forKeyPath: "userName")
         userProfileManagedObject?.setValue(userProfile.birthday, forKeyPath: "birthday")
         //@TODO: Reminder list
-
     }
 
     func updateLayout(isChanged: Bool) {

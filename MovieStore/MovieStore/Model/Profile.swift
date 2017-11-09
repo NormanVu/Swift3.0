@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Profile: NSObject {
     var _userId: Int?
@@ -19,8 +20,18 @@ class Profile: NSObject {
         }
     }
 
-    var _avatar: String?
-    var avatar: String? {
+    var _sessionId: String?
+    var sessionId: String? {
+        get{
+            return self._sessionId!
+        }
+        set(newValue) {
+            self._sessionId = newValue
+        }
+    }
+
+    var _avatar: UIImage?
+    var avatar: UIImage? {
         get{
             return self._avatar!
         }
@@ -39,8 +50,8 @@ class Profile: NSObject {
         }
     }
 
-    var _gender: String?
-    var gender: String? {
+    var _gender: Bool?
+    var gender: Bool? {
         get{
             return self._gender!
         }
@@ -72,6 +83,13 @@ class Profile: NSObject {
     var reminderList: [MovieReminders] = []
 
     override init() {
+        self._userId = 0
+        self._sessionId = ""
+        self._avatar = #imageLiteral(resourceName: "ic_placeholder")
+        self._email = ""
+        self._gender = false
+        self._userName = ""
+        self._birthday = Date()
         super.init()
     }
 }

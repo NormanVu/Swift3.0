@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UserDefaultManager {
     struct MovieSettingsKey {
@@ -18,6 +19,16 @@ class UserDefaultManager {
         static let fromReleaseYear = "FROM_RELEASE_YEAR_KEY"
         static let releaseDate = "RELEASE_DATE_KEY"
         static let rating = "RATING_KEY"
+    }
+
+    struct ProfileKey {
+        static let userID = "USER_ID_KEY"
+        static let sessionID = "SESSION_ID_KEY"
+        static let avatar = "AVATAR_KEY"
+        static let email = "EMAIL_KEY"
+        static let gender = "GENDER_KEY"
+        static let userName = "USER_NAME_KEY"
+        static let birthday = "BIRTHDAY_KEY"
     }
 
     class func updateSettings(movieSettings: MovieSettings) {
@@ -92,5 +103,74 @@ class UserDefaultManager {
             movieSettings.rating = ratingMovie
         }
         return movieSettings
+    }
+
+    class func updateProfile(userProfile: Profile) {
+        //User id
+        userDefault.set(userProfile.userId, forKey: ProfileKey.userID)
+
+        //Session id
+        userDefault.set(userProfile.sessionId, forKey: ProfileKey.sessionID)
+
+        //Avatar
+        userDefault.set(userProfile.avatar, forKey: ProfileKey.avatar)
+
+        //Email
+        userDefault.set(userProfile.email, forKey: ProfileKey.email)
+
+        //Gender
+        userDefault.set(userProfile.gender, forKey: ProfileKey.gender)
+
+        //User name
+        userDefault.set(userProfile.userName, forKey: ProfileKey.userName)
+
+        //Birthday
+        userDefault.set(userProfile.birthday, forKey: ProfileKey.birthday)
+    }
+
+    class func getUserProfile() -> Profile {
+        let userProfile = Profile()
+        //User id
+        let userID = userDefault.object(forKey: ProfileKey.userID)
+        if let _userId = userID as? Int {
+            userProfile.userId = _userId
+        }
+
+        //Session id
+        let sessionID = userDefault.object(forKey: ProfileKey.sessionID)
+        if let _sessionId = sessionID as? String {
+            userProfile.sessionId = _sessionId
+        }
+
+        //Avatar
+        let avatar = userDefault.object(forKey: ProfileKey.avatar)
+        if let _avatar = avatar as? UIImage {
+            userProfile.avatar = _avatar
+        }
+
+        //Email
+        let email = userDefault.object(forKey: ProfileKey.email)
+        if let _email = email as? String {
+            userProfile.email = _email
+        }
+
+        //Gender
+        let gender = userDefault.object(forKey: ProfileKey.gender)
+        if let _gender = gender as? Bool {
+            userProfile.gender = _gender
+        }
+
+        //User name
+        let userName = userDefault.object(forKey: ProfileKey.userName)
+        if let _userName = userName as? String {
+            userProfile.userName = _userName
+        }
+
+        //Birthday
+        let birthday = userDefault.object(forKey: ProfileKey.birthday)
+        if let _birthday = birthday as? Date {
+            userProfile.birthday = _birthday
+        }
+        return userProfile
     }
 }
