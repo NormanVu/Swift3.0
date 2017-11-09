@@ -16,7 +16,7 @@ import CoreData
 import SWRevealViewController
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate {
-    let titleSections: [String] = ["Filter", "Sort by"]
+    let titleSections: [String] = ["Filter", "Sort by", "All reminder"]
     let titleFilterMovies: [String] = ["Popular Movies", "Top Rated Movies", "Upcoming Movies", "NowPlaying Movies", "From Release Year"]
     let titleSortType: [String] = ["Release Date", "Rating"]
     let yearLabel = UILabel(frame: CGRect(x: 254, y: 8, width: 50, height: 20))
@@ -71,15 +71,37 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     //MARK: Table view delegate and data source
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        return (section == 0 ? titleSections[0] : titleSections[1])
+        var titleSection: String?
+        switch(section) {
+        case 0:
+            titleSection = titleSections[0]
+        case 1:
+            titleSection = titleSections[1]
+        case 2:
+            titleSection = titleSections[2]
+        default:
+            print("Nothing")
+        }
+        return titleSection
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (section == 0 ? 6 : 2)
+        var rowsInSection: Int?
+        switch(section) {
+        case 0:
+            rowsInSection = 6
+        case 1:
+            rowsInSection = 2
+        case 2:
+            rowsInSection = 1
+        default:
+            print("Nothing")
+        }
+        return rowsInSection!
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -193,6 +215,14 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             default:
                 print("Row default")
             }
+        case 2:
+            if (indexPath.row == 0) {
+                guard let settingsRemindersViewController = storyboard?.instantiateViewController(withIdentifier: "SettingsRemindersViewController") as? SettingsRemindersViewController else {
+                    return
+                }
+                settingsRemindersViewController.delegate = self
+                navigationController?.pushViewController(settingsRemindersViewController, animated: true)
+            }
         default:
             print("Section default")
         }
@@ -259,6 +289,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                         cellNormal.accessoryType = .checkmark
                     }
                 }
+            case 2:
+                cellNormal.textLabel?.text = "All reminders"
             default:
                 print("Section")
             }
@@ -385,6 +417,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         movieSetting?.setValue(currentMovieSetting.fromReleaseYear, forKeyPath: "fromReleaseYear")
         movieSetting?.setValue(currentMovieSetting.releaseDate, forKeyPath: "releaseDate")
         movieSetting?.setValue(currentMovieSetting.rating, forKeyPath: "rating")
+    }
+}
 
+extension SettingsViewController: SettingsRemindersViewControllerDelegate {
+    func closeViewController(_ viewController: SettingsRemindersViewController, didTapBackButton button: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
     }
 }

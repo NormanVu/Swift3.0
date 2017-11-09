@@ -34,9 +34,13 @@
 		BAE831071F95DDFC00C4246F /* MovieStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831061F95DDFC00C4246F /* MovieStoreTests.swift */; };
 		BAE831121F95DDFD00C4246F /* MovieStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831111F95DDFD00C4246F /* MovieStoreUITests.swift */; };
 		BAE8313E1F95FA3300C4246F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = BAE8313D1F95FA3300C4246F /* Podfile */; };
+		FC4124FC1FB4A85F0021C594 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4124FB1FB4A85F0021C594 /* MovieDetailViewController.swift */; };
+		FC4125021FB4B41A0021C594 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4125011FB4B41A0021C594 /* iCarousel.m */; };
+		FC4125041FB4B4610021C594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4125031FB4B4610021C594 /* QuartzCore.framework */; };
 		FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DB1FA914A000581CDF /* GridLayout.swift */; };
 		FC4917DE1FA9151600581CDF /* MovieViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DD1FA9151600581CDF /* MovieViewCell.swift */; };
 		FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917E01FA93F2900581CDF /* ListLayout.swift */; };
+		FC5F386F1FB494D100B3D27C /* SettingsRemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F386E1FB494D100B3D27C /* SettingsRemindersViewController.swift */; };
 		FCC874941FABE827001519D4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC874931FABE827001519D4 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,9 +101,15 @@
 		C730B3F58BC3F783F123829A /* Pods-MovieStoreUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStoreUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStoreUITests/Pods-MovieStoreUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E1CDDFD2AF8E7DB6A94D2A /* Pods-MovieStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStore/Pods-MovieStore.release.xcconfig"; sourceTree = "<group>"; };
+		FC4124FB1FB4A85F0021C594 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
+		FC4124FF1FB4B41A0021C594 /* MovieStore-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MovieStore-Bridging-Header.h"; sourceTree = "<group>"; };
+		FC4125001FB4B41A0021C594 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		FC4125011FB4B41A0021C594 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		FC4125031FB4B4610021C594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FC4917DB1FA914A000581CDF /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		FC4917DD1FA9151600581CDF /* MovieViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewCell.swift; sourceTree = "<group>"; };
 		FC4917E01FA93F2900581CDF /* ListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLayout.swift; sourceTree = "<group>"; };
+		FC5F386E1FB494D100B3D27C /* SettingsRemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRemindersViewController.swift; sourceTree = "<group>"; };
 		FCC874931FABE827001519D4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC4125041FB4B4610021C594 /* QuartzCore.framework in Frameworks */,
 				BA897ED71FA6CDF9007755F5 /* WebKit.framework in Frameworks */,
 				5EF325F636B28F9A746C3BC8 /* Pods_MovieStore.framework in Frameworks */,
 			);
@@ -177,6 +188,8 @@
 				BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */,
 				BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */,
 				FCC874931FABE827001519D4 /* ProfileViewController.swift */,
+				FC5F386E1FB494D100B3D27C /* SettingsRemindersViewController.swift */,
+				FC4124FB1FB4A85F0021C594 /* MovieDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -224,6 +237,7 @@
 		BAE830ED1F95DDF000C4246F /* MovieStore */ = {
 			isa = PBXGroup;
 			children = (
+				FC4124FD1FB4B0E70021C594 /* ThirdParty */,
 				BA96A8411FB0337E00BEE94E /* UserDefaultManager */,
 				BA75F7D31F98891E00BFA5DF /* APIManager */,
 				BA75F7D21F98881400BFA5DF /* Controller */,
@@ -261,12 +275,31 @@
 		F9BBFADFBDED0C68D24B46BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FC4125031FB4B4610021C594 /* QuartzCore.framework */,
 				BA897ED61FA6CDF9007755F5 /* WebKit.framework */,
 				D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */,
 				B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */,
 				36095066C71DFBED5D735DE2 /* Pods_MovieStoreUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FC4124FD1FB4B0E70021C594 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				FC4124FE1FB4B0F70021C594 /* iCarousel */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		FC4124FE1FB4B0F70021C594 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				FC4125001FB4B41A0021C594 /* iCarousel.h */,
+				FC4125011FB4B41A0021C594 /* iCarousel.m */,
+				FC4124FF1FB4B41A0021C594 /* MovieStore-Bridging-Header.h */,
+			);
+			path = iCarousel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,6 +380,7 @@
 					BAE830EA1F95DDF000C4246F = {
 						CreatedOnToolsVersion = 9.0;
 						DevelopmentTeam = 6SG85WN8G5;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 					BAE831011F95DDFA00C4246F = {
@@ -557,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA75F7D71F988C0300BFA5DF /* Constants.swift in Sources */,
+				FC5F386F1FB494D100B3D27C /* SettingsRemindersViewController.swift in Sources */,
 				BA897ED91FA6DF6B007755F5 /* APIManager.swift in Sources */,
 				BAE830EF1F95DDF100C4246F /* AppDelegate.swift in Sources */,
 				BA679E1E1FB2F11300C25EA0 /* MovieReminders.swift in Sources */,
@@ -569,6 +604,8 @@
 				FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */,
 				FC4917DE1FA9151600581CDF /* MovieViewCell.swift in Sources */,
 				BA85DA551FA9B4E800D947C2 /* FavoriteViewController.swift in Sources */,
+				FC4124FC1FB4A85F0021C594 /* MovieDetailViewController.swift in Sources */,
+				FC4125021FB4B41A0021C594 /* iCarousel.m in Sources */,
 				BA6555981FAB216D004CAB82 /* MovieSettings.swift in Sources */,
 				FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */,
 				BA6555961FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift in Sources */,
@@ -743,12 +780,15 @@
 			baseConfigurationReference = 6279AD61952A21DEC90DBF7E /* Pods-MovieStore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6SG85WN8G5;
 				INFOPLIST_FILE = MovieStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enclave.MovieStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MovieStore/ThirdParty/iCarousel/MovieStore-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -759,12 +799,14 @@
 			baseConfigurationReference = E4E1CDDFD2AF8E7DB6A94D2A /* Pods-MovieStore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6SG85WN8G5;
 				INFOPLIST_FILE = MovieStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enclave.MovieStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MovieStore/ThirdParty/iCarousel/MovieStore-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

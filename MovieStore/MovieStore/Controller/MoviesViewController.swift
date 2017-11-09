@@ -127,6 +127,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let favoriteViewCell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
         self.currentMovieId = favoriteViewCell?.movieId
         favoriteViewCell?.favoriteMovieButton?.addTarget(self, action: #selector(favoriteMovieButtonTapped(_:)), for: .touchUpInside)
+        
+        //Select current movie to load movie detail
+        guard let movieDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController else {
+            return
+        }
+        movieDetailViewController.delegate = self
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 
 
@@ -189,6 +196,12 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 }
 
+
+extension MoviesViewController: MovieDetailViewControllerDelegate {
+    func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
+}
 
 
 
