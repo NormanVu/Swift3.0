@@ -113,7 +113,8 @@ class UserDefaultManager {
         userDefault.set(userProfile.sessionId, forKey: ProfileKey.sessionID)
 
         //Avatar
-        userDefault.set(userProfile.avatar, forKey: ProfileKey.avatar)
+        //@TODO: Can't store UIImage
+        //userDefault.set(userProfile.avatar, forKey: ProfileKey.avatar)
 
         //Email
         userDefault.set(userProfile.email, forKey: ProfileKey.email)
@@ -126,6 +127,7 @@ class UserDefaultManager {
 
         //Birthday
         userDefault.set(userProfile.birthday, forKey: ProfileKey.birthday)
+
     }
 
     class func getUserProfile() -> Profile {
@@ -143,10 +145,12 @@ class UserDefaultManager {
         }
 
         //Avatar
+        //@TODO: Can't store UIImage
+        /*
         let avatar = userDefault.object(forKey: ProfileKey.avatar)
         if let _avatar = avatar as? UIImage {
             userProfile.avatar = _avatar
-        }
+        }*/
 
         //Email
         let email = userDefault.object(forKey: ProfileKey.email)

@@ -171,7 +171,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                         self.profile.birthday = Date()
 
                         //Store session id and user information into user default manager
-                        //UserDefaultManager.updateProfile(userProfile: self.profile)
+                        UserDefaultManager.updateProfile(userProfile: self.profile)
                     })
                 })
             })
