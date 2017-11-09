@@ -40,10 +40,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         //Side menu using SWRevealViewController framework
         if (revealViewController() != nil) {
+
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            revealViewController().rearViewRevealWidth = self.view.frame.width - 60
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-
+            //Close rear view controller when tap on front view controller
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
 
         movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in

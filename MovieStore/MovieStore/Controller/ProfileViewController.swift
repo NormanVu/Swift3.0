@@ -121,14 +121,25 @@ class ProfileViewController: UIViewController {
 
     @IBAction func editButtonTapped(_ sender: UIButton) {
         updateLayout(isChanged: true)
-
+        if (revealViewController() != nil) {
+            //Right most front view controller is same as hidden
+            revealViewController().frontViewPosition = FrontViewPosition.rightMost
+        }
     }
 
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         updateLayout(isChanged: false)
+        if (revealViewController() != nil) {
+            //Right front view controller is previously
+            revealViewController().frontViewPosition = FrontViewPosition.right
+        }
     }
 
     @IBAction func doneButtonTapped(_ sender: UIButton) {
         updateLayout(isChanged: false)
+        if (revealViewController() != nil) {
+            //Right front view controller is previously
+            revealViewController().frontViewPosition = FrontViewPosition.right
+        }
     }
 }
