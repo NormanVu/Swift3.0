@@ -24,6 +24,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var femaleLabel: UILabel!
     @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var birthday: UILabel!
+    @IBOutlet weak var email: UILabel!
     
     var userProfileManagedObject: NSManagedObject? = nil
     var userProfile = Profile()
@@ -31,12 +33,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateUI()
-
         //Get user information from user default manager
         self.userProfile = UserDefaultManager.getUserProfile()
-       
-        print("Session id = \(userProfile.sessionId)")
+        //Update user information
+        updateUI()
         //self.loadProfileFromCoreData()
 
     }
@@ -47,6 +47,14 @@ class ProfileViewController: UIViewController {
         maleButton.isHidden = true
         femaleLabel.isHidden = true
         femaleButton.isHidden = true
+
+        //Update user information
+        self.genderLabel.text = (self.userProfile.gender == true ? "Male" : "Female")
+        self.userNameLabel.text = self.userProfile.userName
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        self.birthday.text = formatter.string(from: self.userProfile.birthday!)
+        self.email.text = self.userProfile.email
     }
 
     override func didReceiveMemoryWarning() {

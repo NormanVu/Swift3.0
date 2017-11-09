@@ -39,6 +39,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Force auto login
+        self.autoLogin()
+
         //Side menu using SWRevealViewController framework
         if (revealViewController() != nil) {
 
@@ -54,8 +57,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             self.allMovies = self.movieAPI.allMovies
             self.collectionView.reloadData()
         })
-
-        self.autoLogin()
 
         gridLayout = GridLayout(numberOfColumns: 2)
         listLayout = ListLayout()

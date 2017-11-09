@@ -449,9 +449,11 @@
                     <navigationItem key="navigationItem" id="qaq-pJ-CA4"/>
                     <connections>
                         <outlet property="avatar" destination="U8m-ke-kJv" id="kD3-Za-tKH"/>
+                        <outlet property="birthday" destination="WBX-cO-dTX" id="p4t-8y-LWu"/>
                         <outlet property="cancelButton" destination="UKl-xq-szQ" id="pYj-JE-bNr"/>
                         <outlet property="doneButton" destination="EKq-4n-zGO" id="7Jc-4g-cQ5"/>
                         <outlet property="editButton" destination="9rU-Ac-92r" id="dcl-wJ-ska"/>
+                        <outlet property="email" destination="QQi-3K-vm3" id="qJ7-cC-2Y5"/>
                         <outlet property="femaleButton" destination="5wQ-Qp-EXg" id="f8L-hT-Hy0"/>
                         <outlet property="femaleLabel" destination="fSc-o4-n2q" id="PMq-Nq-W64"/>
                         <outlet property="genderLabel" destination="6PU-Dv-Cho" id="ZTu-tf-per"/>
