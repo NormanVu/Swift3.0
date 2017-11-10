@@ -54,6 +54,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         //Load default popular movies without appling filter movies
         if (currentMovieSetting == nil) {
+            self.title = "Popular"
             movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
@@ -76,16 +77,19 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     func applyFilterMovies() {
         self.collectionView.reloadInputViews()
         self.allMovies.removeAll()
+        self.title = ""
         if (currentMovieSetting?.popularMovies)! {
             movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
+            self.title = "Popular"
         }
         if (currentMovieSetting?.topRatedMovies)! {
             movieAPI.getTopRatingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
+                self.title = "Top Rated"
             })
         }
         if (currentMovieSetting?.upComingMovies)! {
@@ -93,12 +97,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
+            self.title = "Up Coming"
         }
         if (currentMovieSetting?.nowPlayingMovies)! {
             movieAPI.getNowPlayingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
+            self.title = "Now Playing"
         }
     }
 
