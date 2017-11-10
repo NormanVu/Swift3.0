@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var userProfileManagedObject: NSManagedObject? = nil
     var userProfile = Profile()
-    var gender: Bool?
+    var gender: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         avatarButton.isHidden = true
 
         //Update user information
-        self.genderLabel.text = (self.userProfile.gender == true ? "Male" : "Female")
+        self.genderLabel.text = (self.userProfile.gender == 2 ? "Male" : "Female")
         self.userNameLabel.text = self.userProfile.userName
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd"
@@ -98,7 +98,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             userProfile.userId = userId!
             let email = userProfileManagedObject?.value(forKeyPath: "email") as? String
             userProfile.email = email!
-            let gender = userProfileManagedObject?.value(forKeyPath: "gender") as? Bool
+            let gender = userProfileManagedObject?.value(forKeyPath: "gender") as? Int
             userProfile.gender = gender!
             let userName = userProfileManagedObject?.value(forKeyPath: "userName") as? String
             userProfile.userName = userName!
@@ -132,7 +132,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         reminderList.isHidden = isChanged
         editButton.isHidden = isChanged
         genderLabel.text = "Male"
-        if (self.userProfile.gender == true) {
+        if (self.userProfile.gender == 2) {
             maleButton.setImage(#imageLiteral(resourceName: "ic_checked_box"), for: UIControlState.normal)
             femaleButton.setImage(#imageLiteral(resourceName: "ic_check_box"), for: UIControlState.normal)
         } else {
@@ -157,7 +157,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
 
         //Reset gender label
-        self.genderLabel.text = (self.userProfile.gender == true ? "Male" : "Female")
+        self.genderLabel.text = (self.userProfile.gender == 2 ? "Male" : "Female")
     }
 
     @IBAction func doneButtonTapped(_ sender: UIButton) {
@@ -168,20 +168,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
 
         //Reset gender label
-        self.genderLabel.text = (gender == true ? "Male" : "Female")
+        self.genderLabel.text = (gender == 2 ? "Male" : "Female")
         self.userProfile.gender = gender
     }
 
     @IBAction func maleButtonTapped(_ sender: UIButton) {
         maleButton.setImage(#imageLiteral(resourceName: "ic_checked_box"), for: UIControlState.normal)
         femaleButton.setImage(#imageLiteral(resourceName: "ic_check_box"), for: UIControlState.normal)
-        gender = true
+        gender = 2
     }
 
     @IBAction func femaleButtonTapped(_ sender: UIButton) {
         maleButton.setImage(#imageLiteral(resourceName: "ic_check_box"), for: UIControlState.normal)
         femaleButton.setImage(#imageLiteral(resourceName: "ic_checked_box"), for: UIControlState.normal)
-        gender = false
+        gender = 1
     }
 
     @IBAction func avatarImageButtonTapped() {

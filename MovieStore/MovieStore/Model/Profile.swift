@@ -50,10 +50,10 @@ class Profile: NSObject {
         }
     }
 
-    var _gender: Bool?
-    var gender: Bool? {
+    var _gender: Int?
+    var gender: Int? {
         get{
-            return self._gender!
+            return self._gender
         }
         set(newValue) {
             self._gender = newValue
@@ -87,7 +87,7 @@ class Profile: NSObject {
         self._sessionId = ""
         self._avatar = #imageLiteral(resourceName: "ic_placeholder")
         self._email = ""
-        self._gender = false
+        self._gender = 1 //Female
         self._userName = ""
         self._birthday = Date()
         super.init()

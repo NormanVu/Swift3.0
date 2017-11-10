@@ -160,7 +160,7 @@ class UserDefaultManager {
 
         //Gender
         let gender = userDefault.object(forKey: ProfileKey.gender)
-        if let _gender = gender as? Bool {
+        if let _gender = gender as? Int {
             userProfile.gender = _gender
         }
 

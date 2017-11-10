@@ -208,7 +208,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                         //Force login by user authentication via email and password are same as calling API
                         self.profile.email = "norman@enclave.vn"
                         self.profile.userName = "NormanVu"
-                        self.profile.gender = true
+                        self.profile.gender = 2
                         self.profile.avatar = #imageLiteral(resourceName: "ic_placeholder")
                         self.profile.birthday = Date()
 
