@@ -20,7 +20,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
-    let movieAPI = APIManager()
+    var movieAPI = APIManager()
     var gridLayout: GridLayout!
     var listLayout: ListLayout!
     var allMovies = [Movie]()
@@ -44,7 +44,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         //Side menu using SWRevealViewController framework
         if (revealViewController() != nil) {
-
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             revealViewController().rearViewRevealWidth = self.view.frame.width - 60
@@ -53,10 +52,15 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
 
-        movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
-            self.allMovies = self.movieAPI.allMovies
-            self.collectionView.reloadData()
-        })
+        //Load default popular movies without appling filter movies
+        if (currentMovieSetting == nil) {
+            movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+                self.allMovies = self.movieAPI.allMovies
+                self.collectionView.reloadData()
+            })
+        }
+        //Receive(Get) Notification:
+        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
 
         gridLayout = GridLayout(numberOfColumns: 2)
         listLayout = ListLayout()
@@ -67,25 +71,52 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-
-
-        
-        //Receive(Get) Notification:
-        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
     }
+
+    func applyFilterMovies() {
+        self.collectionView.reloadInputViews()
+        self.allMovies.removeAll()
+        if (currentMovieSetting?.popularMovies)! {
+            movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+                self.allMovies = self.movieAPI.allMovies
+                self.collectionView.reloadData()
+            })
+        }
+        if (currentMovieSetting?.topRatedMovies)! {
+            movieAPI.getTopRatingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+                self.allMovies = self.movieAPI.allMovies
+                self.collectionView.reloadData()
+            })
+        }
+        if (currentMovieSetting?.upComingMovies)! {
+            movieAPI.getUpComingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+                self.allMovies = self.movieAPI.allMovies
+                self.collectionView.reloadData()
+            })
+        }
+        if (currentMovieSetting?.nowPlayingMovies)! {
+            movieAPI.getNowPlayingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+                self.allMovies = self.movieAPI.allMovies
+                self.collectionView.reloadData()
+            })
+        }
+    }
+
 
     //Method handler for received Notification
     func onCreatedNotification(notification: NSNotification) {
         //Receive settings did change
         self.currentMovieSetting = UserDefaultManager.getMovieSettings()
-        
-        //Reload data to change following current settings from user
-        
+        print("Apply filter movies: \(self.currentMovieSetting?.topRatedMovies)")
+        if (self.currentMovieSetting != nil) {
+            //Reload data to change following current settings from user
+            applyFilterMovies()
+        }
     }
     
     //Remove Notification
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "createdNotification"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {

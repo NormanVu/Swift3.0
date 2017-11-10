@@ -55,7 +55,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("Current settings will be saved to coredata when view disappear")
-        self.saveMovieSettingsToCoreData()
+        //self.saveMovieSettingsToCoreData()
+        UserDefaultManager.updateSettings(movieSettings: currentMovieSetting)
+
+        //Send(Post) Notification
+        let thisNotification = NSNotification(name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil) as Notification
+        NotificationCenter.default.post(thisNotification)
     }
 
 
@@ -226,9 +231,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         default:
             print("Section default")
         }
-        //Send(Post) Notification
-        let thisNotification = NSNotification(name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil) as Notification
-        NotificationCenter.default.post(thisNotification)
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

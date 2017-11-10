@@ -133,10 +133,9 @@ final class APIManager: NSObject {
         }
     }
 
-    func getTopRatingMovies(pageNumber: Int) {
+    func getTopRatingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(topRated: true)
         typeMovie = .topRated
-        movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -146,15 +145,15 @@ final class APIManager: NSObject {
                 }
                 if (self.allMovies.count > 0) {
                     print("Get top rating movies are successfully!!!")
+                    completionHandler(UIBackgroundFetchResult.newData)
                 }
             }
         }
     }
 
-    func getNowPlayingMovies(pageNumber: Int) {
+    func getNowPlayingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(nowPlaying: true)
         typeMovie = .nowPlaying
-        movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -164,15 +163,15 @@ final class APIManager: NSObject {
                 }
                 if (self.allMovies.count > 0) {
                     print("Get now playing movies are successfully!!!")
+                    completionHandler(UIBackgroundFetchResult.newData)
                 }
             }
         }
     }
 
-    func getUpComingMovies(pageNumber: Int) {
+    func getUpComingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(upComing: true)
         typeMovie = .upComing
-        movieAPI.parameters["page"] = pageNumber as AnyObject
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -182,6 +181,7 @@ final class APIManager: NSObject {
                 }
                 if (self.allMovies.count > 0) {
                     print("Get up coming movies are successfully!!!")
+                    completionHandler(UIBackgroundFetchResult.newData)
                 }
             }
         }
