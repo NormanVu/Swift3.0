@@ -196,5 +196,16 @@ final class APIManager: NSObject {
             }
         }
     }
+
+    func getMovieDetail(movieID: Int, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
+        let movieAPI = MovieAPI(movieId: movieID)
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                print(json)
+                completionHandler(UIBackgroundFetchResult.newData)
+            }
+        }
+    }
     
 }

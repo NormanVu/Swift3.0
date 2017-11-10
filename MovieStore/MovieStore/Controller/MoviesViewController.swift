@@ -133,6 +133,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             return
         }
         movieDetailViewController.delegate = self
+        print("Current movie ID: \(allMovies[indexPath.row].movieId)")
+        movieDetailViewController.currentMovie = allMovies[indexPath.row]
+
         navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 

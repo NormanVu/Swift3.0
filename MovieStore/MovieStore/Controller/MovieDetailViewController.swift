@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 protocol MovieDetailViewControllerDelegate: class {
     func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem)
@@ -21,15 +22,35 @@ class MovieDetailViewController: UIViewController, iCarouselDelegate, iCarouselD
     @IBOutlet weak var moviePosterImage: UIImageView!
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var rating: UILabel!
-    @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var overviewTextView: UITextView!
 
-    
+    let movieAPI = APIManager()
     var imagesCashAndCrew = [UIImage]()
+    var _currentMovie: Movie?
+    var currentMovie: Movie? {
+        get{
+            return self._currentMovie!
+        }
+        set(newValue) {
+            self._currentMovie = newValue
+        }
+    }
+
     weak var delegate: MovieDetailViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.title = ""
+        //Call API to load movie detail
+        print("Current movie ID after assign: \(self.currentMovie?.movieId)")
+        movieAPI.getMovieDetail(movieID: (self.currentMovie?.movieId)!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+            print("Complete get movie detail")
+            self.updateUI()
+        })
+
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,7 +62,23 @@ class MovieDetailViewController: UIViewController, iCarouselDelegate, iCarouselD
         super.viewWillAppear(animated)
         
     }
-    
+
+    func updateUI() {
+        self.title = self.currentMovie?.title
+        self.reminderButton.layer.cornerRadius = 3.0
+        self.moviePosterImage.kf.setImage(with: ImageResource(downloadURL: (self.currentMovie?.posterURL!)!))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        self.releaseDate.text = formatter.string(from: (self.currentMovie?.releaseDate)!)
+        guard let rating = self.currentMovie?.voteAverage else {
+            return
+        }
+        self.rating.text = String("\(rating)/10")
+        guard let overview = self.currentMovie?.overview else {
+            return
+        }
+        self.overviewTextView.text = overview
+    }
     
     //MARK: Data source iCarousel
     func numberOfItems(in carousel: iCarousel) -> Int {

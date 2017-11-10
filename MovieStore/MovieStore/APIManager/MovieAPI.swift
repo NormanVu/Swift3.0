@@ -51,11 +51,17 @@ class MovieAPI: NSObject {
         }
     }
 
-    init(movieId: Int) {//https://api.themoviedb.org/3/movie/{movie_id}/credits
+    init(movieId: Int, isCredit: Bool) {//https://api.themoviedb.org/3/movie/{movie_id}/credits
         requestURLString = "\(APIURLPrefix)/movie/\(movieId)/credits"
         parameters["movie_id"] = movieId as AnyObject
         type = .credit
     }
+
+    init(movieId: Int) {//https://api.themoviedb.org/3/movie/{movie_id}
+        requestURLString = "\(APIURLPrefix)/movie/\(movieId)"
+        parameters["movie_id"] = movieId as AnyObject
+    }
+
 
     init(searchText: String) {//https://api.themoviedb.org/3/search/movie
         requestURLString = "\(APIURLPrefix)/search/movie"
