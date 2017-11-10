@@ -16,7 +16,9 @@ final class APIManager: NSObject {
     public var requestToken: String?
     public var sessionID: String?
     public var userID: Int?
+    public var genresImage: String?
     public var allMovies = [Movie]()
+    public var allGenres = [Genres]()
     static let sharedAPI = APIManager()
 
     override init() {
@@ -203,9 +205,29 @@ final class APIManager: NSObject {
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
                 print(json)
+                for genres in json["genres"].arrayValue {
+                    let _genres = Genres(rawData: genres)
+                    self.allGenres.append(_genres)
+                }
                 completionHandler(UIBackgroundFetchResult.newData)
             }
         }
     }
-    
+
+    func getGenresDetail(genresID: Int, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
+        let movieAPI = MovieAPI(genresId: genresID)
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                //print(json)
+                if (json["profile_path"].exists()) {
+                    self.genresImage = json["profile_path"].stringValue
+                } else {
+                    self.genresImage = ""
+                }
+                print("Get image profile path: \(self.genresImage)")
+                completionHandler(UIBackgroundFetchResult.newData)
+            }
+        }
+    }
 }

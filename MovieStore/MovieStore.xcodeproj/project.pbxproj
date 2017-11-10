@@ -10,6 +10,7 @@
 		1C4C6D7EC5763B739E45C302 /* Pods_MovieStoreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */; };
 		2F0E728C157FE38F6B863B7B /* Pods_MovieStoreUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36095066C71DFBED5D735DE2 /* Pods_MovieStoreUITests.framework */; };
 		5EF325F636B28F9A746C3BC8 /* Pods_MovieStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */; };
+		BA0D8B5F1FB58024000453A9 /* Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0D8B5E1FB58024000453A9 /* Genres.swift */; };
 		BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */; };
 		BA65558A1FAAB6E0004CAB82 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */; };
 		BA65558E1FAAD6DC004CAB82 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */; };
@@ -68,6 +69,7 @@
 		36095066C71DFBED5D735DE2 /* Pods_MovieStoreUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStoreUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6279AD61952A21DEC90DBF7E /* Pods-MovieStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStore/Pods-MovieStore.debug.xcconfig"; sourceTree = "<group>"; };
 		B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA0D8B5E1FB58024000453A9 /* Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genres.swift; sourceTree = "<group>"; };
 		BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieViewCell.xib; sourceTree = "<group>"; };
 		BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				BA6555971FAB216D004CAB82 /* MovieSettings.swift */,
 				BA679E1B1FB2EF5400C25EA0 /* Profile.swift */,
 				BA679E1D1FB2F11300C25EA0 /* MovieReminders.swift */,
+				BA0D8B5E1FB58024000453A9 /* Genres.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				BA65558A1FAAB6E0004CAB82 /* MoviesViewController.swift in Sources */,
 				BA75F7D51F988A0000BFA5DF /* Movie.swift in Sources */,
 				BA78FF151FA6C43300D44857 /* AboutViewController.swift in Sources */,
+				BA0D8B5F1FB58024000453A9 /* Genres.swift in Sources */,
 				FCC874941FABE827001519D4 /* ProfileViewController.swift in Sources */,
 				BA65558E1FAAD6DC004CAB82 /* SettingsViewController.swift in Sources */,
 				BA679E1C1FB2EF5500C25EA0 /* Profile.swift in Sources */,

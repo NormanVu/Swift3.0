@@ -14,8 +14,7 @@ protocol MovieDetailViewControllerDelegate: class {
     func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem)
 }
 
-class MovieDetailViewController: UIViewController, iCarouselDelegate, iCarouselDataSource {
-    
+class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouselDelegate{
     @IBOutlet weak var carouselView: iCarousel!
     @IBOutlet weak var favoriteImage: UIImageView!
     @IBOutlet weak var reminderButton: UIButton!
@@ -28,6 +27,8 @@ class MovieDetailViewController: UIViewController, iCarouselDelegate, iCarouselD
     let movieAPI = APIManager()
     var imagesCashAndCrew = [UIImage]()
     var _currentMovie: Movie?
+    var genres = [Genres]()
+    var tempImage: UIImageView?
     var currentMovie: Movie? {
         get{
             return self._currentMovie!
@@ -38,19 +39,42 @@ class MovieDetailViewController: UIViewController, iCarouselDelegate, iCarouselD
     }
 
     weak var delegate: MovieDetailViewControllerDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = ""
+        carouselView.delegate = self
+        carouselView.dataSource = self
+        carouselView.type = iCarouselType.linear
+
         //Call API to load movie detail
-        print("Current movie ID after assign: \(self.currentMovie?.movieId)")
+        self.imagesCashAndCrew.removeAll()
         movieAPI.getMovieDetail(movieID: (self.currentMovie?.movieId)!, completionHandler:{(UIBackgroundFetchResult) -> Void in
-            print("Complete get movie detail")
-            self.updateUI()
+            //Call API to get image of genres to display at Cash & Crew
+            self.genres = self.movieAPI.allGenres
+            print("Number of genres: \(self.genres.count)")
+            for _genres in self.genres {
+                self.movieAPI.getGenresDetail(genresID: _genres.genresId!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                    if (self.movieAPI.genresImage == "") {
+                        self.imagesCashAndCrew.append(#imageLiteral(resourceName: "ic_placeholder"))
+                    } else {
+                        self.imagesCashAndCrew.append(#imageLiteral(resourceName: "ic_placeholder"))
+
+                        //@TODO: Can't set image resource from URL
+                        _genres.genresImage = self.movieAPI.genresImage
+                        self.tempImage?.kf.setImage(with: ImageResource(downloadURL: (_genres.genresImageURL!)))
+                        guard let genresImage: UIImageView = self.tempImage else {
+                            return
+                        }
+                        self.imagesCashAndCrew.append(genresImage.image!)
+                    }
+                    self.genres = self.movieAPI.allGenres
+                    self.carouselView.reloadData()
+                })
+            }
         })
-
-
+        self.updateUI()
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,27 +102,36 @@ class MovieDetailViewController: UIViewController, iCarouselDelegate, iCarouselD
             return
         }
         self.overviewTextView.text = overview
+        print("Carousel number of images: \(self.imagesCashAndCrew.count)")
+
     }
     
     //MARK: Data source iCarousel
     func numberOfItems(in carousel: iCarousel) -> Int {
-        return imagesCashAndCrew.count
+        return self.imagesCashAndCrew.count
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        //Create a UIView
-        let tempView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 75))
-        
-        //Create a UIImageView
-        let frame = CGRect(x: 0, y: 0, width: 75, height: 75)
-        let imageView = UIImageView()
-        imageView.frame = frame
-        imageView.contentMode = .scaleAspectFit
-        
-        //Set the images to the imageView and add it to the tempView.
-        imageView.image = imagesCashAndCrew[index]
-        tempView.addSubview(imageView)
-        
+        var label: UILabel
+        var tempView: UIImageView
+
+        //reuse view if available, otherwise create a new view
+        if let view = view as? UIImageView {
+            tempView = view
+            label = tempView.viewWithTag(1) as! UILabel
+        } else {
+            tempView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+            tempView.image = imagesCashAndCrew[index]
+            tempView.contentMode = .scaleAspectFit
+
+            label = UILabel(frame: CGRect(x: 0, y: 81, width: 80, height: 25))
+            label.backgroundColor = UIColor.clear
+            label.textAlignment = .center
+            label.font = label.font.withSize(17.0)
+            label.tag = 1
+            tempView.addSubview(label)
+        }
+        label.text = "\(genres[index].genresName)"
         return tempView
     }
     

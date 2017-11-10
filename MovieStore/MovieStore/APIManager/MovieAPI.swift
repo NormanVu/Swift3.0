@@ -106,4 +106,8 @@ class MovieAPI: NSObject {
         parameters["media_id"] = mediaId as AnyObject
         parameters["favorite"] = favorite as AnyObject
     }
+
+    init(genresId personId: Int) {//https://api.themoviedb.org/3/person/{person_id}
+        requestURLString = "\(APIURLPrefix)/person/\(personId)"
+    }
 }

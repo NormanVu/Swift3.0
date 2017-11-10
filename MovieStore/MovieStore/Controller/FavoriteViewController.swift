@@ -21,6 +21,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     var requestToken: String?
     var sessionID: String?
     var userID: Int?
+    var currentMovieId: Int?
     var listLayout: ListLayout!
     var refresher: UIRefreshControl!
 
@@ -113,6 +114,21 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let favoriteViewCell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
+        self.currentMovieId = favoriteViewCell?.movieId
+        favoriteViewCell?.favoriteMovieButton?.addTarget(self, action: #selector(favoriteMovieButtonTapped(_:)), for: .touchUpInside)
+
+        //Select current movie to load movie detail
+        guard let movieDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController else {
+            return
+        }
+        movieDetailViewController.delegate = self
+        print("Current movie ID: \(allMovies[indexPath.row].movieId)")
+        movieDetailViewController.currentMovie = allMovies[indexPath.row]
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
+    }
+
     // MARK: - Release to refresh
     func needRefresh(_ sender : UIRefreshControl) {
         perform(#selector(FavoriteViewController.finishRefresh), with : nil, afterDelay : 3)
@@ -120,5 +136,19 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
     func finishRefresh() {
         refresher?.endRefreshing()
+    }
+
+    //@TODO: Implement to update image favorite/unfavorite
+    func favoriteMovieButtonTapped(_ movieViewCell: MovieViewCell) {
+        print("Favorite current movie id: \(self.currentMovieId!)")
+        movieAPI.setFavoriteMovies(mediaID: self.currentMovieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: true, completionHandler: {(UIBackgroundFetchResult) -> Void in
+            print("favorite or unfavorite movie")
+        })
+    }
+}
+
+extension FavoriteViewController: MovieDetailViewControllerDelegate {
+    func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
     }
 }
