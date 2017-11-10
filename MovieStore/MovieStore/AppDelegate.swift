@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Applications default directory address
     lazy var applicationDocumentsDirectory: NSURL = {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count - 1] as NSURL
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.appendingPathComponent("MovieStore")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("MovieStore.sqlite")
         do {
             // If your looking for any kind of migration then here is the time to pass it to the options
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)

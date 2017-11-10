@@ -96,8 +96,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             // Get values
             let userId = userProfileManagedObject?.value(forKeyPath: "userId") as? Int
             userProfile.userId = userId!
-            let avatar = userProfileManagedObject?.value(forKeyPath: "avatar") as? UIImage
-            userProfile.avatar = avatar!
             let email = userProfileManagedObject?.value(forKeyPath: "email") as? String
             userProfile.email = email!
             let gender = userProfileManagedObject?.value(forKeyPath: "gender") as? Bool
@@ -115,8 +113,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     func saveProfileToCoreData() {
         userProfileManagedObject?.setValue(userProfile.userId, forKeyPath: "userId")
-        let avatarImageData = UIImagePNGRepresentation(userProfile.avatar!) as NSData?
-        userProfileManagedObject?.setValue(avatarImageData, forKeyPath: "avatar")
         userProfileManagedObject?.setValue(userProfile.email, forKeyPath: "email")
         userProfileManagedObject?.setValue(userProfile.gender, forKeyPath: "gender")
         userProfileManagedObject?.setValue(userProfile.userName, forKeyPath: "userName")
