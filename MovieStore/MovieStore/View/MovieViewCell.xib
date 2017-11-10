@@ -86,6 +86,15 @@
                         <constraint firstAttribute="width" constant="21" id="CvQ-Ub-suy"/>
                     </constraints>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h88-dd-NMB">
+                    <rect key="frame" x="291" y="3" width="21" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="21" id="ZWk-ke-7Dp"/>
+                    </constraints>
+                    <connections>
+                        <action selector="favoriteMovieButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="FgS-7n-ldZ"/>
+                    </connections>
+                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k4L-mi-CE0">
                     <rect key="frame" x="0.0" y="146" width="320" height="2"/>
                     <color key="backgroundColor" red="0.9290090799331665" green="0.95728176832199097" blue="0.98115438222885132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -101,6 +110,7 @@
                 <constraint firstItem="cKH-KS-fQc" firstAttribute="top" secondItem="xn4-Uv-EVU" secondAttribute="bottom" constant="4" id="AcT-KU-siB"/>
                 <constraint firstAttribute="bottom" secondItem="cKH-KS-fQc" secondAttribute="bottom" constant="8" id="AdX-TA-Lra"/>
                 <constraint firstItem="Lgl-fl-e3o" firstAttribute="baseline" secondItem="hnH-uS-EDv" secondAttribute="baseline" id="Adk-CU-i4a"/>
+                <constraint firstAttribute="trailing" secondItem="h88-dd-NMB" secondAttribute="trailing" constant="8" id="Cge-QC-sb3"/>
                 <constraint firstItem="k4L-mi-CE0" firstAttribute="top" secondItem="cKH-KS-fQc" secondAttribute="bottom" constant="6" id="Djl-ky-yfi"/>
                 <constraint firstItem="FQW-8x-ss5" firstAttribute="leading" secondItem="rvf-7X-65L" secondAttribute="trailing" constant="19" id="N74-ja-CEt"/>
                 <constraint firstItem="cKH-KS-fQc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="O3i-1u-jl0"/>
@@ -112,6 +122,8 @@
                 <constraint firstItem="718-Cg-4fX" firstAttribute="top" secondItem="rvf-7X-65L" secondAttribute="bottom" constant="1" id="YGO-rL-mMB"/>
                 <constraint firstItem="rvf-7X-65L" firstAttribute="top" secondItem="Lgl-fl-e3o" secondAttribute="bottom" id="YK7-Dz-8up"/>
                 <constraint firstItem="eea-ll-Ynu" firstAttribute="trailing" secondItem="jCg-72-LzR" secondAttribute="trailing" id="an6-qD-ZcA"/>
+                <constraint firstItem="hnH-uS-EDv" firstAttribute="top" secondItem="h88-dd-NMB" secondAttribute="bottom" constant="4" id="bd6-uC-hLe"/>
+                <constraint firstItem="h88-dd-NMB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="gqh-JO-6Bv"/>
                 <constraint firstItem="jCg-72-LzR" firstAttribute="leading" secondItem="rvf-7X-65L" secondAttribute="leading" id="gva-kf-0E7"/>
                 <constraint firstItem="eea-ll-Ynu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="izC-BN-ZvM"/>
                 <constraint firstItem="Lgl-fl-e3o" firstAttribute="top" secondItem="hnH-uS-EDv" secondAttribute="top" id="ko7-8j-nmD"/>
@@ -127,6 +139,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="favoriteImageView" destination="eea-ll-Ynu" id="0WD-bd-FCu"/>
+                <outlet property="favoriteMovieButton" destination="h88-dd-NMB" id="l3W-Wm-VZM"/>
                 <outlet property="overview" destination="jCg-72-LzR" id="wPd-dg-HfH"/>
                 <outlet property="posterImage" destination="cKH-KS-fQc" id="fnx-tc-twY"/>
                 <outlet property="releaseDate" destination="hnH-uS-EDv" id="CWG-OV-zfz"/>

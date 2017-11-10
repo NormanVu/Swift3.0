@@ -150,15 +150,15 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
         cell.overview.text = self.allMovies[indexPath.item].overview
         cell.movieId = self.allMovies[indexPath.item].movieId
-
+        cell.delegate = self
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let favoriteViewCell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
         self.currentMovieId = favoriteViewCell?.movieId
+
         favoriteViewCell?.favoriteMovieButton?.addTarget(self, action: #selector(favoriteMovieButtonTapped(_:)), for: .touchUpInside)
-        
         //Select current movie to load movie detail
         guard let movieDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController else {
             return
@@ -230,12 +230,16 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 }
 
-
 extension MoviesViewController: MovieDetailViewControllerDelegate {
     func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
 }
 
+extension MoviesViewController: FavoriteMovieViewCellDelegate {
+    func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
+        print("Did tap favorite movie button")
+    }
+}
 
 

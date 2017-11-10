@@ -8,13 +8,13 @@
 
 import UIKit
 
-/*
 protocol FavoriteMovieViewCellDelegate: class {
-    func favoriteMovieButtonTapped(_ movieViewCell: MovieViewCell)
-}*/
+    func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell)
+}
 
 class MovieViewCell: UICollectionViewCell {
-    
+
+
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var topRating: UILabel!
@@ -23,28 +23,9 @@ class MovieViewCell: UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     var movieId: Int?
     var favorite: Bool?
-    var favoriteMovieButton: UIButton?
+    @IBOutlet weak var favoriteMovieButton: UIButton!
 
-    override init(frame: CGRect){
-        super.init(frame: frame)
-        setupViews()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupViews()
-    }
-
-    //@TODO: Update UI for favorite movie button
-    func setupViews() {
-        self.favoriteMovieButton = UIButton(frame: CGRect(x: 291, y: 3, width: 21, height: 21))
-        //self.favoriteMovieButton?.backgroundColor = .red
-        //Update constraint layout for favoriteMovieButton
-        addSubview(self.favoriteMovieButton!)
-
-        //Update layout
-        self.layoutIfNeeded()
-    }
+    weak var delegate: FavoriteMovieViewCellDelegate?
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -53,14 +34,20 @@ class MovieViewCell: UICollectionViewCell {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         releaseDate.text = dateFormater.string(from: dateFormater.date(from: "2017-09-17")!)
-        topRating.text = "9.0/10"
+        topRating.text = "5.0/10"
         overview.text = "This is default movie"
         title.text = "Default movie"
         movieId = 1
         favorite = false
     }
+
+    @IBAction func favoriteMovieButtonTapped(_ sender: UIButton) {
+        print("Clicked favorite")
+        delegate?.didTapFavoriteMovieButton(self)
+    }
+
+    func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
+        print("Clicked favorite")
+    }
+
 }
-
-
-
-
