@@ -26,6 +26,35 @@ class Movie: NSObject {
     var voteCount: Int
     var releaseDate: Date
 
+    var _isFavorited: Bool?
+    var isFavorited: Bool? {
+        get{
+            return self._isFavorited
+        }
+        set(newValue) {
+            self._isFavorited = newValue
+        }
+    }
+
+    var _userId: Int?
+    var userId: Int? {
+        get{
+            return self._userId
+        }
+        set(newValue) {
+            self._userId = newValue
+        }
+    }
+
+    var _sessionId: String?
+    var sessionId: String? {
+        get{
+            return self._sessionId
+        }
+        set(newValue) {
+            self._sessionId = newValue
+        }
+    }
 
     init(rawData: JSON) {
         let dateFormater = DateFormatter()

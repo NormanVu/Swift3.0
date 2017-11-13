@@ -231,7 +231,6 @@ final class APIManager: NSObject {
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
-                //print(json)
                 if (json["profile_path"].exists()) {
                     self.genresImage = json["profile_path"].stringValue
                 } else {

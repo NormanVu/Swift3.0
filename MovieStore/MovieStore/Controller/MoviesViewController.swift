@@ -160,8 +160,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let favoriteViewCell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
-        self.currentMovieId = favoriteViewCell?.movieId
+        let cell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
+        self.currentMovieId = cell?.movieId
 
         //Select current movie to load movie detail
         guard let movieDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController else {
@@ -170,7 +170,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         movieDetailViewController.delegate = self
         print("Current movie ID: \(allMovies[indexPath.row].movieId)")
         movieDetailViewController.currentMovie = allMovies[indexPath.row]
-
+        if (self.isFavoriteMovie(movieId: allMovies[indexPath.row].movieId)) {
+            movieDetailViewController.currentMovie?.isFavorited = true
+        }
+        movieDetailViewController.currentMovie?.userId = self.profile.userId
+        movieDetailViewController.currentMovie?.sessionId = self.profile.sessionId
         navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 
@@ -248,7 +252,7 @@ extension MoviesViewController: MovieDetailViewControllerDelegate {
 
 extension MoviesViewController: FavoriteMovieViewCellDelegate {
     func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
-        movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: true, completionHandler: {(UIBackgroundFetchResult) -> Void in
+        movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: isFavorited!, completionHandler: {(UIBackgroundFetchResult) -> Void in
             if (self.movieAPI.statusCode! == 200) {
                 movieViewCell.favoriteImageView.image = #imageLiteral(resourceName: "ic_favorite")
             } else {

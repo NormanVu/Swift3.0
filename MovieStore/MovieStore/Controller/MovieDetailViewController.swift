@@ -29,6 +29,7 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
     var imagesCashAndCrew = [UIImage]()
     var _currentMovie: Movie?
     var genres = [Genres]()
+    var isFavorited: Bool?
     var tempImage: UIImageView?
     var currentMovie: Movie? {
         get{
@@ -103,6 +104,7 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
             return
         }
         self.overviewTextView.text = overview
+        self.favoriteImage.image = (self.currentMovie?.isFavorited)! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
         print("Carousel number of images: \(self.imagesCashAndCrew.count)")
 
     }
@@ -148,6 +150,14 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
     }
 
     @IBAction func favoriteButtonTapped(_ sendr: UIButton) {
-        print("Favorite or unfavorite")
+        movieAPI.setFavoriteMovies(mediaID: (self.currentMovie?.movieId)!, userID: (self.currentMovie?.userId!)!, sessionID: (self.currentMovie?.sessionId)!, favorite: (self.currentMovie?.isFavorited)!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+            if (self.movieAPI.statusCode! == 200) {
+                self.favoriteImage.image = #imageLiteral(resourceName: "ic_favorite")
+                self.currentMovie?.isFavorited = true
+            } else {
+                self.favoriteImage.image = #imageLiteral(resourceName: "ic_unfavorite")
+                self.currentMovie?.isFavorited = false
+            }
+        })
     }
 }
