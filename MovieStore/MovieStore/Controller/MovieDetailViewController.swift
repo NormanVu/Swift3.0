@@ -17,6 +17,7 @@ protocol MovieDetailViewControllerDelegate: class {
 class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouselDelegate{
     @IBOutlet weak var carouselView: iCarousel!
     @IBOutlet weak var favoriteImage: UIImageView!
+    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var reminderButton: UIButton!
     @IBOutlet weak var moviePosterImage: UIImageView!
     @IBOutlet weak var releaseDate: UILabel!
@@ -144,5 +145,9 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
     
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         delegate?.closeViewController(self, didTapBackButton: backButton)
+    }
+
+    @IBAction func favoriteButtonTapped(_ sendr: UIButton) {
+        print("Favorite or unfavorite")
     }
 }

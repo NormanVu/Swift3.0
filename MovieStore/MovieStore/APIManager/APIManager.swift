@@ -18,6 +18,9 @@ final class APIManager: NSObject {
     public var userID: Int?
     public var genresImage: String?
     public var allMovies = [Movie]()
+    public var favoriteMovies = [Movie]()
+    public var favoriteTotalPages: Int?
+    public var favoriteTotalResults: Int?
     public var allGenres = [Genres]()
     static let sharedAPI = APIManager()
 
@@ -101,10 +104,11 @@ final class APIManager: NSObject {
                 let json = JSON(dataResponse.result.value!)
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
-                    //print(movie.toParameters())
-                    self.allMovies.append(movie)
+                    self.favoriteMovies.append(movie)
                 }
-                if (self.allMovies.count > 0) {
+                self.favoriteTotalPages = json["total_pages"].intValue
+                self.favoriteTotalResults = json["total_results"].intValue
+                if (self.favoriteMovies.count > 0) {
                     print("Get favorite movies are successfully!!!")
                     completionHandler(UIBackgroundFetchResult.newData)
                 } else {

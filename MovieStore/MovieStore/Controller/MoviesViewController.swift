@@ -31,10 +31,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var currentMovieSetting: MovieSettings?
     var profile = Profile()
 
+    /*
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
+    }*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -220,6 +221,10 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
                         //Store session id and user information into user default manager
                         UserDefaultManager.updateProfile(userProfile: self.profile)
+                        //Step 5: Get favorite movies
+                        self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                            print("Get favorite movies: total_pages = \(self.movieAPI.favoriteTotalPages) - total_result = \(self.movieAPI.favoriteTotalResults)")
+                        })
                     })
                 })
             })

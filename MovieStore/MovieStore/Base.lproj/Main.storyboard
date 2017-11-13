@@ -364,9 +364,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzy-fb-HK8">
+                                <rect key="frame" x="16" y="54" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="8Fk-yC-MZG"/>
+                                    <constraint firstAttribute="height" constant="50" id="Lgd-oS-Cmt"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="favoriteButtonTapped:" destination="N2T-3f-oye" eventType="touchUpInside" id="jCB-63-RMv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Rzy-fb-HK8" firstAttribute="leading" secondItem="wFg-0T-3Bu" secondAttribute="leadingMargin" id="2Lg-Fg-6HO"/>
                             <constraint firstItem="ASQ-hQ-Uzn" firstAttribute="leading" secondItem="XzC-xx-ld7" secondAttribute="trailing" constant="7" id="9wA-az-Cun"/>
                             <constraint firstItem="pt1-Oe-bJI" firstAttribute="top" secondItem="mam-8a-bCB" secondAttribute="bottom" constant="34" id="Dck-8a-ANp"/>
                             <constraint firstItem="pt1-Oe-bJI" firstAttribute="leading" secondItem="iTO-mY-DfY" secondAttribute="trailing" constant="17" id="FSY-Sl-E8i"/>
@@ -397,10 +408,13 @@
                             <constraint firstItem="ASQ-hQ-Uzn" firstAttribute="leading" secondItem="XzC-xx-ld7" secondAttribute="trailing" constant="7" id="lup-5A-BwD"/>
                             <constraint firstItem="5R8-QS-8Qw" firstAttribute="top" secondItem="XzC-xx-ld7" secondAttribute="bottom" constant="7" id="pPx-Pm-HdP"/>
                             <constraint firstItem="JeO-UB-yWX" firstAttribute="leading" secondItem="XzC-xx-ld7" secondAttribute="trailing" constant="5" id="pf7-dz-1ou"/>
+                            <constraint firstItem="iTO-mY-DfY" firstAttribute="leading" secondItem="Rzy-fb-HK8" secondAttribute="trailing" constant="26" id="tmO-Nb-7YU"/>
                             <constraint firstItem="vTh-CR-xoL" firstAttribute="centerX" secondItem="wFg-0T-3Bu" secondAttribute="centerX" id="u0D-If-hT6"/>
+                            <constraint firstItem="Rzy-fb-HK8" firstAttribute="top" secondItem="mam-8a-bCB" secondAttribute="bottom" constant="34" id="uFe-3F-qwC"/>
                             <constraint firstItem="iTO-mY-DfY" firstAttribute="leading" secondItem="iHv-eq-Iny" secondAttribute="trailing" constant="26" id="uau-f5-d7h"/>
                             <constraint firstItem="ASQ-hQ-Uzn" firstAttribute="top" secondItem="pt1-Oe-bJI" secondAttribute="bottom" constant="37" id="ulG-KD-Gst"/>
                             <constraint firstItem="AO2-b6-N9H" firstAttribute="top" secondItem="5R8-QS-8Qw" secondAttribute="bottom" constant="24" id="yDQ-jn-Dan"/>
+                            <constraint firstItem="XzC-xx-ld7" firstAttribute="top" secondItem="Rzy-fb-HK8" secondAttribute="bottom" constant="8" id="yjD-Nc-AHo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Movie" id="drP-SC-VSU">
@@ -413,6 +427,7 @@
                     <connections>
                         <outlet property="backButton" destination="cGh-Tq-dKF" id="yPK-QQ-k76"/>
                         <outlet property="carouselView" destination="vTh-CR-xoL" id="Lk4-Vt-RUq"/>
+                        <outlet property="favoriteButton" destination="Rzy-fb-HK8" id="fiq-LM-5ct"/>
                         <outlet property="favoriteImage" destination="iHv-eq-Iny" id="ZlL-Td-tp0"/>
                         <outlet property="moviePosterImage" destination="XzC-xx-ld7" id="0EK-UA-ERq"/>
                         <outlet property="overviewTextView" destination="JeO-UB-yWX" id="Pzv-Or-b0r"/>

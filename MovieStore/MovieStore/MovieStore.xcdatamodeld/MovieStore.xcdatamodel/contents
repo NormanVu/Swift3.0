@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FavoriteMovies" representedClassName="FavoriteMovies" syncable="YES" codeGenerationType="class">
+        <attribute name="favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="movieId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sessionId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="MovieSetting" representedClassName="MovieSetting" syncable="YES" codeGenerationType="class">
         <attribute name="fromReleaseYear" optional="YES" attributeType="Integer 32" defaultValueString="2017" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="movieWithRate" optional="YES" attributeType="Float" defaultValueString="5" usesScalarValueType="NO" syncable="YES"/>
@@ -28,5 +35,6 @@
         <element name="MovieSetting" positionX="-63" positionY="-225" width="128" height="163"/>
         <element name="ReminderList" positionX="234" positionY="-9" width="128" height="88"/>
         <element name="UserProfile" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="FavoriteMovies" positionX="90" positionY="-72" width="128" height="120"/>
     </elements>
 </model>

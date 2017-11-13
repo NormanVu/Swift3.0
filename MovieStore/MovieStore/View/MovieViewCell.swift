@@ -8,24 +8,27 @@
 
 import UIKit
 
-protocol FavoriteMovieViewCellDelegate: class {
+protocol FavoriteMovieViewCellDelegate {
     func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell)
 }
 
 class MovieViewCell: UICollectionViewCell {
-
-
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var topRating: UILabel!
     @IBOutlet weak var overview: UILabel!
     @IBOutlet weak var favoriteImageView: UIImageView!
     @IBOutlet weak var title: UILabel!
-    var movieId: Int?
-    var favorite: Bool?
     @IBOutlet weak var favoriteMovieButton: UIButton!
 
-    weak var delegate: FavoriteMovieViewCellDelegate?
+    var delegate: FavoriteMovieViewCellDelegate?
+    var movieId: Int?
+    var favorite: Bool?
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -41,13 +44,9 @@ class MovieViewCell: UICollectionViewCell {
         favorite = false
     }
 
-    @IBAction func favoriteMovieButtonTapped(_ sender: UIButton) {
+    @IBAction func favoriteMovieButtonTapped(_ sender: AnyObject) {
         print("Clicked favorite")
         delegate?.didTapFavoriteMovieButton(self)
-    }
-
-    func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
-        print("Clicked favorite")
     }
 
 }

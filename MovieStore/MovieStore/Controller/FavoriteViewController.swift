@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 import ESPullToRefresh
+import CoreData
 
 class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
@@ -24,11 +25,13 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     var currentMovieId: Int?
     var listLayout: ListLayout!
     var refresher: UIRefreshControl!
+    var favoriteMovie: NSManagedObject? = nil
 
+    /*
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
+    }*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +70,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
                         self.userID = self.movieAPI.userID
                         //Step 5: Get favorite movies
                         self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-                            self.allMovies = self.movieAPI.allMovies
+                            self.allMovies = self.movieAPI.favoriteMovies
                             if (self.allMovies.count == 0) {
                                 self.collectionView.isHidden = true
                                 self.noneDataView.isHidden = false
@@ -110,6 +113,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.releaseDate.text = dateFormater.string(from: self.allMovies[indexPath.item].releaseDate)
         cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
         cell.overview.text = self.allMovies[indexPath.item].overview
+        cell.delegate = self
 
         return cell
     }
@@ -150,5 +154,11 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 extension FavoriteViewController: MovieDetailViewControllerDelegate {
     func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension FavoriteViewController: FavoriteMovieViewCellDelegate {
+    func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
+        print("Did tap favorite movie button")
     }
 }
