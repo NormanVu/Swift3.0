@@ -25,6 +25,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var listLayout: ListLayout!
     var allMovies = [Movie]()
     var favoriteMovies = [Movie]()
+    var isFavorited: Bool?
     var requestToken: String?
     var sessionID: String?
     var userID: Int?
@@ -152,6 +153,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
         cell.overview.text = self.allMovies[indexPath.item].overview
         cell.movieId = self.allMovies[indexPath.item].movieId
+        isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
+        cell.favoriteImageView.image = isFavorited! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
         cell.delegate = self
         return cell
     }
@@ -160,7 +163,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let favoriteViewCell = collectionView.cellForItem(at: indexPath) as? MovieViewCell
         self.currentMovieId = favoriteViewCell?.movieId
 
-        favoriteViewCell?.favoriteMovieButton?.addTarget(self, action: #selector(favoriteMovieButtonTapped(_:)), for: .touchUpInside)
         //Select current movie to load movie detail
         guard let movieDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController else {
             return
@@ -228,13 +230,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         })
     }
 
-
-    //@TODO: Implement to update image favorite/unfavorite
-    func favoriteMovieButtonTapped(_ movieViewCell: MovieViewCell) {
-        print("Favorite current movie id: \(self.currentMovieId!)")
-        movieAPI.setFavoriteMovies(mediaID: self.currentMovieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: true, completionHandler: {(UIBackgroundFetchResult) -> Void in
-            print("favorite or unfavorite movie")
-        })
+    func isFavoriteMovie(movieId: Int) -> Bool {
+        for movie in self.favoriteMovies {
+            if (movie.movieId == movieId) {
+                return true
+            }
+        }
+        return false
     }
 }
 
@@ -246,7 +248,15 @@ extension MoviesViewController: MovieDetailViewControllerDelegate {
 
 extension MoviesViewController: FavoriteMovieViewCellDelegate {
     func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
-        print("Did tap favorite movie button")
+        movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: true, completionHandler: {(UIBackgroundFetchResult) -> Void in
+            if (self.movieAPI.statusCode! == 200) {
+                movieViewCell.favoriteImageView.image = #imageLiteral(resourceName: "ic_favorite")
+            } else {
+                movieViewCell.favoriteImageView.image = #imageLiteral(resourceName: "ic_unfavorite")
+            }
+            //Reload data after change favorite/unfavorite
+            self.collectionView.reloadData()
+        })
     }
 }
 

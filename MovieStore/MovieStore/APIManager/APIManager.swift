@@ -16,6 +16,7 @@ final class APIManager: NSObject {
     public var requestToken: String?
     public var sessionID: String?
     public var userID: Int?
+    public var statusCode: Int?
     public var genresImage: String?
     public var allMovies = [Movie]()
     public var favoriteMovies = [Movie]()
@@ -58,9 +59,7 @@ final class APIManager: NSObject {
         print("Request token in step 2: \(validateRequestToken)")
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
-                let json = JSON(dataResponse.result.value!)
                 print("Step 2: Ask the user for permission via the API is successfully!!!")
-                print(json["success"].boolValue)
                 completionHandler(UIBackgroundFetchResult.newData)
             }
         }
@@ -74,7 +73,7 @@ final class APIManager: NSObject {
                 let json = JSON(dataResponse.result.value!)
                 let sessionID = json["session_id"].stringValue
                 self.sessionID = sessionID
-                print("Step 3: Create a session ID is successfully!!!")
+                print("Step 3: Create a session ID \(self.sessionID) is successfully!!!")
                 print(sessionID)
                 completionHandler(UIBackgroundFetchResult.newData)
             }
@@ -84,6 +83,7 @@ final class APIManager: NSObject {
     //Step 4: Get the user id
     func getUserID(sessionID: String, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(sessionId: sessionID)
+        print("Get the user id with session id \(sessionID)")
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -99,6 +99,7 @@ final class APIManager: NSObject {
     //Step 5: Get favorite movies
     func getFavoriteMovies(userID: Int, sessionID: String, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(userId: userID, sessionId: sessionID)
+        print("Get favorite movies with session id \(sessionID)")
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -194,12 +195,18 @@ final class APIManager: NSObject {
 
     func setFavoriteMovies(mediaID: Int, userID: Int, sessionID: String, favorite: Bool, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(mediaId: mediaID, userId: userID, sessionId: sessionID, favorite: favorite)
+        print("Set favorite movies with session id \(sessionID)")
         let headers = ["content-type": "application/json;charset=utf-8"]
         Alamofire.request(movieAPI.requestURLString, method: .post, parameters: movieAPI.parameters, headers: headers).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
                 print(json)
-                completionHandler(UIBackgroundFetchResult.newData)
+                if (json["status_code"] == 200) {
+                    self.statusCode = json["status_code"].intValue
+                    print("Mark favorite movie is successfully!!!")
+                    completionHandler(UIBackgroundFetchResult.newData)
+                }
+
             }
         }
     }

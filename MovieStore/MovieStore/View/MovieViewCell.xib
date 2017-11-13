@@ -91,7 +91,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star" translatesAutoresizingMaskIntoConstraints="NO" id="N3I-fC-FuB">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_unfavorite" translatesAutoresizingMaskIntoConstraints="NO" id="N3I-fC-FuB">
                         <rect key="frame" x="291" y="3" width="21" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="21" id="LzN-Kp-SyR"/>
@@ -149,6 +149,6 @@
     </objects>
     <resources>
         <image name="ic_default" width="1331" height="1508"/>
-        <image name="ic_star" width="24" height="24"/>
+        <image name="ic_unfavorite" width="24" height="24"/>
     </resources>
 </document>

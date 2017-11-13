@@ -33,7 +33,7 @@ class MovieViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         posterImage.image = #imageLiteral(resourceName: "ic_default")
-        favoriteImageView.image = #imageLiteral(resourceName: "ic_star")
+        favoriteImageView.image = #imageLiteral(resourceName: "ic_unfavorite")
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
         releaseDate.text = dateFormater.string(from: dateFormater.date(from: "2017-09-17")!)
@@ -45,7 +45,6 @@ class MovieViewCell: UICollectionViewCell {
     }
 
     @IBAction func favoriteMovieButtonTapped(_ sender: AnyObject) {
-        print("Clicked favorite")
         delegate?.didTapFavoriteMovieButton(self)
     }
 

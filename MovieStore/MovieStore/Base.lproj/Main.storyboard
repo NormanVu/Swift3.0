@@ -260,7 +260,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star" translatesAutoresizingMaskIntoConstraints="NO" id="iHv-eq-Iny">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_unfavorite" translatesAutoresizingMaskIntoConstraints="NO" id="iHv-eq-Iny">
                                 <rect key="frame" x="16" y="54" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Bre-ks-FOn"/>
@@ -819,7 +819,7 @@
         <image name="ic_person" width="24" height="24"/>
         <image name="ic_placeholder" width="128" height="128"/>
         <image name="ic_settings" width="24" height="24"/>
-        <image name="ic_star" width="24" height="24"/>
+        <image name="ic_unfavorite" width="24" height="24"/>
         <image name="ic_view_module" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
