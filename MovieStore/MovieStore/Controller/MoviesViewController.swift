@@ -13,6 +13,7 @@ import ESPullToRefresh
 import FMDB
 import SwiftyJSON
 import SWRevealViewController
+import CoreData
 
 class MoviesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
 
@@ -31,10 +32,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var userID: Int?
     var currentMovieId: Int?
     var currentMovieSetting: MovieSettings?
+    var movieSetting: NSManagedObject? = nil
     var profile = Profile()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //Load setting from core data
+        loadMovieSettingsFromCoreData()
 
         //Force auto login
         self.autoLogin()
@@ -56,6 +61,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
+        } else {
+            self.applyFilterMovies()
         }
         //Receive(Get) Notification:
         NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
@@ -134,7 +141,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-
+        saveMovieSettingsToCoreData()
     }
 
     // MARK: collectionView methods
@@ -241,6 +248,66 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
         }
         return false
+    }
+
+    func loadMovieSettingsFromCoreData() {
+        //
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        if #available(iOS 10.0, *) {
+            // managed context
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            // movieSetting entity
+            let movieSettingEntity =
+                NSEntityDescription.entity(forEntityName: "MovieSetting", in: managedContext)!
+            movieSetting = NSManagedObject(entity: movieSettingEntity, insertInto: managedContext)
+
+            // Get values
+            let popularMovie = movieSetting?.value(forKeyPath: "popularMovies") as? Bool
+            currentMovieSetting?.popularMovies = popularMovie!
+            let topRatedMovie = movieSetting?.value(forKeyPath: "topRatedMovies") as? Bool
+            currentMovieSetting?.topRatedMovies = topRatedMovie!
+            let upComingMovie = movieSetting?.value(forKeyPath: "upComingMovies") as? Bool
+            currentMovieSetting?.upComingMovies = upComingMovie!
+            let nowPlayingMovie = movieSetting?.value(forKeyPath: "nowPlayingMovies") as? Bool
+            currentMovieSetting?.nowPlayingMovies = nowPlayingMovie!
+            currentMovieSetting?.movieWithRate = movieSetting?.value(forKeyPath: "movieWithRate") as! Float
+            currentMovieSetting?.fromReleaseYear = movieSetting?.value(forKeyPath: "fromReleaseYear") as! Int
+            let releaseDate = movieSetting?.value(forKeyPath: "releaseDate") as? Bool
+            currentMovieSetting?.releaseDate = releaseDate!
+            let rating = movieSetting?.value(forKeyPath: "rating") as? Bool
+            currentMovieSetting?.rating = rating!
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+
+
+    func saveMovieSettingsToCoreData() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        if #available(iOS 10.0, *) {
+            // managed context
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            // movieSetting entity
+            let movieSettingEntity =
+                NSEntityDescription.entity(forEntityName: "MovieSetting", in: managedContext)!
+            movieSetting = NSManagedObject(entity: movieSettingEntity, insertInto: managedContext)
+            movieSetting?.setValue(self.currentMovieSetting?.popularMovies, forKeyPath: "popularMovies")
+            movieSetting?.setValue(self.currentMovieSetting?.topRatedMovies, forKeyPath: "topRatedMovies")
+            movieSetting?.setValue(self.currentMovieSetting?.upComingMovies, forKeyPath: "upComingMovies")
+            movieSetting?.setValue(self.currentMovieSetting?.nowPlayingMovies, forKeyPath: "nowPlayingMovies")
+            movieSetting?.setValue(self.currentMovieSetting?.movieWithRate, forKeyPath: "movieWithRate")
+            movieSetting?.setValue(self.currentMovieSetting?.fromReleaseYear, forKeyPath: "fromReleaseYear")
+            movieSetting?.setValue(self.currentMovieSetting?.releaseDate, forKeyPath: "releaseDate")
+            movieSetting?.setValue(self.currentMovieSetting?.rating, forKeyPath: "rating")
+        } else {
+            //Fall back
+        }
     }
 }
 
