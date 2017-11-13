@@ -11,7 +11,7 @@
         <attribute name="fromReleaseYear" optional="YES" attributeType="Integer 32" defaultValueString="2017" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="movieWithRate" optional="YES" attributeType="Float" defaultValueString="5" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="nowPlayingMovies" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="popularMovies" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="popularMovies" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="releaseDate" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="topRatedMovies" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
@@ -32,9 +32,9 @@
         <relationship name="reminderList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReminderList" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MovieSetting" positionX="-63" positionY="-225" width="128" height="163"/>
+        <element name="FavoriteMovies" positionX="90" positionY="-72" width="128" height="120"/>
+        <element name="MovieSetting" positionX="-63" positionY="-225" width="128" height="165"/>
         <element name="ReminderList" positionX="234" positionY="-9" width="128" height="88"/>
         <element name="UserProfile" positionX="-63" positionY="-18" width="128" height="148"/>
-        <element name="FavoriteMovies" positionX="90" positionY="-72" width="128" height="120"/>
     </elements>
 </model>
