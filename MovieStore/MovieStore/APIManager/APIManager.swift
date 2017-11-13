@@ -130,7 +130,8 @@ final class APIManager: NSObject {
                     self.allMovies.append(movie)
                 }
                 if (self.allMovies.count > 0) {
-                    print("Get popular movies are successfully!!!")
+
+                    print("Get popular movies are successfully!!! (reponse page: \(json["page"].intValue)")
                     completionHandler(UIBackgroundFetchResult.newData)
                 }
             }

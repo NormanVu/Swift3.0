@@ -27,12 +27,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     var refresher: UIRefreshControl!
     var favoriteMovie: NSManagedObject? = nil
 
-    /*
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }*/
-
     override func viewDidLoad() {
         super.viewDidLoad()
         

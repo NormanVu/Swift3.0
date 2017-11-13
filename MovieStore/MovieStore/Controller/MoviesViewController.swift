@@ -24,18 +24,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var gridLayout: GridLayout!
     var listLayout: ListLayout!
     var allMovies = [Movie]()
+    var favoriteMovies = [Movie]()
     var requestToken: String?
     var sessionID: String?
     var userID: Int?
     var currentMovieId: Int?
     var currentMovieSetting: MovieSettings?
     var profile = Profile()
-
-    /*
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -223,6 +218,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                         UserDefaultManager.updateProfile(userProfile: self.profile)
                         //Step 5: Get favorite movies
                         self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                            self.favoriteMovies = self.movieAPI.favoriteMovies
+
                             print("Get favorite movies: total_pages = \(self.movieAPI.favoriteTotalPages) - total_result = \(self.movieAPI.favoriteTotalResults)")
                         })
                     })
