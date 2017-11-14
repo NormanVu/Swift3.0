@@ -37,6 +37,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
         collectionView.collectionViewLayout = listLayout
         self.collectionView.delegate = self
+        self.collectionView.dataSource = self
 
         //Refresh collection view
         refresher = UIRefreshControl()
@@ -51,12 +52,14 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func loadData() {
+        self.allMovies.removeAll()
         self.profile = UserDefaultManager.getUserProfile()
-        print("Session id = \(self.profile.sessionId)")
+        print("self.allMovies.count = \(self.allMovies.count) - Session id = \(self.profile.sessionId)")
 
         //Step 5: Get favorite movies
         self.movieAPI.getFavoriteMovies(userID: profile.userId!, sessionID: profile.sessionId!, completionHandler: {(UIBackgroundFetchResult) -> Void in
             self.allMovies = self.movieAPI.favoriteMovies
+            print("##### self.allMovies.count = \(self.allMovies.count)")
             if (self.allMovies.count == 0) {
                 self.collectionView.isHidden = true
                 self.noneDataView.isHidden = false
@@ -112,7 +115,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
             return
         }
         movieDetailViewController.delegate = self
-        print("Current movie ID: \(allMovies[indexPath.row].movieId)")
         movieDetailViewController.currentMovie = allMovies[indexPath.row]
         navigationController?.pushViewController(movieDetailViewController, animated: true)
     }

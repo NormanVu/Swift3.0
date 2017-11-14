@@ -100,6 +100,7 @@ class APIManager: NSObject {
     func getFavoriteMovies(userID: Int, sessionID: String, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(userId: userID, sessionId: sessionID)
         print("Get favorite movies with session id \(sessionID)")
+        self.favoriteMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -122,12 +123,12 @@ class APIManager: NSObject {
     func getPopularMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(popular: true)
         typeMovie = .popular
+        self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
-
                     self.allMovies.append(movie)
                 }
                 if (self.allMovies.count > 0) {
@@ -142,6 +143,7 @@ class APIManager: NSObject {
     func getTopRatingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(topRated: true)
         typeMovie = .topRated
+        self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -160,6 +162,7 @@ class APIManager: NSObject {
     func getNowPlayingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(nowPlaying: true)
         typeMovie = .nowPlaying
+        self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -178,6 +181,7 @@ class APIManager: NSObject {
     func getUpComingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(upComing: true)
         typeMovie = .upComing
+        self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
