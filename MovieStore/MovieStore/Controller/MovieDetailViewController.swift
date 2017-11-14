@@ -33,7 +33,7 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
     var tempImage: UIImageView?
     var currentMovie: Movie? {
         get{
-            return self._currentMovie!
+            return self._currentMovie
         }
         set(newValue) {
             self._currentMovie = newValue

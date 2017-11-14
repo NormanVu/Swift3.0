@@ -179,6 +179,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         movieDetailViewController.currentMovie = allMovies[indexPath.row]
         if (self.isFavoriteMovie(movieId: allMovies[indexPath.row].movieId)) {
             movieDetailViewController.currentMovie?.isFavorited = true
+        } else {
+            movieDetailViewController.currentMovie?.isFavorited = false
         }
         movieDetailViewController.currentMovie?.userId = self.profile.userId
         movieDetailViewController.currentMovie?.sessionId = self.profile.sessionId
