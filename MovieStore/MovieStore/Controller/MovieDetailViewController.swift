@@ -151,12 +151,8 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
 
     @IBAction func favoriteButtonTapped(_ sendr: UIButton) {
         movieAPI.setFavoriteMovies(mediaID: (self.currentMovie?.movieId)!, userID: (self.currentMovie?.userId!)!, sessionID: (self.currentMovie?.sessionId)!, favorite: (self.currentMovie?.isFavorited)!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-            if (self.movieAPI.statusCode! == 200) {
-                self.favoriteImage.image = #imageLiteral(resourceName: "ic_favorite")
-                self.currentMovie?.isFavorited = true
-            } else {
-                self.favoriteImage.image = #imageLiteral(resourceName: "ic_unfavorite")
-                self.currentMovie?.isFavorited = false
+            if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
+                self.favoriteImage.image = self.currentMovie?.isFavorited == true ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
             }
         })
     }

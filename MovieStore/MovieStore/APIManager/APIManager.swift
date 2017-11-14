@@ -195,13 +195,10 @@ final class APIManager: NSObject {
 
     func setFavoriteMovies(mediaID: Int, userID: Int, sessionID: String, favorite: Bool, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(mediaId: mediaID, userId: userID, sessionId: sessionID, favorite: favorite)
-        print("Set favorite movies with session id \(sessionID)")
-        let headers = ["content-type": "application/json;charset=utf-8"]
-        Alamofire.request(movieAPI.requestURLString, method: .post, parameters: movieAPI.parameters, headers: headers).responseJSON{ (dataResponse) -> Void in
+        Alamofire.request(movieAPI.requestURLString, method: .post, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
-                print(json)
-                if (json["status_code"] == 200) {
+                if (json["status_code"] == 1 || json["status_code"] == 12 || json["status_code"] == 13) {
                     self.statusCode = json["status_code"].intValue
                     print("Mark favorite movie is successfully!!!")
                     completionHandler(UIBackgroundFetchResult.newData)

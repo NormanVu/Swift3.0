@@ -26,7 +26,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var listLayout: ListLayout!
     var allMovies = [Movie]()
     var favoriteMovies = [Movie]()
-    var isFavorited: Bool?
     var requestToken: String?
     var sessionID: String?
     var userID: Int?
@@ -160,8 +159,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
         cell.overview.text = self.allMovies[indexPath.item].overview
         cell.movieId = self.allMovies[indexPath.item].movieId
-        isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
-        cell.favoriteImageView.image = isFavorited! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+        let isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
+        cell.favorite = isFavorited
+        cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
         cell.delegate = self
         return cell
     }
@@ -321,14 +321,12 @@ extension MoviesViewController: MovieDetailViewControllerDelegate {
 
 extension MoviesViewController: FavoriteMovieViewCellDelegate {
     func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
-        movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: isFavorited!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-            if (self.movieAPI.statusCode! == 200) {
-                movieViewCell.favoriteImageView.image = #imageLiteral(resourceName: "ic_favorite")
-            } else {
-                movieViewCell.favoriteImageView.image = #imageLiteral(resourceName: "ic_unfavorite")
+        print("isFavorited = \(movieViewCell.favorite)")
+        movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: !movieViewCell.favorite!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+            if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
+                movieViewCell.favoriteImageView.image = !movieViewCell.favorite! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+                self.collectionView.reloadData()
             }
-            //Reload data after change favorite/unfavorite
-            self.collectionView.reloadData()
         })
     }
 }
