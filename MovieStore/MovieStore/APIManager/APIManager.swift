@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-final class APIManager: NSObject {
+class APIManager: NSObject {
 
     var typeMovie: TypeCollection?
     public var requestToken: String?

@@ -30,6 +30,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var sessionID: String?
     var userID: Int?
     var currentMovieId: Int?
+    var isFavorited: Bool?
     var currentMovieSetting: MovieSettings?
     var movieSetting: NSManagedObject? = nil
     var profile = Profile()
@@ -135,7 +136,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.reloadData()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -234,7 +234,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                         //Step 5: Get favorite movies
                         self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
                             self.favoriteMovies = self.movieAPI.favoriteMovies
-
+                            self.movieAPI.favoriteMovies.removeAll()
                             print("Get favorite movies: total_pages = \(self.movieAPI.favoriteTotalPages) - total_result = \(self.movieAPI.favoriteTotalResults)")
                         })
                     })
@@ -316,16 +316,24 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 extension MoviesViewController: MovieDetailViewControllerDelegate {
     func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
+        self.collectionView.reloadData()
     }
 }
 
 extension MoviesViewController: FavoriteMovieViewCellDelegate {
     func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
-        print("isFavorited = \(movieViewCell.favorite)")
+        print("isFavorited = \(!movieViewCell.favorite!)")
+        print("Session id = \(self.sessionID!)")
         movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: !movieViewCell.favorite!, completionHandler: {(UIBackgroundFetchResult) -> Void in
             if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
-                movieViewCell.favoriteImageView.image = !movieViewCell.favorite! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
-                self.collectionView.reloadData()
+                //Step 5: Get favorite movies
+                self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                    self.favoriteMovies = self.movieAPI.favoriteMovies
+                    self.collectionView.reloadData()
+
+                    movieViewCell.favoriteImageView.image = !movieViewCell.favorite! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+                    movieViewCell.favorite = !movieViewCell.favorite!
+                })
             }
         })
     }

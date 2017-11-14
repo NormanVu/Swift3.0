@@ -20,9 +20,8 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     let movieAPI = APIManager()
     var allMovies = [Movie]()
     var requestToken: String?
-    var sessionID: String?
+    var profile = Profile()
     var isFavorited: Bool?
-    var userID: Int?
     var currentMovieId: Int?
     var listLayout: ListLayout!
     var refresher: UIRefreshControl!
@@ -52,33 +51,22 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     func loadData() {
-        //Step 1: Create a new request token
-        self.movieAPI.getRequestToken(completionHandler:{(UIBackgroundFetchResult) -> Void in
-            self.requestToken = self.movieAPI.requestToken
-            //Step 2: Ask the user for permission via the API
-            self.movieAPI.loginWithToken(validateRequestToken: self.requestToken!, completionHandler:{(UIBackgroundFetchResult) -> Void in
-                //Step 3: Create a session ID
-                self.movieAPI.getSessionID(requestToken: self.requestToken!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-                    self.sessionID = self.movieAPI.sessionID
-                    //Step 4: Get the user id
-                    self.movieAPI.getUserID(sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-                        self.userID = self.movieAPI.userID
-                        //Step 5: Get favorite movies
-                        self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-                            self.allMovies = self.movieAPI.favoriteMovies
-                            if (self.allMovies.count == 0) {
-                                self.collectionView.isHidden = true
-                                self.noneDataView.isHidden = false
-                            } else {
-                                self.collectionView.isHidden = false
-                                self.noneDataView.isHidden = true
-                            }
-                            self.collectionView.reloadData()
-                        })
-                    })
-                })
-            })
+        self.profile = UserDefaultManager.getUserProfile()
+        print("Session id = \(self.profile.sessionId)")
+
+        //Step 5: Get favorite movies
+        self.movieAPI.getFavoriteMovies(userID: profile.userId!, sessionID: profile.sessionId!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+            self.allMovies = self.movieAPI.favoriteMovies
+            if (self.allMovies.count == 0) {
+                self.collectionView.isHidden = true
+                self.noneDataView.isHidden = false
+            } else {
+                self.collectionView.isHidden = false
+                self.noneDataView.isHidden = true
+            }
+            self.collectionView.reloadData()
         })
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -136,6 +124,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
     func finishRefresh() {
         refresher?.endRefreshing()
+        collectionView.reloadData()
     }
 
     func isFavoriteMovie(movieId: Int) -> Bool {

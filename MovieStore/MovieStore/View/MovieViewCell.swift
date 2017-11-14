@@ -23,7 +23,16 @@ class MovieViewCell: UICollectionViewCell {
 
     var delegate: FavoriteMovieViewCellDelegate?
     var movieId: Int?
-    var favorite: Bool?
+    var _favorite: Bool?
+    var favorite: Bool? {
+        get{
+            return self._favorite
+        }
+        set(newValue) {
+            self._favorite = newValue
+        }
+    }
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
