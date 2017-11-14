@@ -56,7 +56,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         //Load default popular movies without appling filter movies
         if (currentMovieSetting == nil) {
-            self.title = "Popular"
+            self.navigationItem.title = "Popular"
             movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 print("Count popular = \(self.allMovies.count)")
@@ -82,22 +82,23 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     func applyFilterMovies() {
         self.allMovies.removeAll()
         print("Filter Count all movies = \(self.allMovies.count)")
-        self.title = ""
+        self.navigationItem.title = ""
+        self.title = "Movies"
         if (currentMovieSetting?.popularMovies)! {
             movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 print("Filter Count popular = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
-            self.title = "Popular"
+            self.navigationItem.title = "Popular"
         }
         if (currentMovieSetting?.topRatedMovies)! {
             movieAPI.getTopRatingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 print("Filter Count top rated = \(self.allMovies.count)")
                 self.collectionView.reloadData()
-                self.title = "Top Rated"
             })
+            self.navigationItem.title = "Top Rated"
         }
         if (currentMovieSetting?.upComingMovies)! {
             movieAPI.getUpComingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
@@ -105,7 +106,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 print("Filter Count up coming = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
-            self.title = "Up Coming"
+            self.navigationItem.title = "Up Coming"
         }
         if (currentMovieSetting?.nowPlayingMovies)! {
             movieAPI.getNowPlayingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
@@ -113,7 +114,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 print("Filter Count now playing = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
-            self.title = "Now Playing"
+            self.navigationItem.title = "Now Playing"
         }
     }
 
