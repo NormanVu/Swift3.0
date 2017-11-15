@@ -27,7 +27,6 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var cashAndCrewList: UICollectionView!
 
     let movieAPI = APIManager()
-    var imagesCashAndCrew = [UIImage]()
     var isFavorited: Bool?
     var _currentMovie: Movie?
     var currentMovie: Movie? {
@@ -45,30 +44,11 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
 
         self.title = ""
-        cashAndCrewList.register(UINib(nibName: "GenresViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresViewCell")
-        print("Number of genres: \(self.currentMovie?.genres.count)")
-        guard let n = self.currentMovie?.genres.count else {
-            return
-        }
-        for i in 0..<n {
-            //Call API to get genres detail
-            self.movieAPI.getGenresDetail(genresID: (self.currentMovie?.genres[i].genresId!)!, completionHandler:{(UIBackgroundFetchResult) -> Void in
-                print("genres image path at index \(i): \(self.movieAPI.genresImagePath)")
-                if (self.movieAPI.genresImagePath != nil && self.movieAPI.genresImagePath != "") {
-                    self.currentMovie?.genres[i].genresImagePath = self.movieAPI.genresImagePath
-                    guard let imageData = NSData(contentsOf: (self.currentMovie?.genres[i].genresImageURL!)!) else {
-                        //Invalid URL
-                        self.imagesCashAndCrew.append(#imageLiteral(resourceName: "ic_placeholder"))
-                        return
-                    }
-                    let genresImage = UIImage(data: imageData as Data)
-                    self.imagesCashAndCrew.append(genresImage!)
-                } else {
-                    self.imagesCashAndCrew.append(#imageLiteral(resourceName: "ic_placeholder"))
-                }
-            })
-        }
         self.updateUI()
+
+        self.cashAndCrewList.register(UINib(nibName: "GenresViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresViewCell")
+        print("Number of genres: \(self.currentMovie?.genres.count)")
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,7 +58,19 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        guard let n = self.currentMovie?.genres.count else {
+            return
+        }
+        for i in 0..<n {
+            //Call API to get genres detail
+            self.movieAPI.getGenresDetail(genresID: (self.currentMovie?.genres[i].genresId!)!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                print("genres image path at index \(i): \(self.movieAPI.genresImagePath)")
+                if (self.movieAPI.genresImagePath != nil && self.movieAPI.genresImagePath != "") {
+                    self.currentMovie?.genres[i].genresImagePath = self.movieAPI.genresImagePath
+                }
+                self.cashAndCrewList.reloadData()
+            })
+        }
     }
 
     func updateUI() {
@@ -120,9 +112,12 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GenresViewCell", for: indexPath) as! GenresViewCell
-        print("data source: \(self.currentMovie?.genres.count)")
-        //cell.genresImage.image = self.imagesCashAndCrew[indexPath.item]
-        //cell.genresName.text = self.currentMovie?.genres[indexPath.item].genresName
+        if (self.currentMovie?.genres[indexPath.item].genresImagePath == nil) {
+            cell.genresImage.image = #imageLiteral(resourceName: "ic_placeholder")
+        } else {
+            cell.genresImage.kf.setImage(with: ImageResource(downloadURL: (self.currentMovie?.genres[indexPath.item].genresImageURL!)!))
+        }
+        cell.genresName.text = self.currentMovie?.genres[indexPath.item].genresName
         return cell
     }
 
