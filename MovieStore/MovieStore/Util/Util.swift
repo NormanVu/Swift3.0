@@ -23,11 +23,10 @@ class Util: NSObject {
     class func copyFile(fileName: NSString) {
         let dbPath: String = getPath(fileName: fileName as String)
         let fileManager = FileManager.default
-        if !fileManager.fileExists(atPath: dbPath) {
-
+        if (!fileManager.fileExists(atPath: dbPath)) {
             let documentsURL = Bundle.main.resourceURL
             let fromPath = documentsURL!.appendingPathComponent(fileName as String)
-            print(fromPath)
+            print("Database is copied from : \(fromPath)")
             var error : NSError?
             do {
                 try fileManager.copyItem(atPath: fromPath.path, toPath: dbPath)
@@ -39,16 +38,13 @@ class Util: NSObject {
             if (error != nil) {
                 alert.title = "Error Occured"
                 alert.message = error?.localizedDescription
+                alert.delegate = nil
+                alert.addButton(withTitle: "OK")
+                alert.show()
             } else {
                 alert.title = "Successfully Copy"
                 alert.message = "Your database is copied successfully"
             }
-            alert.delegate = nil
-            alert.addButton(withTitle: "OK")
-            alert.show()
-        }
-        else
-        {
 
         }
     }

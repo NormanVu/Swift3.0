@@ -15,6 +15,16 @@ class ReminderViewCell: UITableViewCell {
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var releaseDate: UILabel!
 
+    var _movieId: Int?
+    var movieId: Int? {
+        get{
+            return self._movieId
+        }
+        set(newValue) {
+            self._movieId = newValue
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
