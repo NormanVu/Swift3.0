@@ -10,8 +10,11 @@ import UIKit
 import SWRevealViewController
 import CoreData
 import SWRevealViewController
+import Kingfisher
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+
+
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
@@ -31,9 +34,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var userProfileManagedObject: NSManagedObject? = nil
     var userProfile = Profile()
     var gender: Int?
+    var allReminderList = NSMutableArray()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //Update reminder list table view
+        self.reminderList.allowsMultipleSelectionDuringEditing = false
+        self.reminderList.delegate = self
+        self.reminderList.dataSource = self
+
+        self.reminderList.register(UINib(nibName: "ReminderViewCell", bundle: nil), forCellReuseIdentifier: "ReminderViewCell")
 
         //Get user information from user default manager
         self.userProfile = UserDefaultManager.getUserProfile()
@@ -55,7 +66,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.genderLabel.text = (self.userProfile.gender == 2 ? "Male" : "Female")
         self.userNameLabel.text = self.userProfile.userName
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-dd"
+        formatter.dateFormat = "yyyt-MM-dd"
         self.birthday.text = formatter.string(from: self.userProfile.birthday!)
         self.email.text = self.userProfile.email
         editButton.layer.cornerRadius = 3.0
@@ -71,6 +82,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.allReminderList = MovieReminderDatabase.getInstance().getAllData()
+        reminderList.reloadData()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -200,5 +213,48 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
         self.avatar.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    }
+
+    //MARK: Reminder list table view
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.allReminderList.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 74.0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderViewCell", for: indexPath) as! ReminderViewCell
+
+        cell.tag = indexPath.row
+        var reminder = MovieReminders()
+        reminder = self.allReminderList.object(at: indexPath.row) as! MovieReminders
+        cell.movieId = reminder.movieId
+        cell.reminderTitle.text = reminder.title
+        cell.rating.text = reminder.rating
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        cell.releaseDate.text = formatter.string(from: reminder.releaseDate!)
+        cell.reminderImage.kf.setImage(with: ImageResource(downloadURL: (reminder.imagePathURL!)))
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        var reminder = MovieReminders()
+        reminder = self.allReminderList.object(at: indexPath.row) as! MovieReminders
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            let reminderDelete = MovieReminderDatabase.getInstance().deleteRecord(recordId: reminder.movieId!)
+            if (reminderDelete != nil) {
+                self.allReminderList.removeObject(at: indexPath.item)
+                self.reminderList.reloadData()
+            }
+
+        }
     }
 }

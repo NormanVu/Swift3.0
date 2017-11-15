@@ -12,6 +12,12 @@
 		5EF325F636B28F9A746C3BC8 /* Pods_MovieStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */; };
 		BA0D8B5F1FB58024000453A9 /* Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0D8B5E1FB58024000453A9 /* Genres.swift */; };
 		BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */; };
+		BA56A4EF1FBBEBF40031EADD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BA56A4EE1FBBEBF40031EADD /* libsqlite3.0.tbd */; };
+		BA56A4F21FBBF2010031EADD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA56A4F11FBBF2010031EADD /* Util.swift */; };
+		BA56A4F91FBBF8B70031EADD /* MovieReminderDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA56A4F81FBBF8B70031EADD /* MovieReminderDatabase.swift */; };
+		BA56A4FB1FBC1C190031EADD /* ReminderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA56A4FA1FBC1C190031EADD /* ReminderViewCell.swift */; };
+		BA56A4FD1FBC1C8B0031EADD /* ReminderViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA56A4FC1FBC1C8B0031EADD /* ReminderViewCell.xib */; };
+		BA56A4FF1FBC2B9D0031EADD /* MovieDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = BA56A4FE1FBC2B9D0031EADD /* MovieDatabase.sqlite */; };
 		BA65558A1FAAB6E0004CAB82 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */; };
 		BA65558E1FAAD6DC004CAB82 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */; };
 		BA6555941FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6555931FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib */; };
@@ -36,7 +42,6 @@
 		BAE831121F95DDFD00C4246F /* MovieStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831111F95DDFD00C4246F /* MovieStoreUITests.swift */; };
 		BAE8313E1F95FA3300C4246F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = BAE8313D1F95FA3300C4246F /* Podfile */; };
 		FC4124FC1FB4A85F0021C594 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4124FB1FB4A85F0021C594 /* MovieDetailViewController.swift */; };
-		FC4125041FB4B4610021C594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4125031FB4B4610021C594 /* QuartzCore.framework */; };
 		FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DB1FA914A000581CDF /* GridLayout.swift */; };
 		FC4917DE1FA9151600581CDF /* MovieViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DD1FA9151600581CDF /* MovieViewCell.swift */; };
 		FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917E01FA93F2900581CDF /* ListLayout.swift */; };
@@ -72,6 +77,12 @@
 		B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA0D8B5E1FB58024000453A9 /* Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genres.swift; sourceTree = "<group>"; };
 		BA1C50AB1FA89A3500536427 /* MovieViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieViewCell.xib; sourceTree = "<group>"; };
+		BA56A4EE1FBBEBF40031EADD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		BA56A4F11FBBF2010031EADD /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		BA56A4F81FBBF8B70031EADD /* MovieReminderDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReminderDatabase.swift; sourceTree = "<group>"; };
+		BA56A4FA1FBC1C190031EADD /* ReminderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewCell.swift; sourceTree = "<group>"; };
+		BA56A4FC1FBC1C8B0031EADD /* ReminderViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderViewCell.xib; sourceTree = "<group>"; };
+		BA56A4FE1FBC2B9D0031EADD /* MovieDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = MovieDatabase.sqlite; sourceTree = "<group>"; };
 		BA6555891FAAB6E0004CAB82 /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		BA65558D1FAAD6DC004CAB82 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BA6555931FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterMovieRatingViewCell.xib; sourceTree = "<group>"; };
@@ -105,7 +116,6 @@
 		D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E1CDDFD2AF8E7DB6A94D2A /* Pods-MovieStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStore/Pods-MovieStore.release.xcconfig"; sourceTree = "<group>"; };
 		FC4124FB1FB4A85F0021C594 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
-		FC4125031FB4B4610021C594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FC4917DB1FA914A000581CDF /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		FC4917DD1FA9151600581CDF /* MovieViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewCell.swift; sourceTree = "<group>"; };
 		FC4917E01FA93F2900581CDF /* ListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLayout.swift; sourceTree = "<group>"; };
@@ -120,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC4125041FB4B4610021C594 /* QuartzCore.framework in Frameworks */,
+				BA56A4EF1FBBEBF40031EADD /* libsqlite3.0.tbd in Frameworks */,
 				BA897ED71FA6CDF9007755F5 /* WebKit.framework in Frameworks */,
 				5EF325F636B28F9A746C3BC8 /* Pods_MovieStore.framework in Frameworks */,
 			);
@@ -158,6 +168,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BA56A4F01FBBF1BF0031EADD /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				BA56A4F11FBBF2010031EADD /* Util.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		BA56A4F31FBBF4710031EADD /* LocalDB */ = {
+			isa = PBXGroup;
+			children = (
+				BA56A4F81FBBF8B70031EADD /* MovieReminderDatabase.swift */,
+			);
+			path = LocalDB;
+			sourceTree = "<group>";
+		};
 		BA75F7D01F9887FC00BFA5DF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +207,8 @@
 				BA6555951FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift */,
 				FCBA36A91FBB2EB900AFEE9D /* GenresViewCell.xib */,
 				FCBA36AB1FBB30C700AFEE9D /* GenresViewCell.swift */,
+				BA56A4FC1FBC1C8B0031EADD /* ReminderViewCell.xib */,
+				BA56A4FA1FBC1C190031EADD /* ReminderViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				BAE8313D1F95FA3300C4246F /* Podfile */,
+				BA56A4FE1FBC2B9D0031EADD /* MovieDatabase.sqlite */,
 				BAE830ED1F95DDF000C4246F /* MovieStore */,
 				BAE831051F95DDFB00C4246F /* MovieStoreTests */,
 				BAE831101F95DDFD00C4246F /* MovieStoreUITests */,
@@ -242,6 +271,8 @@
 		BAE830ED1F95DDF000C4246F /* MovieStore */ = {
 			isa = PBXGroup;
 			children = (
+				BA56A4F31FBBF4710031EADD /* LocalDB */,
+				BA56A4F01FBBF1BF0031EADD /* Util */,
 				BA96A8411FB0337E00BEE94E /* UserDefaultManager */,
 				BA75F7D31F98891E00BFA5DF /* APIManager */,
 				BA75F7D21F98881400BFA5DF /* Controller */,
@@ -279,7 +310,7 @@
 		F9BBFADFBDED0C68D24B46BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FC4125031FB4B4610021C594 /* QuartzCore.framework */,
+				BA56A4EE1FBBEBF40031EADD /* libsqlite3.0.tbd */,
 				BA897ED61FA6CDF9007755F5 /* WebKit.framework */,
 				D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */,
 				B202B8F874B2FB4C56AF0292 /* Pods_MovieStoreTests.framework */,
@@ -414,7 +445,9 @@
 				BAE830F41F95DDF300C4246F /* Main.storyboard in Resources */,
 				BA6555941FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib in Resources */,
 				FCBA36AA1FBB2EB900AFEE9D /* GenresViewCell.xib in Resources */,
+				BA56A4FD1FBC1C8B0031EADD /* ReminderViewCell.xib in Resources */,
 				BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */,
+				BA56A4FF1FBC2B9D0031EADD /* MovieDatabase.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +510,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		610B88CD0B1CF9A2171684F9 /* [CP] Copy Pods Resources */ = {
@@ -537,7 +570,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8C023DFDCA9D6B3319049F1A /* [CP] Copy Pods Resources */ = {
@@ -567,7 +600,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -596,7 +629,10 @@
 				FC4124FC1FB4A85F0021C594 /* MovieDetailViewController.swift in Sources */,
 				BA6555981FAB216D004CAB82 /* MovieSettings.swift in Sources */,
 				FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */,
+				BA56A4F21FBBF2010031EADD /* Util.swift in Sources */,
+				BA56A4FB1FBC1C190031EADD /* ReminderViewCell.swift in Sources */,
 				BA6555961FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift in Sources */,
+				BA56A4F91FBBF8B70031EADD /* MovieReminderDatabase.swift in Sources */,
 				BAE830F71F95DDF600C4246F /* MovieStore.xcdatamodeld in Sources */,
 				BA96A8431FB0339F00BEE94E /* UserDefaultManager.swift in Sources */,
 				BA897EDB1FA6DF80007755F5 /* MovieAPI.swift in Sources */,

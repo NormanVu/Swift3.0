@@ -24,6 +24,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var overviewTextView: UITextView!
+    @IBOutlet weak var cashAndCrewList: UICollectionView!
 
     let movieAPI = APIManager()
     var imagesCashAndCrew = [UIImage]()
@@ -44,6 +45,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
 
         self.title = ""
+        cashAndCrewList.register(UINib(nibName: "GenresViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresViewCell")
         print("Number of genres: \(self.currentMovie?.genres.count)")
         guard let n = self.currentMovie?.genres.count else {
             return
@@ -102,7 +104,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         delegate?.closeViewController(self, didTapBackButton: backButton)
     }
 
-    @IBAction func favoriteButtonTapped(_ sendr: UIButton) {
+    @IBAction func favoriteButtonTapped(_ sender: UIButton) {
         print("self.isFavorited = \(!self.isFavorited!)")
         movieAPI.setFavoriteMovies(mediaID: (self.currentMovie?.movieId)!, userID: (self.currentMovie?.userId!)!, sessionID: (self.currentMovie?.sessionId)!, favorite: !self.isFavorited!, completionHandler: {(UIBackgroundFetchResult) -> Void in
             if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
@@ -122,5 +124,21 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         //cell.genresImage.image = self.imagesCashAndCrew[indexPath.item]
         //cell.genresName.text = self.currentMovie?.genres[indexPath.item].genresName
         return cell
+    }
+
+    @IBAction func reminderButtonTapped(_ sender: UIButton) {
+        let movieReminder: MovieReminders = MovieReminders()
+        movieReminder.title = self.currentMovie?.title
+        movieReminder.rating = "\(self.currentMovie?.voteAverage)/10"
+        movieReminder.releaseDate = self.currentMovie?.releaseDate
+        movieReminder.movieReminderImagePath = self.currentMovie?.backdropPath
+
+        let isInserted = MovieReminderDatabase.getInstance().insertData(movieReminder)
+        if isInserted{
+            Util.invokeAlertMethod(title: "", body: "Insert data successfully", delegate: nil)
+        }else
+        {
+            Util.invokeAlertMethod(title: "", body: "Error in inserting record", delegate: nil)
+        }
     }
 }

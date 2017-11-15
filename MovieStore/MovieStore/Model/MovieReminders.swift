@@ -9,12 +9,62 @@
 import Foundation
 
 class MovieReminders: NSObject {
-    var movieId: Int?
-    var rating: String?
-    var title: String?
-    var releaseDate: Date?
+    var _movieId: Int?
+    var movieId: Int? {
+        get{
+            return self._movieId
+        }
+        set(newValue) {
+            self._movieId = newValue
+        }
+    }
+
+    var _rating: String?
+    var rating: String? {
+        get{
+            return self._rating
+        }
+        set(newValue) {
+            self._rating = newValue
+        }
+    }
+
+    var _title: String?
+    var title: String? {
+        get{
+            return self._title
+        }
+        set(newValue) {
+            self._title = newValue
+        }
+    }
+
+    var _releaseDate: Date?
+    var releaseDate: Date? {
+        get{
+            return self._releaseDate
+        }
+        set(newValue) {
+            self._releaseDate = newValue
+        }
+    }
+
+    var _movieReminderImagePath: String?
+    var movieReminderImagePath: String? {
+        get{
+            return self._movieReminderImagePath
+        }
+        set(newValue) {
+            self._movieReminderImagePath = newValue
+        }
+    }
+
 
     override init() {
         super.init()
+    }
+
+    public var imagePathURL: URL? {
+        return URL(string: imageURLPrefix + "/w500" + self.movieReminderImagePath!)
     }
 }
