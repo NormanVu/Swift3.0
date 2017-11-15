@@ -14,8 +14,8 @@ protocol MovieDetailViewControllerDelegate: class {
     func closeViewController(_ viewController: MovieDetailViewController, didTapBackButton button: UIBarButtonItem)
 }
 
-class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouselDelegate{
-    @IBOutlet weak var carouselView: iCarousel!
+class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+
     @IBOutlet weak var favoriteImage: UIImageView!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var reminderButton: UIButton!
@@ -27,10 +27,8 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
 
     let movieAPI = APIManager()
     var imagesCashAndCrew = [UIImage]()
-    var _currentMovie: Movie?
-    var genres = [Genres]()
     var isFavorited: Bool?
-    var tempImage: UIImageView?
+    var _currentMovie: Movie?
     var currentMovie: Movie? {
         get{
             return self._currentMovie
@@ -46,36 +44,28 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
         super.viewDidLoad()
 
         self.title = ""
-        carouselView.delegate = self
-        carouselView.dataSource = self
-        carouselView.type = iCarouselType.linear
-
-        //Call API to load movie detail
-        self.imagesCashAndCrew.removeAll()
-        movieAPI.getMovieDetail(movieID: (self.currentMovie?.movieId)!, completionHandler:{(UIBackgroundFetchResult) -> Void in
-            //Call API to get image of genres to display at Cash & Crew
-            self.genres = self.movieAPI.allGenres
-            print("Number of genres: \(self.genres.count)")
-            for _genres in self.genres {
-                self.movieAPI.getGenresDetail(genresID: _genres.genresId!, completionHandler:{(UIBackgroundFetchResult) -> Void in
-                    if (self.movieAPI.genresImage == "") {
+        print("Number of genres: \(self.currentMovie?.genres.count)")
+        guard let n = self.currentMovie?.genres.count else {
+            return
+        }
+        for i in 0..<n {
+            //Call API to get genres detail
+            self.movieAPI.getGenresDetail(genresID: (self.currentMovie?.genres[i].genresId!)!, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                print("genres image path at index \(i): \(self.movieAPI.genresImagePath)")
+                if (self.movieAPI.genresImagePath != nil && self.movieAPI.genresImagePath != "") {
+                    self.currentMovie?.genres[i].genresImagePath = self.movieAPI.genresImagePath
+                    guard let imageData = NSData(contentsOf: (self.currentMovie?.genres[i].genresImageURL!)!) else {
+                        //Invalid URL
                         self.imagesCashAndCrew.append(#imageLiteral(resourceName: "ic_placeholder"))
-                    } else {
-                        self.imagesCashAndCrew.append(#imageLiteral(resourceName: "ic_placeholder"))
-
-                        //@TODO: Can't set image resource from URL
-                        _genres.genresImage = self.movieAPI.genresImage
-                        self.tempImage?.kf.setImage(with: ImageResource(downloadURL: (_genres.genresImageURL!)))
-                        guard let genresImage: UIImageView = self.tempImage else {
-                            return
-                        }
-                        self.imagesCashAndCrew.append(genresImage.image!)
+                        return
                     }
-                    self.genres = self.movieAPI.allGenres
-                    self.carouselView.reloadData()
-                })
-            }
-        })
+                    let genresImage = UIImage(data: imageData as Data)
+                    self.imagesCashAndCrew.append(genresImage!)
+                } else {
+                    self.imagesCashAndCrew.append(#imageLiteral(resourceName: "ic_placeholder"))
+                }
+            })
+        }
         self.updateUI()
     }
     
@@ -94,7 +84,7 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
         self.reminderButton.layer.cornerRadius = 3.0
         self.moviePosterImage.kf.setImage(with: ImageResource(downloadURL: (self.currentMovie?.posterURL!)!))
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY-MM-dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         self.releaseDate.text = formatter.string(from: (self.currentMovie?.releaseDate)!)
         guard let rating = self.currentMovie?.voteAverage else {
             return
@@ -106,44 +96,6 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
         self.overviewTextView.text = overview
         self.favoriteImage.image = (self.currentMovie?.isFavorited)! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
         isFavorited = (self.currentMovie?.isFavorited)!
-        print("Carousel number of images: \(self.imagesCashAndCrew.count)")
-
-    }
-    
-    //MARK: Data source iCarousel
-    func numberOfItems(in carousel: iCarousel) -> Int {
-        return self.imagesCashAndCrew.count
-    }
-    
-    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        var label: UILabel
-        var tempView: UIImageView
-
-        //reuse view if available, otherwise create a new view
-        if let view = view as? UIImageView {
-            tempView = view
-            label = tempView.viewWithTag(1) as! UILabel
-        } else {
-            tempView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-            tempView.image = imagesCashAndCrew[index]
-            tempView.contentMode = .scaleAspectFit
-
-            label = UILabel(frame: CGRect(x: 0, y: 81, width: 80, height: 25))
-            label.backgroundColor = UIColor.clear
-            label.textAlignment = .center
-            label.font = label.font.withSize(17.0)
-            label.tag = 1
-            tempView.addSubview(label)
-        }
-        label.text = "\(genres[index].genresName)"
-        return tempView
-    }
-    
-    func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
-        if (option == iCarouselOption.spacing) {
-            return (value * 1.2)
-        }
-        return value
     }
     
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
@@ -158,5 +110,17 @@ class MovieDetailViewController: UIViewController, iCarouselDataSource, iCarouse
                 self.isFavorited = !self.isFavorited!
             }
         })
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return (self.currentMovie?.genres.count)!
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GenresViewCell", for: indexPath) as! GenresViewCell
+        print("data source: \(self.currentMovie?.genres.count)")
+        //cell.genresImage.image = self.imagesCashAndCrew[indexPath.item]
+        //cell.genresName.text = self.currentMovie?.genres[indexPath.item].genresName
+        return cell
     }
 }

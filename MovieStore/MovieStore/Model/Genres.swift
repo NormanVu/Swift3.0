@@ -30,14 +30,14 @@ class Genres: NSObject {
             self._genresName = newValue
         }
     }
-
-    var _genresImage: String?
-    var genresImage: String? {
+    
+    var _genresImagePath: String?
+    var genresImagePath: String? {
         get{
-            return self._genresImage
+            return self._genresImagePath
         }
         set(newValue) {
-            self._genresImage = newValue
+            self._genresImagePath = newValue
         }
     }
 
@@ -48,6 +48,6 @@ class Genres: NSObject {
     }
 
     public var genresImageURL: URL? {
-        return URL(string: imageURLPrefix + "/w500" + self._genresImage!)
+        return URL(string: imageURLPrefix + "/w150" + self._genresImagePath!)
     }
 }

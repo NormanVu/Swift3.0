@@ -25,6 +25,7 @@ class Movie: NSObject {
     var voteAverage: Float
     var voteCount: Int
     var releaseDate: Date
+    var genres = [Genres]()
 
     var _isFavorited: Bool?
     var isFavorited: Bool? {

@@ -36,12 +36,13 @@
 		BAE831121F95DDFD00C4246F /* MovieStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE831111F95DDFD00C4246F /* MovieStoreUITests.swift */; };
 		BAE8313E1F95FA3300C4246F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = BAE8313D1F95FA3300C4246F /* Podfile */; };
 		FC4124FC1FB4A85F0021C594 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4124FB1FB4A85F0021C594 /* MovieDetailViewController.swift */; };
-		FC4125021FB4B41A0021C594 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = FC4125011FB4B41A0021C594 /* iCarousel.m */; };
 		FC4125041FB4B4610021C594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC4125031FB4B4610021C594 /* QuartzCore.framework */; };
 		FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DB1FA914A000581CDF /* GridLayout.swift */; };
 		FC4917DE1FA9151600581CDF /* MovieViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917DD1FA9151600581CDF /* MovieViewCell.swift */; };
 		FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4917E01FA93F2900581CDF /* ListLayout.swift */; };
 		FC5F386F1FB494D100B3D27C /* SettingsRemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F386E1FB494D100B3D27C /* SettingsRemindersViewController.swift */; };
+		FCBA36AA1FBB2EB900AFEE9D /* GenresViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCBA36A91FBB2EB900AFEE9D /* GenresViewCell.xib */; };
+		FCBA36AC1FBB30C700AFEE9D /* GenresViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBA36AB1FBB30C700AFEE9D /* GenresViewCell.swift */; };
 		FCC874941FABE827001519D4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC874931FABE827001519D4 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -104,14 +105,13 @@
 		D305B19BFBBDA3EB5FBDEC0A /* Pods_MovieStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4E1CDDFD2AF8E7DB6A94D2A /* Pods-MovieStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieStore/Pods-MovieStore.release.xcconfig"; sourceTree = "<group>"; };
 		FC4124FB1FB4A85F0021C594 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
-		FC4124FF1FB4B41A0021C594 /* MovieStore-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MovieStore-Bridging-Header.h"; sourceTree = "<group>"; };
-		FC4125001FB4B41A0021C594 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
-		FC4125011FB4B41A0021C594 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		FC4125031FB4B4610021C594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FC4917DB1FA914A000581CDF /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		FC4917DD1FA9151600581CDF /* MovieViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewCell.swift; sourceTree = "<group>"; };
 		FC4917E01FA93F2900581CDF /* ListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLayout.swift; sourceTree = "<group>"; };
 		FC5F386E1FB494D100B3D27C /* SettingsRemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRemindersViewController.swift; sourceTree = "<group>"; };
+		FCBA36A91FBB2EB900AFEE9D /* GenresViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenresViewCell.xib; sourceTree = "<group>"; };
+		FCBA36AB1FBB30C700AFEE9D /* GenresViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresViewCell.swift; sourceTree = "<group>"; };
 		FCC874931FABE827001519D4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,6 +179,8 @@
 				FC4917DD1FA9151600581CDF /* MovieViewCell.swift */,
 				BA6555931FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib */,
 				BA6555951FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift */,
+				FCBA36A91FBB2EB900AFEE9D /* GenresViewCell.xib */,
+				FCBA36AB1FBB30C700AFEE9D /* GenresViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -240,7 +242,6 @@
 		BAE830ED1F95DDF000C4246F /* MovieStore */ = {
 			isa = PBXGroup;
 			children = (
-				FC4124FD1FB4B0E70021C594 /* ThirdParty */,
 				BA96A8411FB0337E00BEE94E /* UserDefaultManager */,
 				BA75F7D31F98891E00BFA5DF /* APIManager */,
 				BA75F7D21F98881400BFA5DF /* Controller */,
@@ -285,24 +286,6 @@
 				36095066C71DFBED5D735DE2 /* Pods_MovieStoreUITests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FC4124FD1FB4B0E70021C594 /* ThirdParty */ = {
-			isa = PBXGroup;
-			children = (
-				FC4124FE1FB4B0F70021C594 /* iCarousel */,
-			);
-			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		FC4124FE1FB4B0F70021C594 /* iCarousel */ = {
-			isa = PBXGroup;
-			children = (
-				FC4125001FB4B41A0021C594 /* iCarousel.h */,
-				FC4125011FB4B41A0021C594 /* iCarousel.m */,
-				FC4124FF1FB4B41A0021C594 /* MovieStore-Bridging-Header.h */,
-			);
-			path = iCarousel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,6 +413,7 @@
 				BAE8313E1F95FA3300C4246F /* Podfile in Resources */,
 				BAE830F41F95DDF300C4246F /* Main.storyboard in Resources */,
 				BA6555941FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib in Resources */,
+				FCBA36AA1FBB2EB900AFEE9D /* GenresViewCell.xib in Resources */,
 				BA1C50AC1FA89A3500536427 /* MovieViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -493,7 +477,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		610B88CD0B1CF9A2171684F9 /* [CP] Copy Pods Resources */ = {
@@ -553,7 +537,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8C023DFDCA9D6B3319049F1A /* [CP] Copy Pods Resources */ = {
@@ -583,7 +567,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -607,9 +591,9 @@
 				BA679E1C1FB2EF5500C25EA0 /* Profile.swift in Sources */,
 				FC4917DC1FA914A000581CDF /* GridLayout.swift in Sources */,
 				FC4917DE1FA9151600581CDF /* MovieViewCell.swift in Sources */,
+				FCBA36AC1FBB30C700AFEE9D /* GenresViewCell.swift in Sources */,
 				BA85DA551FA9B4E800D947C2 /* FavoriteViewController.swift in Sources */,
 				FC4124FC1FB4A85F0021C594 /* MovieDetailViewController.swift in Sources */,
-				FC4125021FB4B41A0021C594 /* iCarousel.m in Sources */,
 				BA6555981FAB216D004CAB82 /* MovieSettings.swift in Sources */,
 				FC4917E11FA93F2900581CDF /* ListLayout.swift in Sources */,
 				BA6555961FAAEC23004CAB82 /* FilterMovieRatingViewCell.swift in Sources */,
@@ -791,7 +775,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enclave.MovieStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MovieStore/ThirdParty/iCarousel/MovieStore-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -810,7 +794,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = enclave.MovieStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "MovieStore/ThirdParty/iCarousel/MovieStore-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

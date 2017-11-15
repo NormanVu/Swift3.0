@@ -165,6 +165,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
         cell.overview.text = self.allMovies[indexPath.item].overview
         cell.movieId = self.allMovies[indexPath.item].movieId
+        self.allMovies[indexPath.item].genres.removeAll()
+        
+        //Call API to load genres list
+        self.movieAPI.getMovieDetail(movieID: self.allMovies[indexPath.row].movieId, completionHandler:{(UIBackgroundFetchResult) -> Void in
+            self.allMovies[indexPath.item].genres = self.movieAPI.allGenres
+        })
+        
         let isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
         cell.favorite = isFavorited
         cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
@@ -181,8 +188,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             return
         }
         movieDetailViewController.delegate = self
-        print("Current movie ID: \(allMovies[indexPath.row].movieId)")
         movieDetailViewController.currentMovie = allMovies[indexPath.row]
+        print("Current movie ID: \(allMovies[indexPath.row].movieId) with genres count: \(movieDetailViewController.currentMovie?.genres.count)")
+        guard let n = movieDetailViewController.currentMovie?.genres.count else {
+            return
+        }
+        for i in 0..<n {
+            print(" \(i): genresId = \(movieDetailViewController.currentMovie?.genres[i].genresId) - genresName = \(movieDetailViewController.currentMovie?.genres[i].genresName)")
+        }
         if (self.isFavoriteMovie(movieId: allMovies[indexPath.row].movieId)) {
             movieDetailViewController.currentMovie?.isFavorited = true
         } else {

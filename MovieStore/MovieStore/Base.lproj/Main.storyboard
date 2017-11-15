@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KQ9-t7-w1i">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KQ9-t7-w1i">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -346,14 +346,34 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTh-CR-xoL" customClass="iCarousel">
-                                <rect key="frame" x="0.0" y="343" width="320" height="80"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fbq-R4-is6">
+                                <rect key="frame" x="0.0" y="345" width="320" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="Qhn-XO-QAA"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="y4k-3Z-WVC"/>
+                                    <constraint firstAttribute="height" constant="100" id="ydf-Rt-VW4"/>
                                 </constraints>
-                            </view>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aJp-0h-2UC">
+                                    <size key="itemSize" width="85" height="80"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GenresViewCell" id="RTX-ff-59O" customClass="GenresViewCell" customModule="MovieStore" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="10" width="75" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="75" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <size key="customSize" width="75" height="80"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="N2T-3f-oye" id="kRG-CW-fId"/>
+                                    <outlet property="delegate" destination="N2T-3f-oye" id="iyi-Fi-l9F"/>
+                                </connections>
+                            </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cash &amp; Crew" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AO2-b6-N9H">
                                 <rect key="frame" x="8" y="323" width="123" height="21"/>
                                 <constraints>
@@ -382,17 +402,15 @@
                             <constraint firstItem="pt1-Oe-bJI" firstAttribute="top" secondItem="mam-8a-bCB" secondAttribute="bottom" constant="34" id="Dck-8a-ANp"/>
                             <constraint firstItem="pt1-Oe-bJI" firstAttribute="leading" secondItem="iTO-mY-DfY" secondAttribute="trailing" constant="17" id="FSY-Sl-E8i"/>
                             <constraint firstItem="21b-y8-wgV" firstAttribute="leading" secondItem="IHt-ZZ-1GP" secondAttribute="trailing" constant="8" id="Fvr-e0-KDJ"/>
-                            <constraint firstItem="vTh-CR-xoL" firstAttribute="top" secondItem="JeO-UB-yWX" secondAttribute="bottom" constant="37" id="GUX-EI-2uP"/>
                             <constraint firstItem="AO2-b6-N9H" firstAttribute="leading" secondItem="wFg-0T-3Bu" secondAttribute="leading" constant="8" id="L5x-Eo-KE9"/>
-                            <constraint firstItem="vTh-CR-xoL" firstAttribute="top" secondItem="ASQ-hQ-Uzn" secondAttribute="bottom" constant="210" id="LrA-zD-QIp"/>
                             <constraint firstItem="IHt-ZZ-1GP" firstAttribute="leading" secondItem="iHv-eq-Iny" secondAttribute="trailing" constant="26" id="Lv1-MX-Lij"/>
                             <constraint firstItem="XzC-xx-ld7" firstAttribute="top" secondItem="iHv-eq-Iny" secondAttribute="bottom" constant="8" id="M7q-2M-Lux"/>
+                            <constraint firstAttribute="trailing" secondItem="fbq-R4-is6" secondAttribute="trailing" id="MUJ-yt-agT"/>
                             <constraint firstItem="XzC-xx-ld7" firstAttribute="top" secondItem="iHv-eq-Iny" secondAttribute="bottom" constant="8" id="NbD-Uq-RKZ"/>
                             <constraint firstItem="IHt-ZZ-1GP" firstAttribute="top" secondItem="iTO-mY-DfY" secondAttribute="bottom" constant="8" id="NpJ-2s-Dxe"/>
                             <constraint firstItem="5R8-QS-8Qw" firstAttribute="top" secondItem="XzC-xx-ld7" secondAttribute="bottom" constant="7" id="OYF-7s-HYO"/>
                             <constraint firstItem="iTO-mY-DfY" firstAttribute="top" secondItem="mam-8a-bCB" secondAttribute="bottom" constant="34" id="Og2-ab-SAy"/>
                             <constraint firstAttribute="trailing" secondItem="JeO-UB-yWX" secondAttribute="trailing" constant="7" id="Ppw-lJ-Iyf"/>
-                            <constraint firstAttribute="trailing" secondItem="vTh-CR-xoL" secondAttribute="trailing" id="QBr-cz-uwI"/>
                             <constraint firstItem="iTO-mY-DfY" firstAttribute="leading" secondItem="iHv-eq-Iny" secondAttribute="trailing" constant="26" id="SxZ-iX-Tek"/>
                             <constraint firstItem="21b-y8-wgV" firstAttribute="top" secondItem="iTO-mY-DfY" secondAttribute="bottom" constant="8" id="UvT-Tw-IRy"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pt1-Oe-bJI" secondAttribute="trailing" constant="8" id="WMQ-nS-LMX"/>
@@ -401,15 +419,15 @@
                             <constraint firstItem="JeO-UB-yWX" firstAttribute="top" secondItem="21b-y8-wgV" secondAttribute="bottom" constant="28" id="cSX-re-ocX"/>
                             <constraint firstItem="XzC-xx-ld7" firstAttribute="leading" secondItem="wFg-0T-3Bu" secondAttribute="leading" constant="10" id="csb-mh-4rr"/>
                             <constraint firstAttribute="trailing" secondItem="AO2-b6-N9H" secondAttribute="trailing" constant="189" id="fCF-TF-G27"/>
-                            <constraint firstItem="vTh-CR-xoL" firstAttribute="leading" secondItem="wFg-0T-3Bu" secondAttribute="leading" id="hso-pu-UZh"/>
+                            <constraint firstItem="fbq-R4-is6" firstAttribute="leading" secondItem="wFg-0T-3Bu" secondAttribute="leading" id="gGy-5d-nAU"/>
                             <constraint firstItem="AO2-b6-N9H" firstAttribute="top" secondItem="5R8-QS-8Qw" secondAttribute="bottom" constant="24" id="jbr-Sc-GHI"/>
                             <constraint firstItem="iHv-eq-Iny" firstAttribute="leading" secondItem="wFg-0T-3Bu" secondAttribute="leading" constant="16" id="ktI-4m-hJl"/>
                             <constraint firstItem="5R8-QS-8Qw" firstAttribute="leading" secondItem="wFg-0T-3Bu" secondAttribute="leading" constant="23" id="l4u-Fm-ymv"/>
                             <constraint firstItem="ASQ-hQ-Uzn" firstAttribute="leading" secondItem="XzC-xx-ld7" secondAttribute="trailing" constant="7" id="lup-5A-BwD"/>
+                            <constraint firstItem="fbq-R4-is6" firstAttribute="top" secondItem="AO2-b6-N9H" secondAttribute="bottom" constant="1" id="mjP-Uu-cPi"/>
                             <constraint firstItem="5R8-QS-8Qw" firstAttribute="top" secondItem="XzC-xx-ld7" secondAttribute="bottom" constant="7" id="pPx-Pm-HdP"/>
                             <constraint firstItem="JeO-UB-yWX" firstAttribute="leading" secondItem="XzC-xx-ld7" secondAttribute="trailing" constant="5" id="pf7-dz-1ou"/>
                             <constraint firstItem="iTO-mY-DfY" firstAttribute="leading" secondItem="Rzy-fb-HK8" secondAttribute="trailing" constant="26" id="tmO-Nb-7YU"/>
-                            <constraint firstItem="vTh-CR-xoL" firstAttribute="centerX" secondItem="wFg-0T-3Bu" secondAttribute="centerX" id="u0D-If-hT6"/>
                             <constraint firstItem="Rzy-fb-HK8" firstAttribute="top" secondItem="mam-8a-bCB" secondAttribute="bottom" constant="34" id="uFe-3F-qwC"/>
                             <constraint firstItem="iTO-mY-DfY" firstAttribute="leading" secondItem="iHv-eq-Iny" secondAttribute="trailing" constant="26" id="uau-f5-d7h"/>
                             <constraint firstItem="ASQ-hQ-Uzn" firstAttribute="top" secondItem="pt1-Oe-bJI" secondAttribute="bottom" constant="37" id="ulG-KD-Gst"/>
@@ -426,7 +444,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="cGh-Tq-dKF" id="yPK-QQ-k76"/>
-                        <outlet property="carouselView" destination="vTh-CR-xoL" id="Lk4-Vt-RUq"/>
                         <outlet property="favoriteButton" destination="Rzy-fb-HK8" id="fiq-LM-5ct"/>
                         <outlet property="favoriteImage" destination="iHv-eq-Iny" id="ZlL-Td-tp0"/>
                         <outlet property="moviePosterImage" destination="XzC-xx-ld7" id="0EK-UA-ERq"/>

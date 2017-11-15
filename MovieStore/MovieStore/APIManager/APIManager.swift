@@ -17,7 +17,7 @@ class APIManager: NSObject {
     public var sessionID: String?
     public var userID: Int?
     public var statusCode: Int?
-    public var genresImage: String?
+    public var genresImagePath: String?
     public var allMovies = [Movie]()
     public var favoriteMovies = [Movie]()
     public var favoriteTotalPages: Int?
@@ -214,6 +214,7 @@ class APIManager: NSObject {
 
     func getMovieDetail(movieID: Int, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(movieId: movieID)
+        self.allGenres.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
@@ -233,12 +234,10 @@ class APIManager: NSObject {
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
                 if (json["profile_path"].exists()) {
-                    self.genresImage = json["profile_path"].stringValue
-                } else {
-                    self.genresImage = ""
+                    self.genresImagePath = json["profile_path"].stringValue
+                    print("Get image profile path: \(self.genresImagePath)")
+                    completionHandler(UIBackgroundFetchResult.newData)
                 }
-                print("Get image profile path: \(self.genresImage)")
-                completionHandler(UIBackgroundFetchResult.newData)
             }
         }
     }
