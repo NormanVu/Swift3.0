@@ -14,6 +14,7 @@ import FMDB
 import SwiftyJSON
 import SWRevealViewController
 import CoreData
+import MBProgressHUD
 
 class MoviesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
 
@@ -56,12 +57,18 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         //Load default popular movies without appling filter movies
         if (currentMovieSetting == nil) {
+            movieAPI.pagedResults.removeAll()
+            movieAPI.allMovies.removeAll()
+            let spinnerActivity = MBProgressHUD.showAdded(to: self.view, animated: true);
+            spinnerActivity.label.text = "Loading";
+            spinnerActivity.isUserInteractionEnabled = false;
+
             self.navigationItem.title = "Popular"
-            movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            movieAPI.getPopularMovies(currentPage: 1, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
-                print("Count popular = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
+            MBProgressHUD.hide(for: spinnerActivity, animated: true)
         } else {
             self.applyFilterMovies()
         }
@@ -81,39 +88,44 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     func applyFilterMovies() {
         self.allMovies.removeAll()
-        print("Filter Count all movies = \(self.allMovies.count)")
+        //print("Filter Count all movies = \(self.allMovies.count)")
+        movieAPI.pagedResults.removeAll()
+        movieAPI.allMovies.removeAll()
+        let spinnerActivity = MBProgressHUD.showAdded(to: self.view, animated: true);
+        spinnerActivity.label.text = "Loading";
+        spinnerActivity.isUserInteractionEnabled = false;
         self.navigationItem.title = ""
         self.title = "Movies"
         if (currentMovieSetting?.popularMovies)! {
-            movieAPI.getPopularMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            movieAPI.getPopularMovies(currentPage: 1, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
-                print("Filter Count popular = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
+            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Popular"
         }
         if (currentMovieSetting?.topRatedMovies)! {
             movieAPI.getTopRatingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
-                print("Filter Count top rated = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
+            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Top Rated"
         }
         if (currentMovieSetting?.upComingMovies)! {
             movieAPI.getUpComingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
-                print("Filter Count up coming = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
+            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Up Coming"
         }
         if (currentMovieSetting?.nowPlayingMovies)! {
             movieAPI.getNowPlayingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
-                print("Filter Count now playing = \(self.allMovies.count)")
                 self.collectionView.reloadData()
             })
+            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Now Playing"
         }
     }

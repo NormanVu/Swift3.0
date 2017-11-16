@@ -12,6 +12,7 @@ target 'MovieStore' do
   pod 'FMDB'
   pod 'SWRevealViewController'
   pod 'SwiftyJSON'
+  pod 'MBProgressHUD'
 
   target 'MovieStoreTests' do
     inherit! :search_paths
