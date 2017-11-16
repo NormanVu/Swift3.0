@@ -122,7 +122,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func reminderButtonTapped(_ sender: UIButton) {
         let movieReminder: MovieReminders = MovieReminders()
         movieReminder.title = self.currentMovie?.title
-        movieReminder.rating = String("\(self.currentMovie?.voteAverage ?? 0)/10")
+        movieReminder.voteAverage = self.currentMovie?.voteAverage
         movieReminder.releaseDate = self.currentMovie?.releaseDate
         movieReminder.movieReminderImagePath = self.currentMovie?.backdropPath
 

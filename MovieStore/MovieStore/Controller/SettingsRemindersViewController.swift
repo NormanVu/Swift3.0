@@ -66,7 +66,7 @@ class SettingsRemindersViewController: UIViewController, UITableViewDelegate, UI
         reminder = self.allReminderList.object(at: indexPath.row) as! MovieReminders
         cell.movieId = reminder.movieId
         cell.reminderTitle.text = reminder.title
-        cell.rating.text = reminder.rating
+        cell.rating.text = String("\(reminder.voteAverage ?? 0)/10")
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         cell.releaseDate.text = formatter.string(from: reminder.releaseDate!)

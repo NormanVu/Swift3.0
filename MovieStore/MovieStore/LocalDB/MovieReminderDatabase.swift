@@ -25,7 +25,7 @@ class MovieReminderDatabase: NSObject {
     //MARK:- insert data into MovieReminders table
     func insertData(_ reminder: MovieReminders) -> Bool {
         sharedInstance.database!.open()
-        let isInserted = sharedInstance.database!.executeUpdate("INSERT INTO MovieReminders(Title,Rating,ReleaseDate,ImagePath) VALUES(?,?,?,?)", withArgumentsIn: [reminder.title!, reminder.rating!, reminder.releaseDate!, reminder.movieReminderImagePath!])
+        let isInserted = sharedInstance.database!.executeUpdate("INSERT INTO MovieReminders(Title,VoteAverage,ReleaseDate,ImagePath) VALUES(?,?,?,?)", withArgumentsIn: [reminder.title!, reminder.voteAverage!, reminder.releaseDate!, reminder.movieReminderImagePath!])
 
         sharedInstance.database!.close()
         return (isInserted != nil)
@@ -43,7 +43,7 @@ class MovieReminderDatabase: NSObject {
                 let item: MovieReminders = MovieReminders()
                 item.movieId = Int(resultSet.int(forColumn: "Id"))
                 item.title = String(resultSet.string(forColumn: "Title")!)
-                item.rating = String(resultSet.string(forColumn: "Rating")!)
+                item.voteAverage = Float(resultSet.double(forColumn: "VoteAverage"))
                 item.releaseDate = resultSet.date(forColumn: "ReleaseDate")!
                 item.movieReminderImagePath = String(resultSet.string(forColumn: "ImagePath")!)
                 itemReminder.add(item)
@@ -57,7 +57,7 @@ class MovieReminderDatabase: NSObject {
     func updateRecord(recordId: Int, title: String, rating: String, imagePath: String, releaseDate: Date) -> NSMutableArray {
         sharedInstance.database!.open()
 
-        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("UPDATE MovieReminders SET Title = ?,Rating = ?,ReleaseDate = ?,ImagePath = ? WHERE Id = ?", withArgumentsIn: [title, rating, releaseDate, imagePath, recordId])
+        let resultSet: FMResultSet! = sharedInstance.database!.executeQuery("UPDATE MovieReminders SET Title = ?,VoteAverage = ?,ReleaseDate = ?,ImagePath = ? WHERE Id = ?", withArgumentsIn: [title, rating, releaseDate, imagePath, recordId])
 
         let itemReminder: NSMutableArray = NSMutableArray ()
         if (resultSet != nil) {
@@ -65,7 +65,7 @@ class MovieReminderDatabase: NSObject {
                 let item: MovieReminders = MovieReminders()
                 item.movieId = Int(resultSet.int(forColumn: "Id"))
                 item.title = String(resultSet.string(forColumn: "Title")!)
-                item.rating = String(resultSet.string(forColumn: "Rating")!)
+                item.voteAverage = Float(resultSet.double(forColumn: "VoteAverage"))
                 item.releaseDate = resultSet.date(forColumn: "ReleaseDate")!
                 item.movieReminderImagePath = String(resultSet.string(forColumn: "ImagePath")!)
                 itemReminder.add(item)
@@ -88,7 +88,7 @@ class MovieReminderDatabase: NSObject {
                 let item: MovieReminders = MovieReminders()
                 item.movieId = Int(resultSet.int(forColumn: "Id"))
                 item.title = String(resultSet.string(forColumn: "Title")!)
-                item.rating = String(resultSet.string(forColumn: "Rating")!)
+                item.voteAverage = Float(resultSet.double(forColumn: "VoteAverage"))
                 item.releaseDate = resultSet.date(forColumn: "ReleaseDate")!
                 item.movieReminderImagePath = String(resultSet.string(forColumn: "ImagePath")!)
                 itemReminder.add(item)

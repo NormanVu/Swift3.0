@@ -19,13 +19,13 @@ class MovieReminders: NSObject {
         }
     }
 
-    var _rating: String?
-    var rating: String? {
+    var _voteAverage: Float?
+    var voteAverage: Float? {
         get{
-            return self._rating
+            return self._voteAverage
         }
         set(newValue) {
-            self._rating = newValue
+            self._voteAverage = newValue
         }
     }
 
