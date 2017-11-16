@@ -47,7 +47,6 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         self.updateUI()
 
         self.cashAndCrewList.register(UINib(nibName: "GenresViewCell", bundle: nil), forCellWithReuseIdentifier: "GenresViewCell")
-        print("Number of genres: \(self.currentMovie?.genres.count)")
 
     }
     
@@ -64,7 +63,6 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         for i in 0..<n {
             //Call API to get genres detail
             self.movieAPI.getGenresDetail(genresID: (self.currentMovie?.genres[i].genresId!)!, completionHandler:{(UIBackgroundFetchResult) -> Void in
-                print("genres image path at index \(i): \(self.movieAPI.genresImagePath)")
                 if (self.movieAPI.genresImagePath != nil && self.movieAPI.genresImagePath != "") {
                     self.currentMovie?.genres[i].genresImagePath = self.movieAPI.genresImagePath
                 }
@@ -124,7 +122,7 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBAction func reminderButtonTapped(_ sender: UIButton) {
         let movieReminder: MovieReminders = MovieReminders()
         movieReminder.title = self.currentMovie?.title
-        movieReminder.rating = "\(self.currentMovie?.voteAverage)/10"
+        movieReminder.rating = String("\(self.currentMovie?.voteAverage ?? 0)/10")
         movieReminder.releaseDate = self.currentMovie?.releaseDate
         movieReminder.movieReminderImagePath = self.currentMovie?.backdropPath
 
