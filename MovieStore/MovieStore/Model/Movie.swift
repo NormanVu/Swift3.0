@@ -58,9 +58,6 @@ class Movie: NSObject {
     }
 
     init(rawData: JSON) {
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "yyyy-MM-dd"
-
         self.movieId = rawData["id"].intValue
         self.title = rawData["title"].stringValue
         self.overview = rawData["overview"].stringValue
@@ -68,7 +65,13 @@ class Movie: NSObject {
         self.backdropPath = rawData["backdrop_path"].stringValue
         self.voteAverage = rawData["vote_average"].floatValue
         self.voteCount = rawData["vote_count"].intValue
-        self.releaseDate = dateFormater.date(from: rawData["release_date"].stringValue)!
+        var dateString: String = rawData["release_date"].stringValue
+        if (dateString != "" ) {
+            self.releaseDate = dateString.toDate(dateFormat: "yyyy-MM-dd")!
+        } else {
+            dateString = "1970-01-01"
+            self.releaseDate = dateString.toDate(dateFormat: "yyyy-MM-dd")!
+        }
         super.init()
     }
 
