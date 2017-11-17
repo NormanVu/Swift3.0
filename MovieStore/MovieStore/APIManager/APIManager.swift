@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-import MBProgressHUD
 
 class APIManager: NSObject {
 
@@ -127,33 +126,24 @@ class APIManager: NSObject {
         let movieAPI = MovieAPI(popular: true)
         typeMovie = .popular
         movieAPI.parameters["page"] = currentPage as AnyObject
-        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{[weak self] (dataResponse) -> Void in
-            if let strongSelf = self {
-                if((dataResponse.result.value) != nil) {
-                    let json = JSON(dataResponse.result.value!)
-                    let totalPages = json["total_pages"].intValue
-                    let currentPage = json["page"].intValue
-                    print("Page = \(currentPage)")
-                    //Merging data current page
-                    if (json["results"].arrayObject != nil) {
-                        let results = json["results"].arrayObject!
-                        strongSelf.pagedResults += results
-                    } else {
-                        strongSelf.pagedResults = (self?.pagedResults)!
-                    }
-                    //Next page
-                    if (currentPage < totalPages) {
-                        strongSelf.getPopularMovies(currentPage: currentPage + 1, completionHandler: completionHandler)
-                    } else {
-                        //Parsing data
-                        let rawData = JSON(strongSelf.pagedResults)
-                        for i in 0..<rawData.count {
-                            let movie = Movie(rawData: rawData[i])
-                            strongSelf.allMovies.append(movie)
-                        }
-                    }
-                    completionHandler(UIBackgroundFetchResult.newData)
+        Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
+            if((dataResponse.result.value) != nil) {
+                let json = JSON(dataResponse.result.value!)
+                //let totalPages = json["total_pages"].intValue
+                let currentPage = json["page"].intValue
+                print("Page = \(currentPage)")
+                //Merging data current page
+                if (json["results"].arrayObject != nil) {
+                    let results = json["results"].arrayObject!
+                    self.pagedResults += results
                 }
+                //Parsing data
+                let rawData = JSON(self.pagedResults)
+                for i in 0..<rawData.count {
+                    let movie = Movie(rawData: rawData[i])
+                    self.allMovies.append(movie)
+                }
+                completionHandler(UIBackgroundFetchResult.newData)
             }
         }
     }
@@ -241,7 +231,9 @@ class APIManager: NSObject {
                     let _genres = Genres(rawData: genres)
                     self.allGenres.append(_genres)
                 }
-                completionHandler(UIBackgroundFetchResult.newData)
+                if (self.allGenres.count > 0) {
+                    completionHandler(UIBackgroundFetchResult.newData)
+                }
             }
         }
     }

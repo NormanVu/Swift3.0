@@ -57,18 +57,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         //Load default popular movies without appling filter movies
         if (currentMovieSetting == nil) {
-            movieAPI.pagedResults.removeAll()
-            movieAPI.allMovies.removeAll()
-            let spinnerActivity = MBProgressHUD.showAdded(to: self.view, animated: true);
-            spinnerActivity.label.text = "Loading";
-            spinnerActivity.isUserInteractionEnabled = false;
-
             self.navigationItem.title = "Popular"
             movieAPI.getPopularMovies(currentPage: 1, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
-            MBProgressHUD.hide(for: spinnerActivity, animated: true)
         } else {
             self.applyFilterMovies()
         }
@@ -91,9 +84,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         //print("Filter Count all movies = \(self.allMovies.count)")
         movieAPI.pagedResults.removeAll()
         movieAPI.allMovies.removeAll()
-        let spinnerActivity = MBProgressHUD.showAdded(to: self.view, animated: true);
-        spinnerActivity.label.text = "Loading";
-        spinnerActivity.isUserInteractionEnabled = false;
         self.navigationItem.title = ""
         self.title = "Movies"
         if (currentMovieSetting?.popularMovies)! {
@@ -101,7 +91,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
-            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Popular"
         }
         if (currentMovieSetting?.topRatedMovies)! {
@@ -109,7 +98,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
-            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Top Rated"
         }
         if (currentMovieSetting?.upComingMovies)! {
@@ -117,7 +105,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
-            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Up Coming"
         }
         if (currentMovieSetting?.nowPlayingMovies)! {
@@ -125,7 +112,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
-            MBProgressHUD.hide(for: spinnerActivity, animated: true)
             self.navigationItem.title = "Now Playing"
         }
     }
@@ -135,7 +121,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     func onCreatedNotification(notification: NSNotification) {
         //Receive settings did change
         self.currentMovieSetting = UserDefaultManager.getMovieSettings()
-        print("Apply filter movies: \(self.currentMovieSetting?.topRatedMovies)")
         if (self.currentMovieSetting != nil) {
             //Reload data to change following current settings from user
             applyFilterMovies()
@@ -201,13 +186,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         movieDetailViewController.delegate = self
         movieDetailViewController.currentMovie = allMovies[indexPath.row]
-        print("Current movie ID: \(allMovies[indexPath.row].movieId) with genres count: \(movieDetailViewController.currentMovie?.genres.count)")
-        guard let n = movieDetailViewController.currentMovie?.genres.count else {
-            return
-        }
-        for i in 0..<n {
-            print(" \(i): genresId = \(movieDetailViewController.currentMovie?.genres[i].genresId) - genresName = \(movieDetailViewController.currentMovie?.genres[i].genresName)")
-        }
         if (self.isFavoriteMovie(movieId: allMovies[indexPath.row].movieId)) {
             movieDetailViewController.currentMovie?.isFavorited = true
         } else {
@@ -266,7 +244,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
                         self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
                             self.favoriteMovies = self.movieAPI.favoriteMovies
                             self.movieAPI.favoriteMovies.removeAll()
-                            print("Get favorite movies: total_pages = \(self.movieAPI.favoriteTotalPages) - total_result = \(self.movieAPI.favoriteTotalResults)")
                         })
                     })
                 })
