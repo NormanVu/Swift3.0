@@ -14,7 +14,6 @@ import FMDB
 import SwiftyJSON
 import SWRevealViewController
 import CoreData
-import MBProgressHUD
 
 class MoviesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
 
