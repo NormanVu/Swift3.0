@@ -12,12 +12,12 @@ import UIKit
 class LoadMoreViewCell : UICollectionViewCell {
     @IBOutlet weak var progressView : UIActivityIndicatorView!
     @IBOutlet weak var progressLabel : UILabel!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     func startStopLoading(_ isStart : Bool)
     {
         if(isStart){

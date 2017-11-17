@@ -27,19 +27,30 @@ class APIManager: NSObject {
 
     var pagedResults = [Any]()
 
+    var _currentPage: Int?
+    var currentPage: Int? {
+        get{
+            return self._currentPage
+        }
+        set(newValue) {
+            self._currentPage = newValue
+        }
+    }
+
+    var _totalPage: Int?
+    var totalPage: Int? {
+        get{
+            return self._totalPage
+        }
+        set(newValue) {
+            self._totalPage = newValue
+        }
+    }
+
     override init() {
         super.init()
     }
 
-    func get(_ index: Int) -> Movie? {
-        return index < allMovies.count ? self.allMovies[index] : nil
-    }
-
-    var count: Int {
-        get {
-            return self.allMovies.count
-        }
-    }
 
     //Step 1: Create a new request token
     func getRequestToken(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
@@ -129,9 +140,7 @@ class APIManager: NSObject {
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
-                //let totalPages = json["total_pages"].intValue
-                let currentPage = json["page"].intValue
-                print("Page = \(currentPage)")
+                self.totalPage = json["total_pages"].intValue
                 //Merging data current page
                 if (json["results"].arrayObject != nil) {
                     let results = json["results"].arrayObject!
@@ -252,3 +261,4 @@ class APIManager: NSObject {
         }
     }
 }
+

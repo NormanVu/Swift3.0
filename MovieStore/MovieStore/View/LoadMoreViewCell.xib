@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadMoreViewCell" id="HB5-mf-lFH" customClass="LoadMoreViewCell" customModule="MovieStore" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QoG-DV-wI6">
+                        <rect key="frame" x="15" y="5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="5vJ-c1-WQV"/>
+                            <constraint firstAttribute="width" constant="20" id="jGX-2B-eZl"/>
+                        </constraints>
+                        <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </activityIndicatorView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4d-rZ-dn0">
+                        <rect key="frame" x="0.0" y="25" width="50" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="2NX-VF-j0f"/>
+                            <constraint firstAttribute="width" constant="50" id="9h2-64-3fb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="QoG-DV-wI6" firstAttribute="top" secondItem="HB5-mf-lFH" secondAttribute="top" constant="5" id="11Z-Qc-Brz"/>
+                <constraint firstAttribute="bottom" secondItem="QoG-DV-wI6" secondAttribute="bottom" constant="25" id="Nfk-fZ-f2l"/>
+                <constraint firstItem="W4d-rZ-dn0" firstAttribute="top" secondItem="QoG-DV-wI6" secondAttribute="bottom" id="QHl-CQ-YQ9"/>
+                <constraint firstItem="QoG-DV-wI6" firstAttribute="centerX" secondItem="HB5-mf-lFH" secondAttribute="centerX" id="VvM-SM-MuI"/>
+                <constraint firstAttribute="bottom" secondItem="W4d-rZ-dn0" secondAttribute="bottom" constant="5" id="hLJ-d7-CDc"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QoG-DV-wI6" secondAttribute="trailing" constant="15" id="rQH-sh-vEM"/>
+                <constraint firstItem="W4d-rZ-dn0" firstAttribute="leading" secondItem="HB5-mf-lFH" secondAttribute="leading" id="vLD-um-8WG"/>
+                <constraint firstItem="QoG-DV-wI6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HB5-mf-lFH" secondAttribute="leading" constant="15" id="wDX-ep-jrm"/>
+                <constraint firstAttribute="trailing" secondItem="W4d-rZ-dn0" secondAttribute="trailing" id="zLC-jF-wLs"/>
+            </constraints>
+            <connections>
+                <outlet property="progressLabel" destination="W4d-rZ-dn0" id="frr-gH-fOf"/>
+                <outlet property="progressView" destination="QoG-DV-wI6" id="t17-VR-Syv"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

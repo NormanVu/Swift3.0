@@ -35,6 +35,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var movieSetting: NSManagedObject? = nil
     var profile = Profile()
 
+    var currentPage: Int = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,7 +59,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         //Load default popular movies without appling filter movies
         if (currentMovieSetting == nil) {
             self.navigationItem.title = "Popular"
-            movieAPI.getPopularMovies(currentPage: 1, completionHandler:{(UIBackgroundFetchResult) -> Void in
+            self.currentPage = 1
+            movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
@@ -71,6 +74,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         listLayout = ListLayout()
 
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
+        collectionView.register(UINib(nibName: "LoadMoreViewCell", bundle: nil), forCellWithReuseIdentifier: "LoadMoreViewCell")
         collectionView.collectionViewLayout = gridLayout
         self.layoutButton.image = #imageLiteral(resourceName: "ic_view_list")
 
@@ -85,8 +89,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         movieAPI.allMovies.removeAll()
         self.navigationItem.title = ""
         self.title = "Movies"
+        self.currentPage = 1
         if (currentMovieSetting?.popularMovies)! {
-            movieAPI.getPopularMovies(currentPage: 1, completionHandler:{(UIBackgroundFetchResult) -> Void in
+            movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
@@ -125,12 +130,12 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             applyFilterMovies()
         }
     }
-    
+
     //Remove Notification
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -147,32 +152,39 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     // MARK: collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.allMovies.count
+        return self.allMovies.count + 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieViewCell", for: indexPath) as! MovieViewCell
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd"
+        if (indexPath.item < self.allMovies.count) {
+            cell.title.text = self.allMovies[indexPath.item].title
+            cell.posterImage.kf.setImage(with: ImageResource(downloadURL: self.allMovies[indexPath.item].posterURL!))
+            cell.releaseDate.text = dateFormater.string(from: self.allMovies[indexPath.item].releaseDate)
+            cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
+            cell.overview.text = self.allMovies[indexPath.item].overview
+            cell.movieId = self.allMovies[indexPath.item].movieId
+            self.allMovies[indexPath.item].genres.removeAll()
 
-        cell.title.text = self.allMovies[indexPath.item].title
-        cell.posterImage.kf.setImage(with: ImageResource(downloadURL: self.allMovies[indexPath.item].posterURL!))
-        cell.releaseDate.text = dateFormater.string(from: self.allMovies[indexPath.item].releaseDate)
-        cell.topRating.text = "\(self.allMovies[indexPath.item].voteAverage)/10"
-        cell.overview.text = self.allMovies[indexPath.item].overview
-        cell.movieId = self.allMovies[indexPath.item].movieId
-        self.allMovies[indexPath.item].genres.removeAll()
-        
-        //Call API to load genres list
-        self.movieAPI.getMovieDetail(movieID: self.allMovies[indexPath.row].movieId, completionHandler:{(UIBackgroundFetchResult) -> Void in
-            self.allMovies[indexPath.item].genres = self.movieAPI.allGenres
-        })
-        
-        let isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
-        cell.favorite = isFavorited
-        cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
-        cell.delegate = self
-        return cell
+            //Call API to load genres list
+            self.movieAPI.getMovieDetail(movieID: self.allMovies[indexPath.row].movieId, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                self.allMovies[indexPath.item].genres = self.movieAPI.allGenres
+            })
+
+            let isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
+            cell.favorite = isFavorited
+            cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+            cell.delegate = self
+            return cell
+        } else {
+            // Code to show Refersh cell
+            let loadMoreCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LoadMoreViewCell", for: indexPath) as! LoadMoreViewCell
+            //loadMoreCell.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+            loadMoreCell.startStopLoading(false)
+            return loadMoreCell
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -195,7 +207,17 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 
+    }
+
+
+    private func collectionView(_ collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    }
+
+
+    //MARK: Actions
     @IBAction func layoutButtonTapped(_ sender: UIBarButtonItem) {
         if (collectionView.collectionViewLayout == gridLayout) {
             layoutButton.image = #imageLiteral(resourceName: "ic_view_module")
@@ -318,6 +340,25 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             //Fall back
         }
     }
+
+    //MARK:- ScrollView Delegate in Collection view
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if ((self.currentPage < movieAPI.totalPage!) && (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height))) {
+            let lastCellIndexPath = NSIndexPath(item: (self.currentPage * 20 + 1), section: 0) as IndexPath
+            print("row: \(lastCellIndexPath.row) - section: \(lastCellIndexPath.section)")
+            if let loadMoreCell = collectionView.cellForItem(at: lastCellIndexPath) as? LoadMoreViewCell {
+                //let loadMoreCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LoadMoreViewCell", for: indexPath) as! LoadMoreViewCell
+                loadMoreCell.startStopLoading(true)
+                //Call api to continue load more data
+                self.currentPage = self.currentPage + 1
+                movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                    self.allMovies = self.movieAPI.allMovies
+                    self.collectionView.reloadData()
+                    loadMoreCell.startStopLoading(false)
+                })
+            }
+        }
+    }
 }
 
 extension MoviesViewController: MovieDetailViewControllerDelegate {
@@ -329,8 +370,6 @@ extension MoviesViewController: MovieDetailViewControllerDelegate {
 
 extension MoviesViewController: FavoriteMovieViewCellDelegate {
     func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
-        print("isFavorited = \(!movieViewCell.favorite!)")
-        print("Session id = \(self.sessionID!)")
         movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: !movieViewCell.favorite!, completionHandler: {(UIBackgroundFetchResult) -> Void in
             if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
                 //Step 5: Get favorite movies
@@ -345,5 +384,3 @@ extension MoviesViewController: FavoriteMovieViewCellDelegate {
         })
     }
 }
-
-

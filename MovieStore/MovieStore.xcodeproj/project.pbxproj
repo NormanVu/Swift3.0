@@ -34,6 +34,7 @@
 		BA897EDB1FA6DF80007755F5 /* MovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA897EDA1FA6DF80007755F5 /* MovieAPI.swift */; };
 		BA96A8431FB0339F00BEE94E /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA96A8421FB0339F00BEE94E /* UserDefaultManager.swift */; };
 		BAB68DAC1FBEE1D7004021E3 /* LoadMoreViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB68DAB1FBEE1D7004021E3 /* LoadMoreViewCell.swift */; };
+		BAB68DAE1FBEEA93004021E3 /* LoadMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB68DAD1FBEEA93004021E3 /* LoadMoreViewCell.xib */; };
 		BAE830EF1F95DDF100C4246F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE830EE1F95DDF100C4246F /* AppDelegate.swift */; };
 		BAE830F41F95DDF300C4246F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAE830F21F95DDF300C4246F /* Main.storyboard */; };
 		BAE830F71F95DDF600C4246F /* MovieStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BAE830F51F95DDF500C4246F /* MovieStore.xcdatamodeld */; };
@@ -100,6 +101,7 @@
 		BA897EDA1FA6DF80007755F5 /* MovieAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPI.swift; sourceTree = "<group>"; };
 		BA96A8421FB0339F00BEE94E /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		BAB68DAB1FBEE1D7004021E3 /* LoadMoreViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreViewCell.swift; sourceTree = "<group>"; };
+		BAB68DAD1FBEEA93004021E3 /* LoadMoreViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreViewCell.xib; sourceTree = "<group>"; };
 		BAE830EB1F95DDF000C4246F /* MovieStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAE830EE1F95DDF100C4246F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BAE830F31F95DDF300C4246F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				FCBA36AB1FBB30C700AFEE9D /* GenresViewCell.swift */,
 				BA56A4FC1FBC1C8B0031EADD /* ReminderViewCell.xib */,
 				BA56A4FA1FBC1C190031EADD /* ReminderViewCell.swift */,
+				BAB68DAD1FBEEA93004021E3 /* LoadMoreViewCell.xib */,
 				BAB68DAB1FBEE1D7004021E3 /* LoadMoreViewCell.swift */,
 			);
 			path = View;
@@ -445,6 +448,7 @@
 				BAE830FC1F95DDF800C4246F /* LaunchScreen.storyboard in Resources */,
 				BAE830F91F95DDF800C4246F /* Assets.xcassets in Resources */,
 				BAE8313E1F95FA3300C4246F /* Podfile in Resources */,
+				BAB68DAE1FBEEA93004021E3 /* LoadMoreViewCell.xib in Resources */,
 				BAE830F41F95DDF300C4246F /* Main.storyboard in Resources */,
 				BA6555941FAAE3B3004CAB82 /* FilterMovieRatingViewCell.xib in Resources */,
 				FCBA36AA1FBB2EB900AFEE9D /* GenresViewCell.xib in Resources */,
