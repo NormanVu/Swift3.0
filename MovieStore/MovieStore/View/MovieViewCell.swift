@@ -1,5 +1,5 @@
 //
-//  MovieCollectionViewCell.swift
+//  MovieViewCell.swift
 //  MovieStore
 //
 //  Created by Nhat (Norman) H.M. VU on 10/31/17.

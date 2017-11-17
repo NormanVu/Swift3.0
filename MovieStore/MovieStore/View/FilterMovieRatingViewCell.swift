@@ -1,5 +1,5 @@
 //
-//  SortByViewCell.swift
+//  FilterMovieRatingViewCell.swift
 //  MovieStore
 //
 //  Created by Nhat (Norman) H.M. VU on 11/2/17.
