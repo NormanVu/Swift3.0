@@ -177,6 +177,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.favorite = isFavorited
         cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
         cell.delegate = self
+        if ((self.currentPage < movieAPI.totalPage!) && (indexPath.row == self.allMovies.count - delta)) {
+            self.currentPage = self.currentPage + 1
+            movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                self.allMovies += self.movieAPI.allMovies
+                self.collectionView.reloadData()
+            })
+        }
         return cell
     }
 
@@ -324,20 +331,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             //Fall back
         }
     }
-
-    //MARK:- ScrollView Delegate in Collection view
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if (self.currentPage < movieAPI.totalPage! && scrollView.contentOffset.y >= 0) {
-            self.currentPage = self.currentPage + 1
-            movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
-                self.allMovies = self.movieAPI.allMovies
-                self.collectionView.reloadData()
-            })
-        }
-    }
-
-
 }
 
 extension MoviesViewController: MovieDetailViewControllerDelegate {

@@ -137,19 +137,13 @@ class APIManager: NSObject {
         let movieAPI = MovieAPI(popular: true)
         typeMovie = .popular
         movieAPI.parameters["page"] = currentPage as AnyObject
+        self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
                 self.totalPage = json["total_pages"].intValue
-                //Merging data current page
-                if (json["results"].arrayObject != nil) {
-                    let results = json["results"].arrayObject!
-                    self.pagedResults += results
-                }
-                //Parsing data
-                let rawData = JSON(self.pagedResults)
-                for i in 0..<rawData.count {
-                    let movie = Movie(rawData: rawData[i])
+                for result in json["results"].arrayValue {
+                    let movie = Movie(rawData: result)
                     self.allMovies.append(movie)
                 }
                 completionHandler(UIBackgroundFetchResult.newData)

@@ -12,6 +12,7 @@ import UIKit
 let APIKey = "0267c13d8c7d1dcddb40001ba6372235"
 let APIURLPrefix = "https://api.themoviedb.org/3"
 let imageURLPrefix = "https://image.tmdb.org/t/p"
+let delta: Int = 8
 
 enum TypeCollection: Int {
     case popular = 1
