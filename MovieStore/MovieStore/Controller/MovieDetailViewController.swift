@@ -54,6 +54,10 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -95,13 +99,40 @@ class MovieDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     }
 
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-        print("self.isFavorited = \(!self.isFavorited!)")
-        movieAPI.setFavoriteMovies(mediaID: (self.currentMovie?.movieId)!, userID: (self.currentMovie?.userId!)!, sessionID: (self.currentMovie?.sessionId)!, favorite: !self.isFavorited!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-            if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
-                self.favoriteImage.image = !self.isFavorited! == true ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
-                self.isFavorited = !self.isFavorited!
-            }
-        })
+        if (!self.isFavorited! == false) {
+            let alert = UIAlertController(title: nil, message: "Are you sure you want to\n unfavortie this item?", preferredStyle: UIAlertControllerStyle.alert)
+            alert.isModalInPopover = true
+
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action:UIAlertAction!) in
+                self.movieAPI.setFavoriteMovies(mediaID: (self.currentMovie?.movieId)!, userID: (self.currentMovie?.userId!)!, sessionID: (self.currentMovie?.sessionId)!, favorite: !self.isFavorited!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                    if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
+                        self.favoriteImage.image = !self.isFavorited! == true ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+                        self.isFavorited = !self.isFavorited!
+                        self.currentMovie?.isFavorited = self.isFavorited
+                        let notifyFavorite: [String: Movie] = ["notifyFavorite": self.currentMovie!]
+                        //Send(Post) Notification
+                        let thisNotification = NSNotification(name: NSNotification.Name(rawValue: "createdFavoritesNotification"), object: notifyFavorite) as Notification
+                        NotificationCenter.default.post(thisNotification)
+                    }
+                })
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(action:UIAlertAction!) in
+                print("Cancel")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.movieAPI.setFavoriteMovies(mediaID: (self.currentMovie?.movieId)!, userID: (self.currentMovie?.userId!)!, sessionID: (self.currentMovie?.sessionId)!, favorite: !self.isFavorited!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
+                    self.favoriteImage.image = !self.isFavorited! == true ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+                    self.isFavorited = !self.isFavorited!
+                    self.currentMovie?.isFavorited = self.isFavorited
+                    let notifyFavorite: [String: Movie] = ["notifyFavorite": self.currentMovie!]
+                    //Send(Post) Notification
+                    let thisNotification = NSNotification(name: NSNotification.Name(rawValue: "createdFavoritesNotification"), object: notifyFavorite) as Notification
+                    NotificationCenter.default.post(thisNotification)
+                }
+            })
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

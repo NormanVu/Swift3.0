@@ -29,9 +29,6 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadData()
-        
         listLayout = ListLayout()
 
         collectionView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieViewCell")
@@ -53,13 +50,11 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     
     func loadData() {
         self.allMovies.removeAll()
+        self.movieAPI.favoriteMovies.removeAll()
         self.profile = UserDefaultManager.getUserProfile()
-        print("self.allMovies.count = \(self.allMovies.count) - Session id = \(self.profile.sessionId)")
-
         //Step 5: Get favorite movies
         self.movieAPI.getFavoriteMovies(userID: profile.userId!, sessionID: profile.sessionId!, completionHandler: {(UIBackgroundFetchResult) -> Void in
             self.allMovies = self.movieAPI.favoriteMovies
-            print("##### self.allMovies.count = \(self.allMovies.count)")
             if (self.allMovies.count == 0) {
                 self.collectionView.isHidden = true
                 self.noneDataView.isHidden = false
@@ -82,6 +77,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadData()
     }
 
     // MARK: collectionView methods

@@ -30,10 +30,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     var sessionID: String?
     var userID: Int?
     var currentMovieId: Int?
-    var isFavorited: Bool?
+    var favorited: Bool?
     var currentMovieSetting: MovieSettings?
     var movieSetting: NSManagedObject? = nil
     var profile = Profile()
+    var notifyFavorite: Movie?
 
     var currentPage: Int = 0
 
@@ -67,8 +68,11 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         } else {
             self.applyFilterMovies()
         }
-        //Receive(Get) Notification:
-        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedNotification), name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
+        //Receive(Get) Notification: Setting
+        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedSettingNotification), name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
+
+        //Receive(Get) Notification: Favorite/Unfavorite
+        NotificationCenter.default.addObserver(self, selector: #selector(MoviesViewController.onCreatedFavoriteNotification), name: NSNotification.Name(rawValue: "createdFavoritesNotification"), object: nil)
 
         gridLayout = GridLayout(numberOfColumns: 2)
         listLayout = ListLayout()
@@ -167,8 +171,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
         }
     }
-    //Method handler for received Notification
-    func onCreatedNotification(notification: NSNotification) {
+
+    //Method handler for received Notification Settings
+    func onCreatedSettingNotification(notification: NSNotification) {
         //Receive settings did change
         self.currentMovieSetting = UserDefaultManager.getMovieSettings()
         if (self.currentMovieSetting != nil) {
@@ -177,9 +182,20 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
 
+    //Method handler for received Notification Favorites
+    func onCreatedFavoriteNotification(notification: NSNotification) {
+        //Receive favorites
+        if let favoriteDict = notification.object as? [String: Movie] {
+            if (favoriteDict["notifyFavorite"]) != nil {
+                notifyFavorite = favoriteDict["notifyFavorite"]
+            }
+        }
+    }
+
     //Remove Notification
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "createdSettingsNotification"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "createdFavoritesNotification"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -193,6 +209,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        notifyFavorite = nil
         saveMovieSettingsToCoreData()
     }
 
@@ -218,12 +235,21 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.movieAPI.getMovieDetail(movieID: self.allMovies[indexPath.row].movieId, completionHandler:{(UIBackgroundFetchResult) -> Void in
             self.allMovies[indexPath.item].genres = self.movieAPI.allGenres
         })
-
-        let isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
-        cell.favorite = isFavorited
-        cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+        if (notifyFavorite != nil && notifyFavorite?.movieId == self.allMovies[indexPath.row].movieId) {
+            //Update following notify favorite
+            print("Update following notify favorite")
+            if let isFavorited = notifyFavorite?.isFavorited {
+                cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+            }
+        } else {
+            let isFavorited = self.isFavoriteMovie(movieId: cell.movieId!)
+            cell.favorite = isFavorited
+            cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+        }
         cell.delegate = self
         loadMoreData(indexPath: indexPath)
+
+
         return cell
     }
 
@@ -237,16 +263,19 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         movieDetailViewController.delegate = self
         movieDetailViewController.currentMovie = allMovies[indexPath.row]
-        if (self.isFavoriteMovie(movieId: allMovies[indexPath.row].movieId)) {
-            movieDetailViewController.currentMovie?.isFavorited = true
+        if (notifyFavorite != nil && notifyFavorite?.movieId == self.allMovies[indexPath.row].movieId) {
+            movieDetailViewController.currentMovie?.isFavorited = (notifyFavorite?.isFavorited)! ? true: false
         } else {
-            movieDetailViewController.currentMovie?.isFavorited = false
+            if (self.isFavoriteMovie(movieId: allMovies[indexPath.row].movieId)) {
+                movieDetailViewController.currentMovie?.isFavorited = true
+            } else {
+                movieDetailViewController.currentMovie?.isFavorited = false
+            }
         }
         movieDetailViewController.currentMovie?.userId = self.profile.userId
         movieDetailViewController.currentMovie?.sessionId = self.profile.sessionId
         navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
-
 
     //MARK: Actions
     @IBAction func layoutButtonTapped(_ sender: UIBarButtonItem) {
@@ -382,17 +411,32 @@ extension MoviesViewController: MovieDetailViewControllerDelegate {
 
 extension MoviesViewController: FavoriteMovieViewCellDelegate {
     func didTapFavoriteMovieButton(_ movieViewCell: MovieViewCell) {
-        movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: !movieViewCell.favorite!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-            if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
-                //Step 5: Get favorite movies
-                self.movieAPI.getFavoriteMovies(userID: self.userID!, sessionID: self.sessionID!, completionHandler: {(UIBackgroundFetchResult) -> Void in
-                    self.favoriteMovies = self.movieAPI.favoriteMovies
-                    self.collectionView.reloadData()
+        if (!movieViewCell.favorite! == false) {
+            let alert = UIAlertController(title: nil, message: "Are you sure you want to\n unfavortie this item?", preferredStyle: UIAlertControllerStyle.alert)
+            alert.isModalInPopover = true
 
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action:UIAlertAction!) in
+                self.movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: !movieViewCell.favorite!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                    if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
+                        print("Status code: \(self.movieAPI.statusCode!)")
+                        movieViewCell.favoriteImageView.image = !movieViewCell.favorite! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
+                        movieViewCell.favorite = !movieViewCell.favorite!
+                    }
+                })
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(action:UIAlertAction!) in
+                print("Cancel")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            print("Favorite!!!")
+            movieAPI.setFavoriteMovies(mediaID: movieViewCell.movieId!, userID: self.userID!, sessionID: self.sessionID!, favorite: !movieViewCell.favorite!, completionHandler: {(UIBackgroundFetchResult) -> Void in
+                if (self.movieAPI.statusCode! == 1 || self.movieAPI.statusCode! == 12 || self.movieAPI.statusCode! == 13) {
+                    print("Status code: \(self.movieAPI.statusCode!)")
                     movieViewCell.favoriteImageView.image = !movieViewCell.favorite! ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
                     movieViewCell.favorite = !movieViewCell.favorite!
-                })
-            }
-        })
+                }
+            })
+        }
     }
 }
