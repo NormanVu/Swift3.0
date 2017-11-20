@@ -84,8 +84,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     func applyFilterMovies() {
         self.allMovies.removeAll()
-        //print("Filter Count all movies = \(self.allMovies.count)")
-        movieAPI.pagedResults.removeAll()
         movieAPI.allMovies.removeAll()
         self.navigationItem.title = ""
         self.title = "Movies"
@@ -98,21 +96,21 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
             self.navigationItem.title = "Popular"
         }
         if (currentMovieSetting?.topRatedMovies)! {
-            movieAPI.getTopRatingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            movieAPI.getTopRatingMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
             self.navigationItem.title = "Top Rated"
         }
         if (currentMovieSetting?.upComingMovies)! {
-            movieAPI.getUpComingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            movieAPI.getUpComingMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
             self.navigationItem.title = "Up Coming"
         }
         if (currentMovieSetting?.nowPlayingMovies)! {
-            movieAPI.getNowPlayingMovies(completionHandler:{(UIBackgroundFetchResult) -> Void in
+            movieAPI.getNowPlayingMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
                 self.allMovies = self.movieAPI.allMovies
                 self.collectionView.reloadData()
             })
@@ -120,7 +118,55 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
 
-
+    func loadMoreData(indexPath: IndexPath) {
+        if (currentMovieSetting != nil) {
+            if (currentMovieSetting?.popularMovies)! {
+                if ((self.currentPage < movieAPI.totalPage!) && (indexPath.row == self.allMovies.count - delta)) {
+                    self.currentPage = self.currentPage + 1
+                    movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                        self.allMovies += self.movieAPI.allMovies
+                        self.collectionView.reloadData()
+                    })
+                }
+            }
+            if (currentMovieSetting?.topRatedMovies)! {
+                if ((self.currentPage < movieAPI.totalPage!) && (indexPath.row == self.allMovies.count - delta)) {
+                    self.currentPage = self.currentPage + 1
+                    movieAPI.getTopRatingMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                        self.allMovies += self.movieAPI.allMovies
+                        self.collectionView.reloadData()
+                    })
+                }
+            }
+            if (currentMovieSetting?.upComingMovies)! {
+                if ((self.currentPage < movieAPI.totalPage!) && (indexPath.row == self.allMovies.count - delta)) {
+                    self.currentPage = self.currentPage + 1
+                    movieAPI.getUpComingMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                        self.allMovies += self.movieAPI.allMovies
+                        self.collectionView.reloadData()
+                    })
+                }
+            }
+            if (currentMovieSetting?.nowPlayingMovies)! {
+                if ((self.currentPage < movieAPI.totalPage!) && (indexPath.row == self.allMovies.count - delta)) {
+                    self.currentPage = self.currentPage + 1
+                    movieAPI.getNowPlayingMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                        self.allMovies += self.movieAPI.allMovies
+                        self.collectionView.reloadData()
+                    })
+                }
+            }
+        } else {
+            //Load default popular movies
+            if ((self.currentPage < movieAPI.totalPage!) && (indexPath.row == self.allMovies.count - delta)) {
+                self.currentPage = self.currentPage + 1
+                movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
+                    self.allMovies += self.movieAPI.allMovies
+                    self.collectionView.reloadData()
+                })
+            }
+        }
+    }
     //Method handler for received Notification
     func onCreatedNotification(notification: NSNotification) {
         //Receive settings did change
@@ -177,13 +223,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.favorite = isFavorited
         cell.favoriteImageView.image = isFavorited ? #imageLiteral(resourceName: "ic_favorite") : #imageLiteral(resourceName: "ic_unfavorite")
         cell.delegate = self
-        if ((self.currentPage < movieAPI.totalPage!) && (indexPath.row == self.allMovies.count - delta)) {
-            self.currentPage = self.currentPage + 1
-            movieAPI.getPopularMovies(currentPage: self.currentPage, completionHandler:{(UIBackgroundFetchResult) -> Void in
-                self.allMovies += self.movieAPI.allMovies
-                self.collectionView.reloadData()
-            })
-        }
+        loadMoreData(indexPath: indexPath)
         return cell
     }
 

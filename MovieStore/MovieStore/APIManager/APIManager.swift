@@ -25,8 +25,6 @@ class APIManager: NSObject {
     public var allGenres = [Genres]()
     static let sharedAPI = APIManager()
 
-    var pagedResults = [Any]()
-
     var _currentPage: Int?
     var currentPage: Int? {
         get{
@@ -151,59 +149,54 @@ class APIManager: NSObject {
         }
     }
 
-    func getTopRatingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
+    func getTopRatingMovies(currentPage: Int, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(topRated: true)
         typeMovie = .topRated
+        movieAPI.parameters["page"] = currentPage as AnyObject
         self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
+                self.totalPage = json["total_pages"].intValue
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
                     self.allMovies.append(movie)
                 }
-                if (self.allMovies.count > 0) {
-                    print("Get top rating movies are successfully!!!")
-                    completionHandler(UIBackgroundFetchResult.newData)
-                }
+                completionHandler(UIBackgroundFetchResult.newData)
             }
         }
     }
 
-    func getNowPlayingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
+    func getNowPlayingMovies(currentPage: Int, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(nowPlaying: true)
         typeMovie = .nowPlaying
         self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
+                self.totalPage = json["total_pages"].intValue
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
                     self.allMovies.append(movie)
                 }
-                if (self.allMovies.count > 0) {
-                    print("Get now playing movies are successfully!!!")
-                    completionHandler(UIBackgroundFetchResult.newData)
-                }
+                completionHandler(UIBackgroundFetchResult.newData)
             }
         }
     }
 
-    func getUpComingMovies(completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
+    func getUpComingMovies(currentPage: Int, completionHandler: ((UIBackgroundFetchResult) -> Void)!) {
         let movieAPI = MovieAPI(upComing: true)
         typeMovie = .upComing
         self.allMovies.removeAll()
         Alamofire.request(movieAPI.requestURLString, method: .get, parameters: movieAPI.parameters).responseJSON{ (dataResponse) -> Void in
             if((dataResponse.result.value) != nil) {
                 let json = JSON(dataResponse.result.value!)
+                self.totalPage = json["total_pages"].intValue
                 for result in json["results"].arrayValue {
                     let movie = Movie(rawData: result)
                     self.allMovies.append(movie)
                 }
-                if (self.allMovies.count > 0) {
-                    print("Get up coming movies are successfully!!!")
-                    completionHandler(UIBackgroundFetchResult.newData)
-                }
+                completionHandler(UIBackgroundFetchResult.newData)
             }
         }
     }
